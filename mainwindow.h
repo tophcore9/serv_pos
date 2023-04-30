@@ -2,8 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "clients.h"
 #include <QtWidgets>
+#include "orders.h"
+#include "dishes.h"
+#include "clients.h"
 
 class MainWindow : public QMainWindow
 {
@@ -11,11 +13,13 @@ class MainWindow : public QMainWindow
 private:
     QSqlDatabase db;
     Clients *clients;
+    Dishes *dishes;
+    Orders *orders;
 
     //GUI
-    QListView *client_list;
-    QListView *order_list;
-    QListView *dishes_list;
+    QListView *client_list_view;
+    QListView *order_list_view;
+    QListView *dishes_list_view;
 
 public:
     MainWindow(QWidget *parent = 0);
