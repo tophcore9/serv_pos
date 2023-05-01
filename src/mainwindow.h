@@ -17,6 +17,13 @@ private:
     Orders *orders;
 
     //GUI
+    QHBoxLayout *main_layout;
+    QVBoxLayout *orders_layout;
+    QVBoxLayout *dishes_layout;
+    QVBoxLayout *clients_layout;
+    QVBoxLayout *other_functions_layout;
+    QWidget *central_widget;
+
     QLabel *l_order;
     QListView *order_list_view;
     QPushButton *add_order_btn;

@@ -12,6 +12,8 @@ private:
 
 public:
     explicit Orders(QSqlDatabase &db, QObject *parent = 0);
+    ~Orders();
+
     QSqlTableModel* get_model();
 
 signals:

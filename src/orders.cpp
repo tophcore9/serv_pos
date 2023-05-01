@@ -11,3 +11,8 @@ QSqlTableModel *Orders::get_model()
 {
     return model;
 }
+
+Orders::~Orders()
+{
+    delete model;
+}

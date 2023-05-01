@@ -6,12 +6,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // БАЗОВІ НАЛАШТУВАННЯ
     this->setWindowTitle("ServPOS");
-    this->setFixedSize(1200, 600);
+    this->setFixedSize(1200, 700);
 
     // Зміна кольору вікна
     QPalette pal = this->palette();
     pal.setColor(QPalette::Background, Qt::gray);
     this->setPalette(pal);
+
+
+
+
 
 
 
@@ -61,50 +65,56 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    // МАКЕТИ
-    // Налаштування макетів
-    QHBoxLayout *main_layout = new QHBoxLayout;
-    QVBoxLayout *order_layout = new QVBoxLayout;
-    QVBoxLayout *dish_layout = new QVBoxLayout;
-    QVBoxLayout *client_layout = new QVBoxLayout;
-    QVBoxLayout *other_functions_layout = new QVBoxLayout;
 
-    QWidget *central_widget = new QWidget;
+
+    // МАКЕТИ І КОМПОНОВКА
+    // Налаштування макетів
+    main_layout = new QHBoxLayout;
+    orders_layout = new QVBoxLayout;
+    dishes_layout = new QVBoxLayout;
+    clients_layout = new QVBoxLayout;
+    other_functions_layout = new QVBoxLayout;
+
+    central_widget = new QWidget;
     central_widget->setLayout(main_layout);
     this->setCentralWidget(central_widget);
 
 
     // Компоновка макетів
-    main_layout->addLayout(order_layout);
-    main_layout->addLayout(dish_layout);
-    main_layout->addLayout(client_layout);
+    main_layout->addLayout(orders_layout);
+    main_layout->addLayout(dishes_layout);
+    main_layout->addLayout(clients_layout);
     main_layout->addLayout(other_functions_layout);
 
 
     // Компоновка віджетів
-    order_layout->addWidget(l_order);
-    order_layout->addWidget(order_list_view);
-    order_layout->addWidget(add_order_btn);
-    order_layout->addWidget(delete_order_btn);
-    order_layout->addWidget(edit_order_btn);
+    orders_layout->addWidget(l_order);
+    orders_layout->addWidget(order_list_view);
+    orders_layout->addWidget(add_order_btn);
+    orders_layout->addWidget(delete_order_btn);
+    orders_layout->addWidget(edit_order_btn);
 
-    dish_layout->addWidget(l_dishes);
-    dish_layout->addWidget(dishes_list_view);
-    dish_layout->addWidget(add_dish_btn);
-    dish_layout->addWidget(delete_dish_btn);
-    dish_layout->addWidget(edit_dish_btn);
+    dishes_layout->addWidget(l_dishes);
+    dishes_layout->addWidget(dishes_list_view);
+    dishes_layout->addWidget(add_dish_btn);
+    dishes_layout->addWidget(delete_dish_btn);
+    dishes_layout->addWidget(edit_dish_btn);
 
-    client_layout->addWidget(l_clients);
-    client_layout->addWidget(client_list_view);
-    client_layout->addWidget(add_client_btn);
-    client_layout->addWidget(delete_client_btn);
-    client_layout->addWidget(edit_client_btn);
+    clients_layout->addWidget(l_clients);
+    clients_layout->addWidget(client_list_view);
+    clients_layout->addWidget(add_client_btn);
+    clients_layout->addWidget(delete_client_btn);
+    clients_layout->addWidget(edit_client_btn);
 
     other_functions_layout->setAlignment(Qt::AlignTop);
     other_functions_layout->addWidget(l_other);
     other_functions_layout->addWidget(open_categories_btn);
     other_functions_layout->addWidget(open_menus_btn);
     other_functions_layout->addWidget(open_statistics_btn);
+
+
+
+
 
 
 
@@ -138,9 +148,48 @@ MainWindow::MainWindow(QWidget *parent)
         statusBar()->showMessage("Помилка: " + db.lastError().text());
     }
 
+
+
+
+
+    // СИГНАЛИ ТА СЛОТИ
+    connect(add_client_btn, &QPushButton::clicked, clients, &Clients::add_client);
 }
 
 MainWindow::~MainWindow()
 {
+    delete clients;
+    delete orders;
+    delete dishes;
 
+    delete main_layout;
+// 	  При розкоментуванні цих строк відбувається подвійне звільнення пам'яті
+//    delete orders_layout;
+//    delete dishes_layout;
+//    delete clients_layout;
+//    delete other_functions_layout;
+//    delete central_widget;
+
+    delete l_order;
+    delete order_list_view;
+    delete add_order_btn;
+    delete delete_order_btn;
+    delete edit_order_btn;
+
+    delete l_dishes;
+    delete dishes_list_view;
+    delete add_dish_btn;
+    delete delete_dish_btn;
+    delete edit_dish_btn;
+
+    delete l_clients;
+    delete client_list_view;
+    delete add_client_btn;
+    delete delete_client_btn;
+    delete edit_client_btn;
+
+    delete l_other;
+    delete open_categories_btn;
+    delete open_menus_btn;
+    delete open_statistics_btn;
 }

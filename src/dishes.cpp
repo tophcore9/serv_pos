@@ -11,3 +11,8 @@ QSqlTableModel *Dishes::get_model()
 {
     return model;
 }
+
+Dishes::~Dishes()
+{
+    delete model;
+}

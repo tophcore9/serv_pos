@@ -12,6 +12,8 @@ private:
 
 public:
     explicit Dishes(QSqlDatabase &db, QObject *parent = 0);
+    ~Dishes();
+
     QSqlTableModel* get_model();
 
 signals:
