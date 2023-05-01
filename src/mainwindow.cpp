@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // БАЗОВІ НАЛАШТУВАННЯ
     this->setWindowTitle("ServPOS");
-    this->setFixedSize(1000, 600);
+    this->setFixedSize(1200, 600);
 
     // Зміна кольору вікна
     QPalette pal = this->palette();
@@ -38,6 +38,11 @@ MainWindow::MainWindow(QWidget *parent)
     delete_client_btn = new QPushButton("Видалити");
     edit_client_btn = new QPushButton("Редагувати");
 
+    l_other = new QLabel("Інше");
+    open_categories_btn = new QPushButton("Категорії");
+    open_menus_btn = new QPushButton("Меню");
+    open_statistics_btn = new QPushButton("Статистика");
+
 
     // Налаштування віджетів
     l_order->setAlignment(Qt::AlignHCenter);
@@ -47,6 +52,9 @@ MainWindow::MainWindow(QWidget *parent)
     l_dishes->setMinimumWidth(550);
 
     l_clients->setAlignment(Qt::AlignHCenter);
+
+    l_other->setAlignment(Qt::AlignCenter);
+    l_other->setMinimumWidth(150);
 
 
 
@@ -59,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
     QVBoxLayout *order_layout = new QVBoxLayout;
     QVBoxLayout *dish_layout = new QVBoxLayout;
     QVBoxLayout *client_layout = new QVBoxLayout;
+    QVBoxLayout *other_functions_layout = new QVBoxLayout;
 
     QWidget *central_widget = new QWidget;
     central_widget->setLayout(main_layout);
@@ -69,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
     main_layout->addLayout(order_layout);
     main_layout->addLayout(dish_layout);
     main_layout->addLayout(client_layout);
+    main_layout->addLayout(other_functions_layout);
 
 
     // Компоновка віджетів
@@ -84,13 +94,17 @@ MainWindow::MainWindow(QWidget *parent)
     dish_layout->addWidget(delete_dish_btn);
     dish_layout->addWidget(edit_dish_btn);
 
-
     client_layout->addWidget(l_clients);
     client_layout->addWidget(client_list_view);
     client_layout->addWidget(add_client_btn);
     client_layout->addWidget(delete_client_btn);
-    //client_layout->addWidget(edit_client_btn);
+    client_layout->addWidget(edit_client_btn);
 
+    other_functions_layout->setAlignment(Qt::AlignTop);
+    other_functions_layout->addWidget(l_other);
+    other_functions_layout->addWidget(open_categories_btn);
+    other_functions_layout->addWidget(open_menus_btn);
+    other_functions_layout->addWidget(open_statistics_btn);
 
 
 

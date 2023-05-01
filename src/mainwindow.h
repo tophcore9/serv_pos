@@ -35,6 +35,11 @@ private:
     QPushButton *delete_client_btn;
     QPushButton *edit_client_btn;
 
+    QLabel *l_other;
+    QPushButton *open_categories_btn;
+    QPushButton *open_menus_btn;
+    QPushButton *open_statistics_btn;
+
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
