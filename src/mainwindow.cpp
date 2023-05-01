@@ -8,6 +8,14 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle("ServPOS");
     this->setFixedSize(1000, 600);
 
+    // Зміна кольору вікна
+    QPalette pal = this->palette();
+    pal.setColor(QPalette::Background, Qt::gray);
+    this->setPalette(pal);
+
+
+
+
 
 
     // ВІДЖЕТИ
@@ -26,15 +34,19 @@ MainWindow::MainWindow(QWidget *parent)
     l_dishes->setAlignment(Qt::AlignHCenter);
     l_clients->setAlignment(Qt::AlignHCenter);
 
+    dishes_list_view->setMinimumWidth(550);
+    l_dishes->setMinimumWidth(550);
+
+
 
 
 
     // МАКЕТИ
     // Налаштування макетів
-    QVBoxLayout *main_layout = new QVBoxLayout;
-    QHBoxLayout *title_layout = new QHBoxLayout;
-    QHBoxLayout *view_layout = new QHBoxLayout;
-    QGridLayout *button_layout = new QGridLayout;
+    QHBoxLayout *main_layout = new QHBoxLayout;
+    QVBoxLayout *order_layout = new QVBoxLayout;
+    QVBoxLayout *dish_layout = new QVBoxLayout;
+    QVBoxLayout *client_layout = new QVBoxLayout;
 
     QWidget *central_widget = new QWidget;
     central_widget->setLayout(main_layout);
@@ -42,20 +54,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // Компоновка макетів
-    main_layout->addLayout(title_layout);
-    main_layout->addLayout(view_layout);
-    main_layout->addLayout(button_layout);
+    main_layout->addLayout(order_layout);
+    main_layout->addLayout(dish_layout);
+    main_layout->addLayout(client_layout);
 
 
     // Компоновка віджетів
-    title_layout->addWidget(l_order);
-    title_layout->addWidget(l_dishes);
-    title_layout->addWidget(l_clients);
+    order_layout->addWidget(l_order);
+    order_layout->addWidget(order_list_view);
 
-    view_layout->addWidget(order_list_view);
-    view_layout->addWidget(dishes_list_view);
-    view_layout->addWidget(client_list_view);
+    dish_layout->addWidget(l_dishes);
+    dish_layout->addWidget(dishes_list_view);
 
+
+    client_layout->addWidget(l_clients);
+    client_layout->addWidget(client_list_view);
 
 
 
@@ -76,9 +89,13 @@ MainWindow::MainWindow(QWidget *parent)
 
         // Задання моделей таблицям
         order_list_view->setModel(orders->get_model());
-        dishes_list_view->setModel(dishes->get_model());
-        client_list_view->setModel(clients->get_model());
+        order_list_view->setModelColumn(1);
 
+        dishes_list_view->setModel(dishes->get_model());
+        dishes_list_view->setModelColumn(1);
+
+        client_list_view->setModel(clients->get_model());
+        client_list_view->setModelColumn(1);
     }
     else
     {

@@ -21,6 +21,10 @@ private:
     QListView *order_list_view;
     QListView *dishes_list_view;
 
+    QPushButton *add_client_btn;
+    QPushButton *delete_client_btn;
+    QPushButton *edit_client_btn;
+
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
