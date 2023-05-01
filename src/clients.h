@@ -9,6 +9,7 @@ class Clients : public QObject
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QSqlDatabase db;
 
 public:
     explicit Clients(QSqlDatabase &db, QObject *parent = 0);

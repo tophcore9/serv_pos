@@ -16,9 +16,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     clients.cpp \
     orders.cpp \
-    dishes.cpp
+    dishes.cpp \
+    addclientform.cpp
 
 HEADERS  += mainwindow.h \
     clients.h \
     orders.h \
-    dishes.h
+    dishes.h \
+    addclientform.h

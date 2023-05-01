@@ -1,9 +1,11 @@
 #include "clients.h"
 #include <QDebug>
+#include "addclientform.h"
 
 Clients::Clients(QSqlDatabase &db, QObject *parent) : QObject(parent)
 {
-    model = new QSqlTableModel(parent, db);
+    this->db = db;
+    model = new QSqlTableModel(parent, this->db);
     model->setTable("Clients");
     model->select();
 }
@@ -15,7 +17,9 @@ QSqlTableModel *Clients::get_model()
 
 void Clients::add_client()
 {
-    qDebug() << "Signal";
+    AddClientForm *acf = new AddClientForm(model);
+    acf->setModal(true);
+    acf->show();
 }
 
 Clients::~Clients()

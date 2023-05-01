@@ -9,6 +9,7 @@ class Dishes : public QObject
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QSqlDatabase db;
 
 public:
     explicit Dishes(QSqlDatabase &db, QObject *parent = 0);

@@ -73,7 +73,8 @@ MainWindow::MainWindow(QWidget *parent)
     orders_layout = new QVBoxLayout;
     dishes_layout = new QVBoxLayout;
     clients_layout = new QVBoxLayout;
-    other_functions_layout = new QVBoxLayout;
+    other_functions_layout = new QVBoxLayout();
+    other_functions_layout->setAlignment(Qt::AlignTop);
 
     central_widget = new QWidget;
     central_widget->setLayout(main_layout);
@@ -106,7 +107,6 @@ MainWindow::MainWindow(QWidget *parent)
     clients_layout->addWidget(delete_client_btn);
     clients_layout->addWidget(edit_client_btn);
 
-    other_functions_layout->setAlignment(Qt::AlignTop);
     other_functions_layout->addWidget(l_other);
     other_functions_layout->addWidget(open_categories_btn);
     other_functions_layout->addWidget(open_menus_btn);

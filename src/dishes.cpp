@@ -2,7 +2,8 @@
 
 Dishes::Dishes(QSqlDatabase &db, QObject *parent) : QObject(parent)
 {
-    model = new QSqlTableModel(parent, db);
+    this->db = db;
+    model = new QSqlTableModel(parent, this->db);
     model->setTable("Dishes");
     model->select();
 }

@@ -9,6 +9,7 @@ class Orders : public QObject
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QSqlDatabase db;
 
 public:
     explicit Orders(QSqlDatabase &db, QObject *parent = 0);
