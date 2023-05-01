@@ -20,22 +20,34 @@ MainWindow::MainWindow(QWidget *parent)
 
     // ВІДЖЕТИ
     // Додавання віджетів
-    client_list_view = new QListView;
+    l_order = new QLabel("Замовлення");
     order_list_view = new QListView;
-    dishes_list_view = new QListView;
+    add_order_btn = new QPushButton("Додати");
+    delete_order_btn = new QPushButton("Видалити");
+    edit_order_btn = new QPushButton("Редагувати");
 
-    QLabel *l_order = new QLabel("Замовлення");
-    QLabel *l_dishes = new QLabel("Страви");
-    QLabel *l_clients = new QLabel("Клієнти");
+    l_dishes = new QLabel("Страви");
+    dishes_list_view = new QListView;
+    add_dish_btn = new QPushButton("Додати");
+    delete_dish_btn = new QPushButton("Видалити");
+    edit_dish_btn = new QPushButton("Редагувати");
+
+    l_clients = new QLabel("Клієнти");
+    client_list_view = new QListView;
+    add_client_btn = new QPushButton("Додати");
+    delete_client_btn = new QPushButton("Видалити");
+    edit_client_btn = new QPushButton("Редагувати");
 
 
     // Налаштування віджетів
     l_order->setAlignment(Qt::AlignHCenter);
-    l_dishes->setAlignment(Qt::AlignHCenter);
-    l_clients->setAlignment(Qt::AlignHCenter);
 
+    l_dishes->setAlignment(Qt::AlignHCenter);
     dishes_list_view->setMinimumWidth(550);
     l_dishes->setMinimumWidth(550);
+
+    l_clients->setAlignment(Qt::AlignHCenter);
+
 
 
 
@@ -62,13 +74,22 @@ MainWindow::MainWindow(QWidget *parent)
     // Компоновка віджетів
     order_layout->addWidget(l_order);
     order_layout->addWidget(order_list_view);
+    order_layout->addWidget(add_order_btn);
+    order_layout->addWidget(delete_order_btn);
+    order_layout->addWidget(edit_order_btn);
 
     dish_layout->addWidget(l_dishes);
     dish_layout->addWidget(dishes_list_view);
+    dish_layout->addWidget(add_dish_btn);
+    dish_layout->addWidget(delete_dish_btn);
+    dish_layout->addWidget(edit_dish_btn);
 
 
     client_layout->addWidget(l_clients);
     client_layout->addWidget(client_list_view);
+    client_layout->addWidget(add_client_btn);
+    client_layout->addWidget(delete_client_btn);
+    //client_layout->addWidget(edit_client_btn);
 
 
 

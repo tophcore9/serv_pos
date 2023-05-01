@@ -17,10 +17,20 @@ private:
     Orders *orders;
 
     //GUI
-    QListView *client_list_view;
+    QLabel *l_order;
     QListView *order_list_view;
-    QListView *dishes_list_view;
+    QPushButton *add_order_btn;
+    QPushButton *delete_order_btn;
+    QPushButton *edit_order_btn;
 
+    QListView *dishes_list_view;
+    QLabel *l_dishes;
+    QPushButton *add_dish_btn;
+    QPushButton *delete_dish_btn;
+    QPushButton *edit_dish_btn;
+
+    QListView *client_list_view;
+    QLabel *l_clients;
     QPushButton *add_client_btn;
     QPushButton *delete_client_btn;
     QPushButton *edit_client_btn;
