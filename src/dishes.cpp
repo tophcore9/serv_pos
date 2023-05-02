@@ -14,6 +14,11 @@ QSqlTableModel *Dishes::get_model()
     return model;
 }
 
+void Dishes::add_dish()
+{
+
+}
+
 Dishes::~Dishes()
 {
 

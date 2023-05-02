@@ -151,6 +151,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // СИГНАЛИ ТА СЛОТИ
     connect(add_client_btn, &QPushButton::clicked, clients, &Clients::add_client);
+    connect(add_dish_btn, &QPushButton::clicked, dishes, &Dishes::add_dish);
+    connect(add_order_btn, &QPushButton::clicked, orders, &Orders::add_order);
 }
 
 MainWindow::~MainWindow()

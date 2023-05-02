@@ -14,6 +14,11 @@ QSqlTableModel *Orders::get_model()
     return model;
 }
 
+void Orders::add_order()
+{
+
+}
+
 Orders::~Orders()
 {
 

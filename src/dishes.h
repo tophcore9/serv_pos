@@ -21,6 +21,7 @@ public:
 signals:
 
 public slots:
+    void add_dish();
 };
 
 #endif // DISHES_H
