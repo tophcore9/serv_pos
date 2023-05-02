@@ -6,6 +6,8 @@
 #include "orders.h"
 #include "dishes.h"
 #include "clients.h"
+#include "categories.h"
+#include "menu.h"
 
 class MainWindow : public QMainWindow
 {
@@ -15,6 +17,8 @@ private:
     Clients *clients;
     Dishes *dishes;
     Orders *orders;
+    Categories *categories;
+    Menu *menu;
 
     //GUI
     QHBoxLayout *main_layout;

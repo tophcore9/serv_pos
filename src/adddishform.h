@@ -3,18 +3,27 @@
 
 #include <QtWidgets>
 #include <QSqlTableModel>
+#include "categories.h"
 
-class AddDishForm : public QWidget
+class AddDishForm : public QDialog
 {
     Q_OBJECT
 
 private:
     QSqlTableModel *model;
-    QSqlTableModel *dishes_model;
+    QSqlTableModel *categories_model;
     QWidget *parent;
 
+    // GUI
+    QVBoxLayout *main_layout;
+    QGridLayout *info_layout;
+    QHBoxLayout *buttons_layout;
+
+    QPushButton *accept_btn;
+    QPushButton *cancel_btn;
+
 public:
-    explicit AddDishForm(QWidget *parent = 0);
+    explicit AddDishForm(QSqlTableModel *categories_model, QWidget *parent = 0);
 
 signals:
 

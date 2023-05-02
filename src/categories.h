@@ -14,9 +14,9 @@ private:
     QWidget *parent;
 
 public:
-    explicit Categories(QWidget *parent = 0);
+    explicit Categories(QSqlDatabase &db, QWidget *parent = 0);
 
-
+    QSqlTableModel* get_model();
 
 signals:
 

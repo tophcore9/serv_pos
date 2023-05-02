@@ -1,10 +1,10 @@
 #include "dishes.h"
 
-Dishes::Dishes(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
+Dishes::Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent) : QWidget(parent)
 {
+    this->categories_model = categories_model;
     this->parent = parent;
-    this->db = db;
-    model = new QSqlTableModel(parent, this->db);
+    model = new QSqlTableModel(parent, db);
     model->setTable("Dishes");
     model->select();
 }
@@ -16,7 +16,9 @@ QSqlTableModel *Dishes::get_model()
 
 void Dishes::add_dish()
 {
-
+    add_dish_form = new AddDishForm(categories_model, parent);
+    add_dish_form->setModal(true);
+    add_dish_form->show();
 }
 
 Dishes::~Dishes()

@@ -125,9 +125,11 @@ MainWindow::MainWindow(QWidget *parent)
         statusBar()->showMessage("Успішне підключення до БД " + db.databaseName());
 
         // Ініціалізація класів
-        orders = new Orders(db, this);
-        dishes = new Dishes(db, this);
+        menu = new Menu(db, this);
+        categories = new Categories(db, this);
+        dishes = new Dishes(db, categories->get_model(), this);
         clients = new Clients(db, dishes->get_model(), this);
+        orders = new Orders(db, clients->get_model(), this);
 
         // Задання моделей таблицям
         order_list_view->setModel(orders->get_model());
@@ -157,35 +159,37 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete clients;
-    delete orders;
-    delete dishes;
+//    delete menu;
+//    delete categories;
+//    delete clients;
+//    delete orders;
+//    delete dishes;
 
-    delete main_layout;
-// 	  При розкоментуванні цих строк відбувається подвійне звільнення пам'яті
-//    delete orders_layout;
-//    delete dishes_layout;
-//    delete clients_layout;
-//    delete other_functions_layout;
-//    delete central_widget;
+//    delete main_layout;
+//// 	  При розкоментуванні цих строк відбувається подвійне звільнення пам'яті
+////    delete orders_layout;
+////    delete dishes_layout;
+////    delete clients_layout;
+////    delete other_functions_layout;
+////    delete central_widget;
 
-    delete l_order;
-    delete order_list_view;
-    delete add_order_btn;
-    delete delete_order_btn;
+//    delete l_order;
+//    delete order_list_view;
+//    delete add_order_btn;
+//    delete delete_order_btn;
 
-    delete l_dishes;
-    delete dishes_list_view;
-    delete add_dish_btn;
-    delete delete_dish_btn;
+//    delete l_dishes;
+//    delete dishes_list_view;
+//    delete add_dish_btn;
+//    delete delete_dish_btn;
 
-    delete l_clients;
-    delete client_list_view;
-    delete add_client_btn;
-    delete delete_client_btn;
+//    delete l_clients;
+//    delete client_list_view;
+//    delete add_client_btn;
+//    delete delete_client_btn;
 
-    delete l_other;
-    delete open_categories_btn;
-    delete open_menus_btn;
-    delete open_statistics_btn;
+//    delete l_other;
+//    delete open_categories_btn;
+//    delete open_menus_btn;
+//    delete open_statistics_btn;
 }

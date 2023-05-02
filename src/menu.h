@@ -12,9 +12,12 @@ class Menu : public QWidget
 private:
     QSqlTableModel *model;
     QWidget *parent;
+    QSqlDatabase db;
 
 public:
-    explicit Menu(QWidget *parent = 0);
+    explicit Menu(QSqlDatabase &db, QWidget *parent = 0);
+
+    QSqlTableModel* get_model();
 
 signals:
 

@@ -4,17 +4,20 @@
 #include <QWidget>
 #include <QDebug>
 #include <QSqlTableModel>
+#include "adddishform.h"
 
 class Dishes : public QWidget
 {
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QSqlTableModel *categories_model;
+    AddDishForm *add_dish_form;
     QWidget *parent;
     QSqlDatabase db;
 
 public:
-    explicit Dishes(QSqlDatabase &db, QWidget *parent = 0);
+    explicit Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent = 0);
     ~Dishes();
 
     QSqlTableModel* get_model();

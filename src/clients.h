@@ -12,7 +12,7 @@ class Clients : public QWidget
 private:
     QSqlTableModel *model;
     QSqlTableModel *dishes_model;
-    AddClientForm *adc;
+    AddClientForm *add_client_form;
     QWidget *parent;
 
 public:
