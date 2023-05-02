@@ -1,7 +1,8 @@
 #include "orders.h"
 
-Orders::Orders(QSqlDatabase &db, QObject *parent) : QObject(parent)
+Orders::Orders(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 {
+    this->parent = parent;
     this->db = db;
     model = new QSqlTableModel(parent, this->db);
     model->setTable("Orders");
@@ -15,5 +16,5 @@ QSqlTableModel *Orders::get_model()
 
 Orders::~Orders()
 {
-    delete model;
+
 }

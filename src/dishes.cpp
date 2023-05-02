@@ -1,7 +1,8 @@
 #include "dishes.h"
 
-Dishes::Dishes(QSqlDatabase &db, QObject *parent) : QObject(parent)
+Dishes::Dishes(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 {
+    this->parent = parent;
     this->db = db;
     model = new QSqlTableModel(parent, this->db);
     model->setTable("Dishes");
@@ -15,5 +16,5 @@ QSqlTableModel *Dishes::get_model()
 
 Dishes::~Dishes()
 {
-    delete model;
+
 }

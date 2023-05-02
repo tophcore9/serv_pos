@@ -1,18 +1,19 @@
 #ifndef ORDERS_H
 #define ORDERS_H
 
-#include <QObject>
+#include <QWidget>
 #include <QSqlTableModel>
 
-class Orders : public QObject
+class Orders : public QWidget
 {
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QWidget *parent;
     QSqlDatabase db;
 
 public:
-    explicit Orders(QSqlDatabase &db, QObject *parent = 0);
+    explicit Orders(QSqlDatabase &db, QWidget *parent = 0);
     ~Orders();
 
     QSqlTableModel* get_model();

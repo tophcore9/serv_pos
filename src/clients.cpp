@@ -24,5 +24,5 @@ void Clients::add_client()
 
 Clients::~Clients()
 {
-    delete model;
+
 }

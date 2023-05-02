@@ -3,6 +3,7 @@
 AddClientForm::AddClientForm(QSqlTableModel *model, QWidget *parent) : QDialog(parent)
 {
     // БАЗОВІ НАЛАШТУВАННЯ
+    this->parent = parent;
     this->model = model;
     this->setWindowTitle("Додати клієнта");
     this->setFixedSize(350, 500);
@@ -66,18 +67,18 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QWidget *parent) : QDialog(p
 
 AddClientForm::~AddClientForm()
 {
-    delete l_name;
-    delete name_edit;
+//    delete l_name;
+//    delete name_edit;
 
-    delete l_phone;
-    delete name_edit;
+//    delete l_phone;
+//    delete name_edit;
 
-    delete l_favourite_dish;
-    delete favourite_dish_select;
+//    delete l_favourite_dish;
+//    delete favourite_dish_select;
 
-    delete l_registration_date;
-    delete registration_date_edit;
+//    delete l_registration_date;
+//    delete registration_date_edit;
 
-    delete accept_btn;
-    delete cancel_btn;
+//    delete accept_btn;
+//    delete cancel_btn;
 }
