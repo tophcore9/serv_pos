@@ -2,6 +2,7 @@
 #define DISHES_H
 
 #include <QWidget>
+#include <QDebug>
 #include <QSqlTableModel>
 
 class Dishes : public QWidget

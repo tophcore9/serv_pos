@@ -1,5 +1,4 @@
 #include "clients.h"
-#include <QDebug>
 
 Clients::Clients(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
 {

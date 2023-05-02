@@ -2,6 +2,7 @@
 #define ORDERS_H
 
 #include <QWidget>
+#include <QDebug>
 #include <QSqlTableModel>
 
 class Orders : public QWidget

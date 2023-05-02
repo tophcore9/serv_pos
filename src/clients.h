@@ -2,6 +2,7 @@
 #define CLIENTS_H
 
 #include <QWidget>
+#include <QDebug>
 #include <QSqlTableModel>
 #include "addclientform.h"
 
