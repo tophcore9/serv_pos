@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include <QSqlError>
+#include "clients.h"
+#include "orders.h"
+#include "dishes.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,19 +31,16 @@ MainWindow::MainWindow(QWidget *parent)
     order_list_view = new QListView;
     add_order_btn = new QPushButton("Додати");
     delete_order_btn = new QPushButton("Видалити");
-    edit_order_btn = new QPushButton("Редагувати");
 
     l_dishes = new QLabel("Страви");
     dishes_list_view = new QListView;
     add_dish_btn = new QPushButton("Додати");
     delete_dish_btn = new QPushButton("Видалити");
-    edit_dish_btn = new QPushButton("Редагувати");
 
     l_clients = new QLabel("Клієнти");
     client_list_view = new QListView;
     add_client_btn = new QPushButton("Додати");
     delete_client_btn = new QPushButton("Видалити");
-    edit_client_btn = new QPushButton("Редагувати");
 
     l_other = new QLabel("Інше");
     open_categories_btn = new QPushButton("Категорії");
@@ -93,19 +93,16 @@ MainWindow::MainWindow(QWidget *parent)
     orders_layout->addWidget(order_list_view);
     orders_layout->addWidget(add_order_btn);
     orders_layout->addWidget(delete_order_btn);
-    orders_layout->addWidget(edit_order_btn);
 
     dishes_layout->addWidget(l_dishes);
     dishes_layout->addWidget(dishes_list_view);
     dishes_layout->addWidget(add_dish_btn);
     dishes_layout->addWidget(delete_dish_btn);
-    dishes_layout->addWidget(edit_dish_btn);
 
     clients_layout->addWidget(l_clients);
     clients_layout->addWidget(client_list_view);
     clients_layout->addWidget(add_client_btn);
     clients_layout->addWidget(delete_client_btn);
-    clients_layout->addWidget(edit_client_btn);
 
     other_functions_layout->addWidget(l_other);
     other_functions_layout->addWidget(open_categories_btn);
@@ -174,42 +171,19 @@ MainWindow::~MainWindow()
     delete order_list_view;
     delete add_order_btn;
     delete delete_order_btn;
-    delete edit_order_btn;
 
     delete l_dishes;
     delete dishes_list_view;
     delete add_dish_btn;
     delete delete_dish_btn;
-    delete edit_dish_btn;
 
     delete l_clients;
     delete client_list_view;
     delete add_client_btn;
     delete delete_client_btn;
-    delete edit_client_btn;
 
     delete l_other;
     delete open_categories_btn;
     delete open_menus_btn;
     delete open_statistics_btn;
-}
-
-const Clients &MainWindow::get_clients()
-{
-    return *clients;
-}
-
-const Dishes &MainWindow::get_dishes()
-{
-    return *dishes;
-}
-
-const Orders &MainWindow::get_orders()
-{
-    return *orders;
-}
-
-const QSqlDatabase &MainWindow::get_db()
-{
-    return db;
 }

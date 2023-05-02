@@ -8,6 +8,7 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QDialog *parent) : QDialog(p
     this->setFixedSize(350, 500);
 
 
+
     // ВІДЖЕТИ
     l_name = new QLabel("ПІБ:");
     name_edit = new QLineEdit;
@@ -24,6 +25,7 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QDialog *parent) : QDialog(p
 
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
+
 
 
 

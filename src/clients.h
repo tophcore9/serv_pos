@@ -3,15 +3,12 @@
 
 #include <QObject>
 #include <QSqlTableModel>
-#include <QMainWindow>
 
 class Clients : public QObject
 {
     Q_OBJECT
 private:
     QSqlTableModel *model;
-    QSqlDatabase db;
-    QMainWindow *qbn;
 
 public:
     explicit Clients(QSqlDatabase &db, QObject *parent = 0);

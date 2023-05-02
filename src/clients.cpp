@@ -4,8 +4,7 @@
 
 Clients::Clients(QSqlDatabase &db, QObject *parent) : QObject(parent)
 {
-    this->db = db;
-    model = new QSqlTableModel(parent, this->db);
+    model = new QSqlTableModel(parent, db);
     model->setTable("Clients");
     model->select();
 }

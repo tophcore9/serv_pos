@@ -35,6 +35,7 @@ public:
     ~AddClientForm();
 
 signals:
+    
 
 public slots:
 };
