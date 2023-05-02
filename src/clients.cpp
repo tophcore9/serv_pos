@@ -2,8 +2,9 @@
 #include <QDebug>
 #include "addclientform.h"
 
-Clients::Clients(QSqlDatabase &db, QObject *parent) : QObject(parent)
+Clients::Clients(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 {
+    this->parent = parent;
     model = new QSqlTableModel(parent, db);
     model->setTable("Clients");
     model->select();
@@ -16,7 +17,7 @@ QSqlTableModel *Clients::get_model()
 
 void Clients::add_client()
 {
-    AddClientForm *acf = new AddClientForm(model);
+    AddClientForm *acf = new AddClientForm(model, parent);
     acf->setModal(true);
     acf->show();
 }

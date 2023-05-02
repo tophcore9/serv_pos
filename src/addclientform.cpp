@@ -1,6 +1,6 @@
 #include "addclientform.h"
 
-AddClientForm::AddClientForm(QSqlTableModel *model, QDialog *parent) : QDialog(parent)
+AddClientForm::AddClientForm(QSqlTableModel *model, QWidget *parent) : QDialog(parent)
 {
     // БАЗОВІ НАЛАШТУВАННЯ
     this->model = model;

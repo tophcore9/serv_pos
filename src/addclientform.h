@@ -31,7 +31,7 @@ private:
     QPushButton *cancel_btn;
 
 public:
-    explicit AddClientForm(QSqlTableModel *model, QDialog *parent = 0);
+    explicit AddClientForm(QSqlTableModel *model, QWidget *parent = 0);
     ~AddClientForm();
 
 signals:

@@ -1,17 +1,18 @@
 #ifndef CLIENTS_H
 #define CLIENTS_H
 
-#include <QObject>
+#include <QWidget>
 #include <QSqlTableModel>
 
-class Clients : public QObject
+class Clients : public QWidget
 {
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QWidget *parent;
 
 public:
-    explicit Clients(QSqlDatabase &db, QObject *parent = 0);
+    explicit Clients(QSqlDatabase &db, QWidget *parent = 0);
     ~Clients();
 
     QSqlTableModel* get_model();
