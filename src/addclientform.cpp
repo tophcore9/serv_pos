@@ -1,13 +1,12 @@
 #include "addclientform.h"
 
-AddClientForm::AddClientForm(QSqlTableModel *model, QWidget *parent) : QDialog(parent)
+AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
     // БАЗОВІ НАЛАШТУВАННЯ
     this->parent = parent;
-    this->model = model;
+    this->dishes_model = dishes_model;
     this->setWindowTitle("Додати клієнта");
     this->setFixedSize(350, 500);
-
 
 
     // ВІДЖЕТИ
@@ -26,6 +25,11 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QWidget *parent) : QDialog(p
 
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
+
+
+    // Налаштування віджетів
+    favourite_dish_select->setModel(dishes_model);
+    favourite_dish_select->setModelColumn(1);
 
 
 
@@ -55,8 +59,11 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QWidget *parent) : QDialog(p
     info_layout->addWidget(l_registration_date, 3, 0);
     info_layout->addWidget(registration_date_edit, 3, 1);
 
+
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
+
+
 
 
 
@@ -80,5 +87,5 @@ AddClientForm::~AddClientForm()
 //    delete registration_date_edit;
 
 //    delete accept_btn;
-//    delete cancel_btn;
+    //    delete cancel_btn;
 }

@@ -3,12 +3,14 @@
 
 #include <QtWidgets>
 #include <QSqlTableModel>
+#include "dishes.h"
 
 class AddClientForm : public QDialog
 {
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QSqlTableModel *dishes_model;
     QWidget *parent;
 
     // GUI
@@ -32,11 +34,10 @@ private:
     QPushButton *cancel_btn;
 
 public:
-    explicit AddClientForm(QSqlTableModel *model, QWidget *parent = 0);
+    explicit AddClientForm(QSqlTableModel *dishes_model, QWidget *parent = 0);
     ~AddClientForm();
 
 signals:
-    
 
 public slots:
 };

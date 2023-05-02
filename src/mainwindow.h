@@ -48,11 +48,12 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+
 public slots:
 //    void get_db(QSqlDatabase &database);
 //    void get_clients(Clients *clients_);
 //    void get_orders(Orders *orders_);
-//    void get_dishes(Dishes *dishes_);
 };
 
 #endif // MAINWINDOW_H

@@ -3,16 +3,19 @@
 
 #include <QWidget>
 #include <QSqlTableModel>
+#include "addclientform.h"
 
 class Clients : public QWidget
 {
     Q_OBJECT
 private:
     QSqlTableModel *model;
+    QSqlTableModel *dishes_model;
+    AddClientForm *adc;
     QWidget *parent;
 
 public:
-    explicit Clients(QSqlDatabase &db, QWidget *parent = 0);
+    explicit Clients(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent = 0);
     ~Clients();
 
     QSqlTableModel* get_model();

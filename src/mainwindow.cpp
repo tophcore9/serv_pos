@@ -127,7 +127,7 @@ MainWindow::MainWindow(QWidget *parent)
         // Ініціалізація класів
         orders = new Orders(db, this);
         dishes = new Dishes(db, this);
-        clients = new Clients(db, this);
+        clients = new Clients(db, dishes->get_model(), this);
 
         // Задання моделей таблицям
         order_list_view->setModel(orders->get_model());
