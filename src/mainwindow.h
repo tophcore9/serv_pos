@@ -50,6 +50,11 @@ private:
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    const Clients& get_clients();
+    const Dishes& get_dishes();
+    const Orders& get_orders();
+    const QSqlDatabase& get_db();
 };
 
 #endif // MAINWINDOW_H

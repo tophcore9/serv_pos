@@ -22,7 +22,7 @@ private:
     QLineEdit *phone_edit;
 
     QLabel *l_favourite_dish;
-    QLineEdit *favourite_dish_edit;
+    QComboBox *favourite_dish_select;
 
     QLabel *l_registration_date;
     QLineEdit *registration_date_edit;

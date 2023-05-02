@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSqlTableModel>
+#include <QMainWindow>
 
 class Clients : public QObject
 {
@@ -10,6 +11,7 @@ class Clients : public QObject
 private:
     QSqlTableModel *model;
     QSqlDatabase db;
+    QMainWindow *qbn;
 
 public:
     explicit Clients(QSqlDatabase &db, QObject *parent = 0);

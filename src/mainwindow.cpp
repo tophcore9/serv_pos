@@ -193,3 +193,23 @@ MainWindow::~MainWindow()
     delete open_menus_btn;
     delete open_statistics_btn;
 }
+
+const Clients &MainWindow::get_clients()
+{
+    return *clients;
+}
+
+const Dishes &MainWindow::get_dishes()
+{
+    return *dishes;
+}
+
+const Orders &MainWindow::get_orders()
+{
+    return *orders;
+}
+
+const QSqlDatabase &MainWindow::get_db()
+{
+    return db;
+}

@@ -16,7 +16,7 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QDialog *parent) : QDialog(p
     phone_edit = new QLineEdit;
 
     l_favourite_dish = new QLabel("Улюблена страва:");
-    favourite_dish_edit = new QLineEdit;
+    favourite_dish_select = new QComboBox;
 
     l_registration_date = new QLabel("Дата реєстрації:");
     registration_date_edit = new QLineEdit(QDate::currentDate().toString(Qt::ISODate));
@@ -48,7 +48,7 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QDialog *parent) : QDialog(p
     info_layout->addWidget(l_phone, 1, 0);
     info_layout->addWidget(phone_edit, 1, 1);
     info_layout->addWidget(l_favourite_dish, 2, 0);
-    info_layout->addWidget(favourite_dish_edit, 2, 1);
+    info_layout->addWidget(favourite_dish_select, 2, 1);
     info_layout->addWidget(l_registration_date, 3, 0);
     info_layout->addWidget(registration_date_edit, 3, 1);
 
@@ -59,7 +59,6 @@ AddClientForm::AddClientForm(QSqlTableModel *model, QDialog *parent) : QDialog(p
 
 
     // СИГНАЛИ ТА СЛОТИ
-    //connect(cancel_btn, &QPushButton::clicked, this, &AddClientForm::close());
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
@@ -72,7 +71,7 @@ AddClientForm::~AddClientForm()
     delete name_edit;
 
     delete l_favourite_dish;
-    delete favourite_dish_edit;
+    delete favourite_dish_select;
 
     delete l_registration_date;
     delete registration_date_edit;
