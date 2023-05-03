@@ -28,6 +28,12 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
 
 
     // Налаштування віджетів
+    // Розсташування лейблів біля полей
+    l_name->setAlignment(Qt::AlignRight);
+    l_phone->setAlignment(Qt::AlignRight);
+    l_favourite_dish->setAlignment(Qt::AlignRight);
+    l_registration_date->setAlignment(Qt::AlignRight);
+
     favourite_dish_select->setModel(dishes_model);
     favourite_dish_select->setModelColumn(1);
 

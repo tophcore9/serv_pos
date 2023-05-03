@@ -19,6 +19,20 @@ private:
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
+    QLabel *l_client;
+    QComboBox *client_select;
+
+    QLabel *l_price;
+    QLineEdit *price_edit;
+    QLabel *price_l;
+
+    QLabel *l_estimated_time;
+    QLineEdit *estimated_time_edit;
+    QLabel *estimated_time_l;
+
+    QLabel *l_date;
+    QLineEdit *date_edit;
+
     QPushButton *accept_btn;
     QPushButton *cancel_btn;
 

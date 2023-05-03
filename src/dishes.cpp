@@ -16,7 +16,7 @@ QSqlTableModel *Dishes::get_model()
 
 void Dishes::add_dish()
 {
-    add_dish_form = new AddDishForm(categories_model, parent);
+    add_dish_form = new AddDishForm(categories_model, this);
     add_dish_form->setModal(true);
     add_dish_form->show();
 }

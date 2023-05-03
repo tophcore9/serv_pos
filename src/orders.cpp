@@ -16,7 +16,7 @@ QSqlTableModel *Orders::get_model()
 
 void Orders::add_order()
 {
-    add_order_form = new AddOrderForm(clients_model, parent);
+    add_order_form = new AddOrderForm(clients_model, this);
     add_order_form->setModal(true);
     add_order_form->show();
 }
