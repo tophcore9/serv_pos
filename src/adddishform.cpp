@@ -2,7 +2,7 @@
 
 AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QDialog(parent)
 {
-    this->parent = parent;
+    //this->parent = parent;
     this->categories_model = categories_model;
     this->setWindowTitle("Додати страву");
     this->setFixedSize(400, 500);

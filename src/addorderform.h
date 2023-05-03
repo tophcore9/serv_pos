@@ -10,9 +10,9 @@ class AddOrderForm : public QDialog
     Q_OBJECT
 
 private:
-    QSqlTableModel *model;
+    //QSqlTableModel *model;
     QSqlTableModel *clients_model;
-    QWidget *parent;
+    //QWidget *parent;
 
     // GUI
     QVBoxLayout *main_layout;

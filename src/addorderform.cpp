@@ -2,7 +2,7 @@
 
 AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDialog(parent)
 {
-    this->parent = parent;
+    //this->parent = parent;
     this->clients_model = clients_model;
     this->setWindowTitle("Додати замовлення");
     this->setFixedSize(350, 500);

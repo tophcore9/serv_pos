@@ -3,7 +3,7 @@
 AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
     // БАЗОВІ НАЛАШТУВАННЯ
-    this->parent = parent;
+    //this->parent = parent;
     this->dishes_model = dishes_model;
     this->setWindowTitle("Додати клієнта");
     this->setFixedSize(350, 500);
