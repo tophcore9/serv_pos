@@ -49,6 +49,7 @@ private:
 
 public:
     explicit AddDishForm(QSqlTableModel *categories_model, QWidget *parent = 0);
+    bool loading_image();
 
 signals:
 

@@ -98,7 +98,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
 
 void AddDishForm::select_image()
 {
-    QString file_path = QFileDialog::getOpenFileName(this, "Open File", "/home", "Images (*.png);;(*.jpg);;(*.jpeg)");
+    QString file_path = QFileDialog::getOpenFileName(this, "Open File", "/home", "Images (*.png *.jpg *.jpeg)");
     QString img_folder = "../img/" + QFileInfo(file_path).fileName();
 
     // Створюємо файли
@@ -113,16 +113,18 @@ void AddDishForm::select_image()
         {
             img_path = img_folder;
 
+            // Закриваємо файли тим самим завершуючи копіювання
+            source.close();
+            destination.close();
+
+            // Створюємо зображення
             pixmap->load(img_path);
-            picture->setPixmap(pixmap->scaled(picture->width(), picture->height(), Qt::KeepAspectRatio));
+            picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
 
             // Заміна кнопки на зображення
             info_layout->replaceWidget(picture_select_btn, picture);
             delete picture_select_btn;
+            qDebug() << img_path;
         }
-
-        // Закриваємо файли
-        source.close();
-        destination.close();
     }
 }
