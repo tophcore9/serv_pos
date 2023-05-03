@@ -17,7 +17,6 @@ private:
 
 public:
     explicit Clients(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent = 0);
-    ~Clients();
 
     QSqlTableModel* get_model();
 

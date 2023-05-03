@@ -18,7 +18,6 @@ private:
 
 public:
     explicit Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent = 0);
-    ~Dishes();
 
     QSqlTableModel* get_model();
 

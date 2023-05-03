@@ -8,6 +8,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
     this->setWindowTitle("Додати замовлення");
     this->setFixedSize(350, 500);
 
+
     /// ВІДЖЕТИ
     l_client = new QLabel("Клієнт:");
     client_select = new QComboBox;
@@ -69,6 +70,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
 
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
+
 
     /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));

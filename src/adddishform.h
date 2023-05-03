@@ -12,12 +12,18 @@ class AddDishForm : public QDialog
 private:
     //QSqlTableModel *model;
     QSqlTableModel *categories_model;
+    QString img_path;
     //QWidget *parent;
 
     /// GUI
     QVBoxLayout *main_layout;
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
+
+    QLabel *l_picture;
+    QPushButton *picture_select_btn;
+    QLabel *picture;
+    QPixmap *pixmap;
 
     QLabel *l_name;
     QLineEdit *name_edit;
@@ -47,6 +53,7 @@ public:
 signals:
 
 public slots:
+    void select_image();
 };
 
 #endif // ADDDISHFORM_H

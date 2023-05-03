@@ -20,8 +20,3 @@ void Clients::add_client()
     add_client_form->setModal(true);
     add_client_form->show();
 }
-
-Clients::~Clients()
-{
-
-}

@@ -3,8 +3,7 @@
 CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->resize(500, 600);
-
+    this->setFixedSize(500, 600);
 
 
     /// ВІДЖЕТИ

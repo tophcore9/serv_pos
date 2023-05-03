@@ -38,8 +38,6 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
     favourite_dish_select->setModelColumn(1);
 
 
-
-
     /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QVBoxLayout;
@@ -70,28 +68,6 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
     buttons_layout->addWidget(cancel_btn);
 
 
-
-
-
-
     /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
-}
-
-AddClientForm::~AddClientForm()
-{
-//    delete l_name;
-//    delete name_edit;
-
-//    delete l_phone;
-//    delete name_edit;
-
-//    delete l_favourite_dish;
-//    delete favourite_dish_select;
-
-//    delete l_registration_date;
-//    delete registration_date_edit;
-
-//    delete accept_btn;
-    //    delete cancel_btn;
 }

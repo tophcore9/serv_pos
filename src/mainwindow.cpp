@@ -17,14 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     this->setPalette(pal);
 
 
-
-
-
-
-
-
-
-
     /// ВІДЖЕТИ
     // Додавання віджетів
     l_order = new QLabel("Замовлення");
@@ -59,12 +51,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     l_other->setAlignment(Qt::AlignCenter);
     l_other->setMinimumWidth(150);
-
-
-
-
-
-
 
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -110,11 +96,6 @@ MainWindow::MainWindow(QWidget *parent)
     other_functions_layout->addWidget(open_statistics_btn);
 
 
-
-
-
-
-
     /// ПІДКЛЮЧЕННЯ К БД
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("../database/main.db");
@@ -158,41 +139,4 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(open_categories_btn, &QPushButton::clicked, categories, &Categories::open_categories);
     connect(open_menu_btn, &QPushButton::clicked, menu, &Menu::open_menu);
-}
-
-MainWindow::~MainWindow()
-{
-//    delete menu;
-//    delete categories;
-//    delete clients;
-//    delete orders;
-//    delete dishes;
-
-//    delete main_layout;
-//// 	  При розкоментуванні цих строк відбувається подвійне звільнення пам'яті
-////    delete orders_layout;
-////    delete dishes_layout;
-////    delete clients_layout;
-////    delete other_functions_layout;
-////    delete central_widget;
-
-//    delete l_order;
-//    delete order_list_view;
-//    delete add_order_btn;
-//    delete delete_order_btn;
-
-//    delete l_dishes;
-//    delete dishes_list_view;
-//    delete add_dish_btn;
-//    delete delete_dish_btn;
-
-//    delete l_clients;
-//    delete client_list_view;
-//    delete add_client_btn;
-//    delete delete_client_btn;
-
-//    delete l_other;
-//    delete open_categories_btn;
-//    delete open_menus_btn;
-//    delete open_statistics_btn;
 }

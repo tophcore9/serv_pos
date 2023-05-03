@@ -6,9 +6,15 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     //this->parent = parent;
     this->categories_model = categories_model;
     this->setWindowTitle("Додати страву");
-    this->setFixedSize(400, 500);
+    this->setFixedSize(600, 500);
+
 
     /// ВІДЖЕТИ
+    l_picture = new QLabel("Зображення:");
+    picture_select_btn = new QPushButton("Обрати зображення");
+    pixmap = new QPixmap;
+    picture = new QLabel("Помилка завантаження зображення");
+
     l_name = new QLabel("Назва:");
     name_edit = new QLineEdit;
 
@@ -34,6 +40,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
 
     // Налаштування віджетів
     // Розсташування лейблів біля полів
+    l_picture->setAlignment(Qt::AlignRight);
     l_name->setAlignment(Qt::AlignRight);
     l_weight->setAlignment(Qt::AlignRight);
     l_price->setAlignment(Qt::AlignRight);
@@ -58,27 +65,64 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     buttons_layout->setAlignment(Qt::AlignBottom);
 
     // Компоновка віджетів
-    info_layout->addWidget(l_name, 0, 0);
-    info_layout->addWidget(name_edit, 0, 1);
+    info_layout->addWidget(l_picture, 0, 0);
+    info_layout->addWidget(picture_select_btn, 0, 1);
 
-    info_layout->addWidget(l_weight, 1, 0);
-    info_layout->addWidget(weight_edit, 1, 1);
-    info_layout->addWidget(weight_l, 1, 2);
+    info_layout->addWidget(l_name, 1, 0);
+    info_layout->addWidget(name_edit, 1, 1);
 
-    info_layout->addWidget(l_price, 2, 0);
-    info_layout->addWidget(price_edit, 2, 1);
-    info_layout->addWidget(price_l, 2, 2);
+    info_layout->addWidget(l_weight, 2, 0);
+    info_layout->addWidget(weight_edit, 2, 1);
+    info_layout->addWidget(weight_l, 2, 2);
 
-    info_layout->addWidget(l_categories, 3, 0);
-    info_layout->addWidget(categories_select, 3, 1);
+    info_layout->addWidget(l_price, 3, 0);
+    info_layout->addWidget(price_edit, 3, 1);
+    info_layout->addWidget(price_l, 3, 2);
 
-    info_layout->addWidget(l_estimated_time, 4, 0);
-    info_layout->addWidget(estimated_time_edit, 4, 1);
-    info_layout->addWidget(estimated_time_l, 4, 2);
+    info_layout->addWidget(l_categories, 4, 0);
+    info_layout->addWidget(categories_select, 4, 1);
+
+    info_layout->addWidget(l_estimated_time, 5, 0);
+    info_layout->addWidget(estimated_time_edit, 5, 1);
+    info_layout->addWidget(estimated_time_l, 5, 2);
 
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 
+
     /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+
+    connect(picture_select_btn, SIGNAL(clicked()), this, SLOT(select_image()));
+}
+
+void AddDishForm::select_image()
+{
+    QString file_path = QFileDialog::getOpenFileName(this, "Open File", "/home", "Images (*.png);;(*.jpg);;(*.jpeg)");
+    QString img_folder = "../img/" + QFileInfo(file_path).fileName();
+
+    // Створюємо файли
+    QFile source(file_path);
+    QFile destination(img_folder);
+
+    // Перевірка і відкриття файлів
+    if (source.open(QIODevice::ReadOnly) && destination.open(QIODevice::WriteOnly))
+    {
+        // Копіюємо з перевіркою на те, що все скопіювалося
+        if (destination.write(source.readAll()) == source.size())
+        {
+            img_path = img_folder;
+
+            pixmap->load(img_path);
+            picture->setPixmap(pixmap->scaled(picture->width(), picture->height(), Qt::KeepAspectRatio));
+
+            // Заміна кнопки на зображення
+            info_layout->replaceWidget(picture_select_btn, picture);
+            delete picture_select_btn;
+        }
+
+        // Закриваємо файли
+        source.close();
+        destination.close();
+    }
 }

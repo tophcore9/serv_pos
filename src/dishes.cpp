@@ -7,6 +7,14 @@ Dishes::Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *pare
     model = new QSqlTableModel(parent, db);
     model->setTable("Dishes");
     model->select();
+
+    // Обробка фото
+//    QLabel *photo = new QLabel;
+//    QPixmap *photo_pixmap = new QPixmap;
+//    photo_pixmap->load("../img/img2.jpg");
+//    photo->setPixmap(photo_pixmap->scaled(200, photo->height(), Qt::KeepAspectRatio));
+
+//    main_layout->addWidget(photo);
 }
 
 QSqlTableModel *Dishes::get_model()
@@ -19,9 +27,4 @@ void Dishes::add_dish()
     add_dish_form = new AddDishForm(categories_model, this);
     add_dish_form->setModal(true);
     add_dish_form->show();
-}
-
-Dishes::~Dishes()
-{
-
 }

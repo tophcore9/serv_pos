@@ -17,7 +17,6 @@ private:
 
 public:
     explicit Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QWidget *parent = 0);
-    ~Orders();
 
     QSqlTableModel* get_model();
 

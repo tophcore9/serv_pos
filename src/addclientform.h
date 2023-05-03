@@ -35,7 +35,6 @@ private:
 
 public:
     explicit AddClientForm(QSqlTableModel *dishes_model, QWidget *parent = 0);
-    ~AddClientForm();
 
 signals:
 

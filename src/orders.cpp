@@ -20,8 +20,3 @@ void Orders::add_order()
     add_order_form->setModal(true);
     add_order_form->show();
 }
-
-Orders::~Orders()
-{
-
-}
