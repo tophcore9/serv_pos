@@ -17,3 +17,10 @@ void Menu::add_menu()
 {
 
 }
+
+void Menu::open_menu()
+{
+    menu_form = new MenuForm(model, this);
+    menu_form->setModal(true);
+    menu_form->show();
+}

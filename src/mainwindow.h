@@ -20,7 +20,7 @@ private:
     Categories *categories;
     Menu *menu;
 
-    //GUI
+    /// GUI
     QHBoxLayout *main_layout;
     QVBoxLayout *orders_layout;
     QVBoxLayout *dishes_layout;
@@ -45,7 +45,7 @@ private:
 
     QLabel *l_other;
     QPushButton *open_categories_btn;
-    QPushButton *open_menus_btn;
+    QPushButton *open_menu_btn;
     QPushButton *open_statistics_btn;
 
 public:

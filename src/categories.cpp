@@ -17,3 +17,10 @@ void Categories::add_category()
 {
 
 }
+
+void Categories::open_categories()
+{
+    categories_form = new CategoriesForm(model, this);
+    categories_form->setModal(true);
+    categories_form->show();
+}

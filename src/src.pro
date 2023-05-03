@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     adddishform.cpp \
     addorderform.cpp \
     categories.cpp \
-    menu.cpp
+    menu.cpp \
+    categoriesform.cpp \
+    menuform.cpp
 
 HEADERS  += mainwindow.h \
     clients.h \
@@ -31,4 +33,6 @@ HEADERS  += mainwindow.h \
     adddishform.h \
     addorderform.h \
     categories.h \
-    menu.h
+    menu.h \
+    categoriesform.h \
+    menuform.h

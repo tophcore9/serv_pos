@@ -2,12 +2,13 @@
 
 AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QDialog(parent)
 {
+    /// БАЗОВІ НАЛАШТУВАННЯ
     //this->parent = parent;
     this->categories_model = categories_model;
     this->setWindowTitle("Додати страву");
     this->setFixedSize(400, 500);
 
-    // ВІДЖЕТИ
+    /// ВІДЖЕТИ
     l_name = new QLabel("Назва:");
     name_edit = new QLineEdit;
 
@@ -43,7 +44,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     categories_select->setModelColumn(1);
 
 
-    // МАКЕТИ ТА КОМПОНОВКА
+    /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QVBoxLayout;
     info_layout = new QGridLayout;
@@ -78,6 +79,6 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 
-    // СИГНАЛИ ТА СЛОТИ
+    /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }

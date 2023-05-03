@@ -2,14 +2,14 @@
 
 AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
-    // БАЗОВІ НАЛАШТУВАННЯ
+    /// БАЗОВІ НАЛАШТУВАННЯ
     //this->parent = parent;
     this->dishes_model = dishes_model;
     this->setWindowTitle("Додати клієнта");
     this->setFixedSize(350, 500);
 
 
-    // ВІДЖЕТИ
+    /// ВІДЖЕТИ
     l_name = new QLabel("ПІБ:");
     name_edit = new QLineEdit;
 
@@ -40,7 +40,7 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
 
 
 
-    // МАКЕТИ ТА КОМПОНОВКА
+    /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QVBoxLayout;
     info_layout = new QGridLayout;
@@ -74,7 +74,7 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
 
 
 
-    // СИГНАЛИ ТА СЛОТИ
+    /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }
 

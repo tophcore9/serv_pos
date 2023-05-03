@@ -2,12 +2,13 @@
 
 AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDialog(parent)
 {
+    /// БАЗОВІ НАЛАШТУВАННЯ
     //this->parent = parent;
     this->clients_model = clients_model;
     this->setWindowTitle("Додати замовлення");
     this->setFixedSize(350, 500);
 
-    // ВІДЖЕТИ
+    /// ВІДЖЕТИ
     l_client = new QLabel("Клієнт:");
     client_select = new QComboBox;
 
@@ -41,7 +42,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
     client_select->setModelColumn(1);
 
 
-    // МАКЕТИ ТА КОМПОНОВКА
+    /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QVBoxLayout;
     info_layout = new QGridLayout;
@@ -69,6 +70,6 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 
-    // СИГНАЛИ ТА СЛОТИ
+    /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }

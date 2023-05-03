@@ -7,7 +7,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    // БАЗОВІ НАЛАШТУВАННЯ
+    /// БАЗОВІ НАЛАШТУВАННЯ
     this->setWindowTitle("ServPOS");
     this->setFixedSize(1200, 700);
 
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    // ВІДЖЕТИ
+    /// ВІДЖЕТИ
     // Додавання віджетів
     l_order = new QLabel("Замовлення");
     order_list_view = new QListView;
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     l_other = new QLabel("Інше");
     open_categories_btn = new QPushButton("Категорії");
-    open_menus_btn = new QPushButton("Меню");
+    open_menu_btn = new QPushButton("Меню");
     open_statistics_btn = new QPushButton("Статистика");
 
 
@@ -67,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    // МАКЕТИ І КОМПОНОВКА
+    /// МАКЕТИ І КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QHBoxLayout;
     orders_layout = new QVBoxLayout;
@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     other_functions_layout->addWidget(l_other);
     other_functions_layout->addWidget(open_categories_btn);
-    other_functions_layout->addWidget(open_menus_btn);
+    other_functions_layout->addWidget(open_menu_btn);
     other_functions_layout->addWidget(open_statistics_btn);
 
 
@@ -115,13 +115,13 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    // ПІДКЛЮЧЕННЯ К БД
+    /// ПІДКЛЮЧЕННЯ К БД
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("../database/main.db");
 
     if (db.open())
     {
-        // ГОЛОВНА ЧАСТИНА ПРОГРАМИ
+        /// ГОЛОВНА ЧАСТИНА ПРОГРАМИ
         statusBar()->showMessage("Успішне підключення до БД " + db.databaseName());
 
         // Ініціалізація класів
@@ -143,7 +143,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     else
     {
-        // ОБРОБКА ПОМИЛОК
+        /// ОБРОБКА ПОМИЛОК
         statusBar()->showMessage("Помилка: " + db.lastError().text());
     }
 
@@ -155,6 +155,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(add_client_btn, &QPushButton::clicked, clients, &Clients::add_client);
     connect(add_dish_btn, &QPushButton::clicked, dishes, &Dishes::add_dish);
     connect(add_order_btn, &QPushButton::clicked, orders, &Orders::add_order);
+
+    connect(open_categories_btn, &QPushButton::clicked, categories, &Categories::open_categories);
+    connect(open_menu_btn, &QPushButton::clicked, menu, &Menu::open_menu);
 }
 
 MainWindow::~MainWindow()

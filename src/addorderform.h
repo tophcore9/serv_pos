@@ -14,7 +14,7 @@ private:
     QSqlTableModel *clients_model;
     //QWidget *parent;
 
-    // GUI
+    /// GUI
     QVBoxLayout *main_layout;
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
