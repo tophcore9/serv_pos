@@ -14,6 +14,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     picture_select_btn = new QPushButton("Обрати зображення");
     pixmap = new QPixmap;
     picture = new QLabel("Помилка завантаження зображення");
+    rechoose_picture_btn = new QPushButton("Переобрати");
 
     l_name = new QLabel("Назва:");
     name_edit = new QLineEdit;
@@ -124,7 +125,53 @@ void AddDishForm::select_image()
             // Заміна кнопки на зображення
             info_layout->replaceWidget(picture_select_btn, picture);
             delete picture_select_btn;
+
+            info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
+            qDebug() << img_path;
+
+            connect(rechoose_picture_btn, SIGNAL(clicked()), this, SLOT(reselect_image()));
+        }
+    }
+    // НА ЭТОМ ЭТАПЕ У ТЕБЯ ЕСТЬ ПРОГРАММА, КОТОРАЯ ВЫБИРАЕТ
+    // ИЗОБРАЖЕНИЕ И УЖЕ ГОТОВО ЗАНОСИТЬ ПОЛЕ img_path В БД
+    // ОДНАКО ТЕБЕ НУЖНО ДОБАВИТЬ ФУНКЦИЮ СМЕНЫ ИЗОБРАЖЕНИЯ
+    // И ГРАММОТНУЮ ОБРАБОТКУ ОШИБОК (КАК МИНИМУМ ПРОВЕРКУ НА КОПИРОВАНИЕ
+    // И ВСТАВКУ ОДНОГО И ТОГО ЖЕ ИЗОБРАЖЕНИЯ В ПАПКЕ IMG)
+}
+
+void AddDishForm::reselect_image()
+{
+    // Обрання нового зображення
+    QString file_path = QFileDialog::getOpenFileName(this, "Open File", "/home", "Images (*.png *.jpg *.jpeg)");
+    QString img_folder = "../img/" + QFileInfo(file_path).fileName();
+
+    // Створюємо файли
+    QFile source(file_path);
+    QFile destination(img_folder);
+
+    if (source.open(QIODevice::ReadOnly) && destination.open(QIODevice::WriteOnly))
+    {
+        if (destination.write(source.readAll()) == source.size())
+        {
+            // Видалення попереднього зображення
+            QFile file_to_delete(img_path);
+            file_to_delete.open(QIODevice::WriteOnly);
+            file_to_delete.remove();
+
+            img_path = img_folder;
+
+            // Закриваємо файли
+            source.close();
+            destination.close();
+            file_to_delete.close();
+
+            // Створюємо зображення
+            pixmap->load(img_path);
+            picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
+
+            info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
             qDebug() << img_path;
         }
     }
+
 }

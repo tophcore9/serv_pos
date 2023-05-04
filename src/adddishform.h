@@ -24,6 +24,7 @@ private:
     QPushButton *picture_select_btn;
     QLabel *picture;
     QPixmap *pixmap;
+    QPushButton *rechoose_picture_btn;
 
     QLabel *l_name;
     QLineEdit *name_edit;
@@ -55,6 +56,7 @@ signals:
 
 public slots:
     void select_image();
+    void reselect_image();
 };
 
 #endif // ADDDISHFORM_H
