@@ -10,6 +10,8 @@ class CategoriesForm : public QDialog
     Q_OBJECT
 
 private:
+    int current_category;
+
     QVBoxLayout *main_layout;
     QHBoxLayout *view_layout;
     QHBoxLayout *buttons_layout;
@@ -23,8 +25,11 @@ public:
     explicit CategoriesForm(QSqlTableModel *categories_model, QWidget *parent = 0);
 
 signals:
+    void remove_category_row(int);
 
 public slots:
+    void change_category_row(const QModelIndex index);
+    void remove_category_row();
 };
 
 #endif // CATEGORIESFORM_H

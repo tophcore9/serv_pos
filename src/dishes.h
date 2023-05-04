@@ -25,6 +25,7 @@ signals:
 
 public slots:
     void add_dish();
+    void remove_dish(int);
 };
 
 #endif // DISHES_H

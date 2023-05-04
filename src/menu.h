@@ -26,6 +26,7 @@ signals:
 public slots:
     void add_menu();
     void open_menu();
+    void remove_menu(int);
 };
 
 #endif // MENU_H

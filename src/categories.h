@@ -25,6 +25,7 @@ signals:
 public slots:
     void add_category();
     void open_categories();
+    void remove_category(int);
 };
 
 #endif // CATEGORIES_H

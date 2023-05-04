@@ -36,6 +36,13 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
     l_estimated_time->setAlignment(Qt::AlignRight);
     l_date->setAlignment(Qt::AlignRight);
 
+    // Встановлення статичного розміру полей вводу
+    client_select->setMaximumWidth(200);
+    price_edit->setMaximumWidth(200);
+    estimated_time_edit->setMaximumWidth(200);
+    date_edit->setMaximumWidth(200);
+
+
     estimated_time_edit->setEnabled(false);
     price_edit->setEnabled(false);
 

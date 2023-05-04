@@ -137,6 +137,45 @@ MainWindow::MainWindow(QWidget *parent)
     connect(add_dish_btn, &QPushButton::clicked, dishes, &Dishes::add_dish);
     connect(add_order_btn, &QPushButton::clicked, orders, &Orders::add_order);
 
+    connect(delete_client_btn, &QPushButton::clicked, this, &MainWindow::remove_client_row);
+    connect(delete_dish_btn, &QPushButton::clicked, this, &MainWindow::remove_dish_row);
+    connect(delete_order_btn, &QPushButton::clicked, this, &MainWindow::remove_order_row);
+
+    connect(client_list_view, &QListView::clicked, this, &MainWindow::change_client_row);
+    connect(dishes_list_view, &QListView::clicked, this, &MainWindow::change_dish_row);
+    connect(order_list_view, &QListView::clicked, this, &MainWindow::change_order_row);
+
     connect(open_categories_btn, &QPushButton::clicked, categories, &Categories::open_categories);
     connect(open_menu_btn, &QPushButton::clicked, menu, &Menu::open_menu);
+}
+
+void MainWindow::change_dish_row(const QModelIndex index)
+{
+    current_dish = index.row();
+}
+
+void MainWindow::change_order_row(const QModelIndex index)
+{
+    current_order = index.row();
+}
+
+void MainWindow::remove_client_row()
+{
+    clients->remove_client(current_client);
+}
+
+void MainWindow::remove_dish_row()
+{
+    dishes->remove_dish(current_dish);
+}
+
+void MainWindow::remove_order_row()
+{
+    orders->remove_order(current_order);
+}
+
+void MainWindow::change_client_row(const QModelIndex index)
+{
+    current_client = index.row();
+    statusBar()->showMessage(QString::number(current_client));
 }

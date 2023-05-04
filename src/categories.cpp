@@ -13,6 +13,16 @@ QSqlTableModel *Categories::get_model()
     return model;
 }
 
+void Categories::remove_category(int index)
+{
+    if (model->rowCount() > index)
+    {
+        model->removeRow(index);
+        model->select();
+    }
+    else qDebug() << "Incorect index";
+}
+
 void Categories::add_category()
 {
 

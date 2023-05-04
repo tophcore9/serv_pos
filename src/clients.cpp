@@ -20,3 +20,13 @@ void Clients::add_client()
     add_client_form->setModal(true);
     add_client_form->show();
 }
+
+void Clients::remove_client(int index)
+{
+    if (model->rowCount() > index)
+    {
+        model->removeRow(index);
+        model->select();
+    }
+    else qDebug() << "Incorect index";
+}

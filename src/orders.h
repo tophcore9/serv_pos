@@ -24,6 +24,7 @@ signals:
 
 public slots:
     void add_order();
+    void remove_order(int);
 };
 
 #endif // ORDERS_H

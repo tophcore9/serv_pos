@@ -37,4 +37,19 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
 
     /// СИГНАЛИ ТА СЛОТИ
     connect(exit_btn, SIGNAL(clicked()), this, SLOT(close()));
+
+    connect(list_view, SIGNAL(clicked(QModelIndex)), this, SLOT(change_category_row(QModelIndex)));
+
+    connect(delete_category_btn, SIGNAL(clicked()), this, SLOT(remove_category_row()));
+    connect(this, SIGNAL(remove_category_row(int)), parent, SLOT(remove_category(int)));
+}
+
+void CategoriesForm::change_category_row(const QModelIndex index)
+{
+    current_category = index.row();
+}
+
+void CategoriesForm::remove_category_row()
+{
+    emit remove_category_row(current_category);
 }

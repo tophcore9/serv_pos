@@ -10,6 +10,8 @@ class MenuForm : public QDialog
     Q_OBJECT
 
 private:
+    int current_menu;
+
     QVBoxLayout *main_layout;
     QHBoxLayout *view_layout;
     QHBoxLayout *buttons_layout;
@@ -23,8 +25,11 @@ public:
     explicit MenuForm(QSqlTableModel *menu_model, QWidget *parent = 0);
 
 signals:
+    void remove_menu_row(int);
 
 public slots:
+    void change_menu_row(const QModelIndex index);
+    void remove_menu_row();
 };
 
 #endif // MENUFORM_H

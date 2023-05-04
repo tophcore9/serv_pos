@@ -3,7 +3,7 @@
 MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    //this->setFixedSize(500, 600);
+    this->setFixedSize(500, 600);
 
 
     /// ВІДЖЕТИ
@@ -38,4 +38,19 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
     /// СИГНАЛИ ТА СЛОТИ
     connect(exit_btn, SIGNAL(clicked()), this, SLOT(close()));
 
+    connect(list_view, SIGNAL(clicked(QModelIndex)), this, SLOT(change_menu_row(QModelIndex)));
+
+    // Видалення меню
+    connect(delete_menu_btn, SIGNAL(clicked()), this, SLOT(remove_menu_row()));
+    connect(this, SIGNAL(remove_menu_row(int)), parent, SLOT(remove_menu(int)));
+}
+
+void MenuForm::change_menu_row(const QModelIndex index)
+{
+    current_menu = index.row();
+}
+
+void MenuForm::remove_menu_row()
+{
+    emit remove_menu_row(current_menu);
 }

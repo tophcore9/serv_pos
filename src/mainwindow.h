@@ -20,6 +20,8 @@ private:
     Categories *categories;
     Menu *menu;
 
+    int current_client, current_dish, current_order;
+
     /// GUI
     QHBoxLayout *main_layout;
     QVBoxLayout *orders_layout;
@@ -54,6 +56,13 @@ public:
 signals:
 
 public slots:
+    void remove_client_row();
+    void remove_dish_row();
+    void remove_order_row();
+
+    void change_client_row(const QModelIndex index);
+    void change_dish_row(const QModelIndex index);
+    void change_order_row(const QModelIndex index);
 //    void get_db(QSqlDatabase &database);
 //    void get_clients(Clients *clients_);
 //    void get_orders(Orders *orders_);

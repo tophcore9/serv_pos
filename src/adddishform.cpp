@@ -48,6 +48,13 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     l_categories->setAlignment(Qt::AlignRight);
     l_estimated_time->setAlignment(Qt::AlignRight);
 
+    // Встановлення статичного розміру полей вводу
+    name_edit->setMaximumWidth(200);
+    price_edit->setMaximumWidth(200);
+    categories_select->setMaximumWidth(200);
+    estimated_time_edit->setMaximumWidth(200);
+    weight_edit->setMaximumWidth(200);
+
     categories_select->setModel(categories_model);
     categories_select->setModelColumn(1);
 
@@ -127,16 +134,10 @@ void AddDishForm::select_image()
             delete picture_select_btn;
 
             info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
-            qDebug() << img_path;
 
             connect(rechoose_picture_btn, SIGNAL(clicked()), this, SLOT(reselect_image()));
         }
     }
-    // НА ЭТОМ ЭТАПЕ У ТЕБЯ ЕСТЬ ПРОГРАММА, КОТОРАЯ ВЫБИРАЕТ
-    // ИЗОБРАЖЕНИЕ И УЖЕ ГОТОВО ЗАНОСИТЬ ПОЛЕ img_path В БД
-    // ОДНАКО ТЕБЕ НУЖНО ДОБАВИТЬ ФУНКЦИЮ СМЕНЫ ИЗОБРАЖЕНИЯ
-    // И ГРАММОТНУЮ ОБРАБОТКУ ОШИБОК (КАК МИНИМУМ ПРОВЕРКУ НА КОПИРОВАНИЕ
-    // И ВСТАВКУ ОДНОГО И ТОГО ЖЕ ИЗОБРАЖЕНИЯ В ПАПКЕ IMG)
 }
 
 void AddDishForm::reselect_image()
@@ -170,7 +171,6 @@ void AddDishForm::reselect_image()
             picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
 
             info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
-            qDebug() << img_path;
         }
     }
 

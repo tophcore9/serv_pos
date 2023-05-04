@@ -22,6 +22,16 @@ QSqlTableModel *Dishes::get_model()
     return model;
 }
 
+void Dishes::remove_dish(int index)
+{
+    if (model->rowCount() > index)
+    {
+        model->removeRow(index);
+        model->select();
+    }
+    else qDebug() << "Incorect index";
+}
+
 void Dishes::add_dish()
 {
     add_dish_form = new AddDishForm(categories_model, this);

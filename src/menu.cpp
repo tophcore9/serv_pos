@@ -13,6 +13,16 @@ QSqlTableModel *Menu::get_model()
     return model;
 }
 
+void Menu::remove_menu(int index)
+{
+    if (model->rowCount() > index)
+    {
+        model->removeRow(index);
+        model->select();
+    }
+    else qDebug() << "Incorect index";
+}
+
 void Menu::add_menu()
 {
 
