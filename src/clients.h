@@ -19,12 +19,13 @@ public:
     explicit Clients(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
     QSqlTableModel* get_model();
-    void add_client();
 
 signals:
 
 public slots:
     void remove_client(int);
+    void open_add_client_form();
+    void add_client(QString name, QString phone, QString date, int favourite);
 };
 
 #endif // CLIENTS_H

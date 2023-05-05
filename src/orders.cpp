@@ -24,7 +24,12 @@ void Orders::remove_order(int index)
     else qDebug() << "Incorect index";
 }
 
-void Orders::add_order()
+void Orders::add_order(int client_id, double total_price, int total_time, QString date)
+{
+    qDebug() << "Adding";
+}
+
+void Orders::open_add_order_form()
 {
     add_order_form = new AddOrderForm(clients_model, this);
     add_order_form->setModal(true);

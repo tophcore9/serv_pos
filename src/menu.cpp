@@ -23,9 +23,16 @@ void Menu::remove_menu(int index)
     else qDebug() << "Incorect index";
 }
 
-void Menu::add_menu()
+void Menu::add_menu(QString name)
 {
+    qDebug() << "Adding";
+}
 
+void Menu::open_add_menu_form()
+{
+    add_menu_form = new AddMenuForm(model, this);
+    add_menu_form->setModal(true);
+    add_menu_form->show();
 }
 
 void Menu::open_menu()

@@ -24,8 +24,9 @@ public:
 signals:
 
 public slots:
-    void add_dish();
+    void open_add_dish_form();
     void remove_dish(int);
+    void add_dish(QString name, double weight, double price, int category, int estimated_time, QString url);
 };
 
 #endif // DISHES_H

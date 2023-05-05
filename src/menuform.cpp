@@ -4,6 +4,7 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(500, 600);
+    this->setWindowTitle("Меню");
 
 
     /// ВІДЖЕТИ
@@ -37,6 +38,7 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
 
     /// СИГНАЛИ ТА СЛОТИ
     connect(exit_btn, SIGNAL(clicked()), this, SLOT(close()));
+    connect(add_menu_btn, SIGNAL(clicked()), parent, SLOT(open_add_menu_form()));
 
     connect(list_view, SIGNAL(clicked(QModelIndex)), this, SLOT(change_menu_row(QModelIndex)));
 

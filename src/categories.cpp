@@ -23,9 +23,16 @@ void Categories::remove_category(int index)
     else qDebug() << "Incorect index";
 }
 
-void Categories::add_category()
+void Categories::open_add_category_form()
 {
+    add_category_form = new AddCategoryForm(model, this);
+    add_category_form->setModal(true);
+    add_category_form->show();
+}
 
+void Categories::add_category(QString name)
+{
+    qDebug() << "Adding";
 }
 
 void Categories::open_categories()

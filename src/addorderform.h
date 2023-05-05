@@ -40,8 +40,10 @@ public:
     explicit AddOrderForm(QSqlTableModel *clients_model, QWidget *parent = 0);
 
 signals:
+    void add_order(int client_id, double total_price, int total_time, QString date);
 
 public slots:
+    void add_order();
 };
 
 #endif // ADDORDERFORM_H

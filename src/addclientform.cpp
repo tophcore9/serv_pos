@@ -76,4 +76,12 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
 
     /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+
+    connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_client()));
+    connect(this, SIGNAL(add_client(QString,QString,QString,int)), parent, SLOT(add_client(QString,QString,QString,int)));
+}
+
+void AddClientForm::add_client()
+{
+    emit add_client("", "", "", 0);
 }

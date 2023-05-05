@@ -14,11 +14,16 @@ QSqlTableModel *Clients::get_model()
     return model;
 }
 
-void Clients::add_client()
+void Clients::open_add_client_form()
 {
     add_client_form = new AddClientForm(dishes_model, this);
     add_client_form->setModal(true);
     add_client_form->show();
+}
+
+void Clients::add_client(QString name, QString phone, QString date, int favourite)
+{
+    qDebug() << "Adding";
 }
 
 void Clients::remove_client(int index)

@@ -81,4 +81,12 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
 
     /// СИГНАЛИ ТА СЛОТИ
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+
+    connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_order()));
+    connect(this, SIGNAL(add_order(int,double,int,QString)), parent, SLOT(add_order(int,double,int,QString)));
+}
+
+void AddOrderForm::add_order()
+{
+    emit add_order(0, 0.0, 0, "");
 }

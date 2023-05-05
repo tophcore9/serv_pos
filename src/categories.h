@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QSqlTableModel>
 #include "categoriesform.h"
+#include "addcategoryform.h"
 
 class Categories : public QWidget
 {
@@ -13,6 +14,7 @@ class Categories : public QWidget
 private:
     QSqlTableModel *model;
     CategoriesForm *categories_form;
+    AddCategoryForm *add_category_form;
     QWidget *parent;
 
 public:
@@ -23,7 +25,8 @@ public:
 signals:
 
 public slots:
-    void add_category();
+    void open_add_category_form();
+    void add_category(QString name);
     void open_categories();
     void remove_category(int);
 };

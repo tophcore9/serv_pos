@@ -53,10 +53,12 @@ public:
     bool loading_image();
 
 signals:
+    void add_dish(QString name, double weight, double price, int category, int estimated_time, QString url);
 
 public slots:
     void select_image();
     void reselect_image();
+    void add_dish();
 };
 
 #endif // ADDDISHFORM_H

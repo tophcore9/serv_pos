@@ -32,7 +32,12 @@ void Dishes::remove_dish(int index)
     else qDebug() << "Incorect index";
 }
 
-void Dishes::add_dish()
+void Dishes::add_dish(QString name, double weight, double price, int category, int estimated_time, QString url)
+{
+    qDebug() << "Adding";
+}
+
+void Dishes::open_add_dish_form()
 {
     add_dish_form = new AddDishForm(categories_model, this);
     add_dish_form->setModal(true);

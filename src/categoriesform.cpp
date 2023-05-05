@@ -3,6 +3,7 @@
 CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
+    this->setWindowTitle("Категорії");
     this->setFixedSize(500, 600);
 
 
@@ -42,6 +43,8 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
 
     connect(delete_category_btn, SIGNAL(clicked()), this, SLOT(remove_category_row()));
     connect(this, SIGNAL(remove_category_row(int)), parent, SLOT(remove_category(int)));
+
+    connect(add_category_btn, SIGNAL(clicked()), parent, SLOT(open_add_category_form()));
 }
 
 void CategoriesForm::change_category_row(const QModelIndex index)

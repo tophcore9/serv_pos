@@ -48,6 +48,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     l_categories->setAlignment(Qt::AlignRight);
     l_estimated_time->setAlignment(Qt::AlignRight);
 
+
     // Встановлення статичного розміру полей вводу
     name_edit->setMaximumWidth(200);
     price_edit->setMaximumWidth(200);
@@ -102,6 +103,9 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(picture_select_btn, SIGNAL(clicked()), this, SLOT(select_image()));
+
+    connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
+    connect(this, SIGNAL(add_dish(QString,double,double,int,int,QString)), parent, SLOT(add_dish(QString,double,double,int,int,QString)));
 }
 
 void AddDishForm::select_image()
@@ -174,4 +178,9 @@ void AddDishForm::reselect_image()
         }
     }
 
+}
+
+void AddDishForm::add_dish()
+{
+    emit add_dish("", 0.0, 0.0, 0, 0, "");
 }

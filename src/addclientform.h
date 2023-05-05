@@ -37,8 +37,10 @@ public:
     explicit AddClientForm(QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
+    void add_client(QString name, QString phone, QString date, int favourite);
 
 public slots:
+    void add_client();
 };
 
 #endif // ADDCLIENTFORM_H
