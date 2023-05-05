@@ -182,5 +182,6 @@ void AddDishForm::reselect_image()
 
 void AddDishForm::add_dish()
 {
-    emit add_dish("", 0.0, 0.0, 0, 0, "");
+    emit add_dish(name_edit->text(), weight_edit->text().toDouble(), price_edit->text().toDouble(), categories_select->currentIndex(), estimated_time_edit->text().toInt(), img_path);
+    // ПОТРІБНО КОРРЕКТНО ОПРАЦЮВАТИ ІНДЕКСУВАННЯ
 }

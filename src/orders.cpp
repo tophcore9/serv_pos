@@ -28,8 +28,9 @@ void Orders::remove_order(int index)
 void Orders::add_order(int client_id, double total_price, int total_time, QString date)
 {
     QSqlQuery query(db);
-    //query.exec();
-    qDebug() << "Adding";
+    query.exec("INSERT INTO Orders (client_id, order_price, order_estimated_time, order_date) VALUES (" + QString::number(client_id) + ", " +
+               QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
+    model->select();
     // Потрібно додати можливість додавання декількох страв
 }
 

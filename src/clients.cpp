@@ -25,8 +25,10 @@ void Clients::open_add_client_form()
 void Clients::add_client(QString name, QString phone, QString date, int favourite)
 {
     QSqlQuery query(db);
-    //query.exec();
-    qDebug() << "Adding";
+    query.exec("INSERT INTO Clients (client_name, client_phone, client_favourite_dish, client_registration_date) VALUES('" +
+               name + "', '" + phone + "', '" + favourite + "', " + QString::number(favourite) + ");");
+    model->select();
+    // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
 
 void Clients::remove_client(int index)

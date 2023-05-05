@@ -83,5 +83,6 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
 
 void AddClientForm::add_client()
 {
-    emit add_client("", "", "", 0);
+    emit add_client(name_edit->text(), phone_edit->text(), registration_date_edit->text(), favourite_dish_select->currentIndex());
+    // ПОТРІБНО КОРЕКТНО ОПРАЦЮВАТИ ІНДЕКСУВАННЯ
 }

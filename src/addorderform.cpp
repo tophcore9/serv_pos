@@ -88,5 +88,6 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
 
 void AddOrderForm::add_order()
 {
-    emit add_order(0, 0.0, 0, "");
+    emit add_order(client_select->currentIndex(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text());
+    // ДОДАЙ ОБРОБКУ ПОМИЛОК ТА НАЛАШТУЙ ІНДЕКСУВАННЯ
 }
