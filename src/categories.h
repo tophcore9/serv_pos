@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QSqlQuery>
 #include "categoriesform.h"
 #include "addcategoryform.h"
 
@@ -15,6 +16,7 @@ private:
     QSqlTableModel *model;
     CategoriesForm *categories_form;
     AddCategoryForm *add_category_form;
+    QSqlDatabase db;
     QWidget *parent;
 
 public:

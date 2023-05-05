@@ -2,19 +2,12 @@
 
 Dishes::Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent) : QWidget(parent)
 {
+    this->db = db;
     this->categories_model = categories_model;
     this->parent = parent;
-    model = new QSqlTableModel(parent, db);
+    model = new QSqlTableModel(parent, this->db);
     model->setTable("Dishes");
     model->select();
-
-    // Обробка фото
-//    QLabel *photo = new QLabel;
-//    QPixmap *photo_pixmap = new QPixmap;
-//    photo_pixmap->load("../img/img2.jpg");
-//    photo->setPixmap(photo_pixmap->scaled(200, photo->height(), Qt::KeepAspectRatio));
-
-//    main_layout->addWidget(photo);
 }
 
 QSqlTableModel *Dishes::get_model()
@@ -34,6 +27,8 @@ void Dishes::remove_dish(int index)
 
 void Dishes::add_dish(QString name, double weight, double price, int category, int estimated_time, QString url)
 {
+    QSqlQuery query(db);
+    //query.exec();
     qDebug() << "Adding";
 }
 

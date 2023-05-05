@@ -2,9 +2,10 @@
 
 Orders::Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QWidget *parent) : QWidget(parent)
 {
+    this->db = db;
     this->parent = parent;
     this->clients_model = clients_model;
-    model = new QSqlTableModel(parent, db);
+    model = new QSqlTableModel(parent, this->db);
     model->setTable("Orders");
     model->select();
 }
@@ -26,7 +27,10 @@ void Orders::remove_order(int index)
 
 void Orders::add_order(int client_id, double total_price, int total_time, QString date)
 {
+    QSqlQuery query(db);
+    //query.exec();
     qDebug() << "Adding";
+    // Потрібно додати можливість додавання декількох страв
 }
 
 void Orders::open_add_order_form()

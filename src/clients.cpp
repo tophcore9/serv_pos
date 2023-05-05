@@ -2,9 +2,10 @@
 
 Clients::Clients(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
 {
+    this->db = db;
     this->dishes_model = dishes_model;
     this->parent = parent;
-    model = new QSqlTableModel(parent, db);
+    model = new QSqlTableModel(parent, this->db);
     model->setTable("Clients");
     model->select();
 }
@@ -23,6 +24,8 @@ void Clients::open_add_client_form()
 
 void Clients::add_client(QString name, QString phone, QString date, int favourite)
 {
+    QSqlQuery query(db);
+    //query.exec();
     qDebug() << "Adding";
 }
 

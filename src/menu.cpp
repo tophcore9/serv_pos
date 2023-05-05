@@ -29,6 +29,7 @@ void Menu::add_menu(QString name)
     QSqlQuery query(db);
     query.exec("INSERT INTO Menu (menu_name) VALUES ('" + name + "');");
     model->select();
+    // Також потрібно додати можливість додавання декількох страв
 }
 
 void Menu::open_add_menu_form()

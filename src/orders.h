@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QSqlQuery>
 #include "addorderform.h"
 
 class Orders : public QWidget
@@ -13,6 +14,7 @@ private:
     QSqlTableModel *model;
     QSqlTableModel *clients_model;
     AddOrderForm *add_order_form;
+    QSqlDatabase db;
     QWidget *parent;
 
 public:

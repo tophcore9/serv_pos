@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QSqlQuery>
 #include "adddishform.h"
 
 class Dishes : public QWidget

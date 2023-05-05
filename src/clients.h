@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QSqlQuery>
 #include "addclientform.h"
 
 class Clients : public QWidget
@@ -13,6 +14,7 @@ private:
     QSqlTableModel *model;
     QSqlTableModel *dishes_model;
     AddClientForm *add_client_form;
+    QSqlDatabase db;
     QWidget *parent;
 
 public:

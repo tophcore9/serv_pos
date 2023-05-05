@@ -2,8 +2,9 @@
 
 Categories::Categories(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 {
+    this->db = db;
     this->parent = parent;
-    model = new QSqlTableModel(parent, db);
+    model = new QSqlTableModel(parent, this->db);
     model->setTable("Categories");
     model->select();
 }
@@ -32,7 +33,9 @@ void Categories::open_add_category_form()
 
 void Categories::add_category(QString name)
 {
-    qDebug() << "Adding";
+    QSqlQuery query(db);
+    query.exec("INSERT INTO Categories (category_name) VALUES ('" + name + "');");
+    model->select();
 }
 
 void Categories::open_categories()
