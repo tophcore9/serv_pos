@@ -2,8 +2,9 @@
 
 Menu::Menu(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 {
+    this->db = db;
     this->parent = parent;
-    model = new QSqlTableModel(parent, db);
+    model = new QSqlTableModel(parent, this->db);
     model->setTable("Menu");
     model->select();
 }
@@ -25,7 +26,9 @@ void Menu::remove_menu(int index)
 
 void Menu::add_menu(QString name)
 {
-    qDebug() << "Adding";
+    QSqlQuery query(db);
+    query.exec("INSERT INTO Menu (menu_name) VALUES ('" + name + "');");
+    model->select();
 }
 
 void Menu::open_add_menu_form()

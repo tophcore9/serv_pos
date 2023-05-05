@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QSqlQuery>
 #include "menuform.h"
 #include "addmenuform.h"
 

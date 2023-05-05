@@ -49,5 +49,5 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(
 
 void AddMenuForm::add_menu()
 {
-    emit add_menu("");
+    emit add_menu(name_edit->text());
 }
