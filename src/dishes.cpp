@@ -25,12 +25,26 @@ void Dishes::remove_dish(int index)
     else qDebug() << "Incorect index";
 }
 
-void Dishes::add_dish(QString name, double weight, double price, int category, int estimated_time, QString url)
+void Dishes::add_dish(QString name, double weight, double price, QString category, int estimated_time, QString url)
 {
-    QSqlQuery query(db);
-    query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES ('" +
+    int category_id;
+    QSqlQuery index_query(db);
+    index_query.exec("SELECT * FROM Categories;");
+
+    while (index_query.next())
+    {
+        if (index_query.value("category_name") == category)
+        {
+            category_id = index_query.value("category_id").toInt();
+        }
+    }
+
+    qDebug() << QString::number(category_id);
+
+    //QSqlQuery query(db);
+    index_query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES ('" +
                name + "', " + QString::number(weight) + ", " + QString::number(price) + ", " +
-               QString::number(category) + ", " + QString::number(estimated_time) + ", '" + url + "');");
+               QString::number(category_id) + ", " + QString::number(estimated_time) + ", '" + url + "');");
     model->select();
     // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
