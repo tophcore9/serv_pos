@@ -7,14 +7,14 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_mode
     this->setWindowTitle("Додати меню");
     this->setFixedWidth(300);
     this->dishes_model = dishes_model;
-    dish_grid_index = 3;
+    dish_grid_index = 2;
     current_dish_item = 0;
 
     /// ВІДЖЕТИ
     l_name = new QLabel("Назва меню:");
     name_edit = new QLineEdit;
 
-    l_dishes = new QLabel("Страви");
+    l_dishes = new QLabel("Страви:");
     add_dish_btn = new QPushButton("+");
     add_dish_selects.push_back(new QComboBox);
 
@@ -25,7 +25,7 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_mode
     // Налаштування віджетів
     l_name->setAlignment(Qt::AlignRight);
 
-    add_dish_btn->setMaximumSize(30, 30);
+    add_dish_btn->setMaximumSize(25, 25);
 
 
 
@@ -48,7 +48,7 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_mode
     info_layout->addWidget(name_edit, 0, 1);
 
     info_layout->addWidget(l_dishes, 1, 0);
-    info_layout->addWidget(add_dish_btn, 2, 0);
+    info_layout->addWidget(add_dish_btn, 1, 1);
 
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
@@ -94,15 +94,6 @@ void AddMenuForm::remove_dish(int index)
     delete remove_dish_btns[index];
 
     // Вектор не змінюється
-    add_dish_selects.erase(add_dish_selects.begin() + index);
-    remove_dish_btns.erase(remove_dish_btns.begin() + index);
-
-    if (index == 4)
-    {
-        for (int i = 0; i < add_dish_selects.size(); ++i)
-        {
-            qDebug() << add_dish_selects[i]->currentText() << "\n";
-            //qDebug()
-        }
-    }
+//    add_dish_selects.erase(add_dish_selects.begin() + index);
+//    remove_dish_btns.erase(remove_dish_btns.begin() + index);
 }

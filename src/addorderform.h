@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QSqlTableModel>
 #include "clients.h"
+#include <functional>
 
 class AddOrderForm : public QDialog
 {
@@ -12,7 +13,10 @@ class AddOrderForm : public QDialog
 private:
     //QSqlTableModel *model;
     QSqlTableModel *clients_model;
+    QSqlTableModel *dishes_model;
     //QWidget *parent;
+    int dish_grid_index;
+    int current_dish_item;
 
     /// GUI
     QVBoxLayout *main_layout;
@@ -33,17 +37,26 @@ private:
     QLabel *l_date;
     QLineEdit *date_edit;
 
+    QLabel *l_dishes;
+    QPushButton *add_dish_btn;
+    std::vector<QComboBox*> add_dish_selects;
+    std::vector<QPushButton*> remove_dish_btns;
+
+
     QPushButton *accept_btn;
     QPushButton *cancel_btn;
 
 public:
-    explicit AddOrderForm(QSqlTableModel *clients_model, QWidget *parent = 0);
+    explicit AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
     void add_order(QString client, double total_price, int total_time, QString date);
 
 public slots:
     void add_order();
+    void add_dish();
+
+    void remove_dish(int index);
 };
 
 #endif // ADDORDERFORM_H

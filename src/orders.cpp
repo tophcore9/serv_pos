@@ -1,7 +1,8 @@
 #include "orders.h"
 
-Orders::Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QWidget *parent) : QWidget(parent)
+Orders::Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
 {
+    this->dishes_model = dishes_model;
     this->db = db;
     this->parent = parent;
     this->clients_model = clients_model;
@@ -51,7 +52,7 @@ void Orders::add_order(QString client, double total_price, int total_time, QStri
 
 void Orders::open_add_order_form()
 {
-    add_order_form = new AddOrderForm(clients_model, this);
+    add_order_form = new AddOrderForm(clients_model, dishes_model, this);
     add_order_form->setModal(true);
     add_order_form->show();
 }

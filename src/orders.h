@@ -13,12 +13,13 @@ class Orders : public QWidget
 private:
     QSqlTableModel *model;
     QSqlTableModel *clients_model;
+    QSqlTableModel *dishes_model;
     AddOrderForm *add_order_form;
     QSqlDatabase db;
     QWidget *parent;
 
 public:
-    explicit Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QWidget *parent = 0);
+    explicit Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
     QSqlTableModel* get_model();
 
