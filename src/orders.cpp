@@ -29,6 +29,8 @@ void Orders::add_order(QString client, double total_price, int total_time, QStri
 {
     int client_id;
     QSqlQuery query(db);
+
+    // Обробка індексації
     query.exec("SELECT * FROM Clients;");
 
     while (query.next())
@@ -44,6 +46,7 @@ void Orders::add_order(QString client, double total_price, int total_time, QStri
                QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
     model->select();
     // Потрібно додати можливість додавання декількох страв
+    // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
 
 void Orders::open_add_order_form()

@@ -11,7 +11,9 @@ class AddMenuForm : public QDialog
     Q_OBJECT
 
 private:
-    int dish_index;
+    QSqlTableModel *dishes_model;
+    int dish_grid_index;
+    int current_dish_item;
 
     // GUI
     QVBoxLayout *main_layout;
@@ -23,8 +25,9 @@ private:
 
     QLabel *l_dishes;
     QPushButton *add_dish_btn;
-    QComboBox *dishes_select;
-    QPushButton *remove_dish_btn;
+    std::vector<QComboBox*> add_dish_selects;
+    std::vector<QPushButton*> remove_dish_btns;
+
 
     QPushButton *accept_btn;
     QPushButton *cancel_btn;
@@ -36,8 +39,10 @@ signals:
     void add_menu(QString name);
 
 public slots:
-    void add_first_dish();
+    void add_dish();
     void add_menu();
+
+    void remove_dish(int index);
 };
 
 #endif // ADDMENUFORM_H

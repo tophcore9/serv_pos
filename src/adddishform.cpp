@@ -38,7 +38,6 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
 
-
     // Налаштування віджетів
     // Розсташування лейблів біля полів
     l_picture->setAlignment(Qt::AlignRight);
