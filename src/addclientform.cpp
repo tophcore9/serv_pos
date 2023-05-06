@@ -78,11 +78,11 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_client()));
-    connect(this, SIGNAL(add_client(QString,QString,QString,int)), parent, SLOT(add_client(QString,QString,QString,int)));
+    connect(this, SIGNAL(add_client(QString,QString,QString,QString)), parent, SLOT(add_client(QString,QString,QString,QString)));
 }
 
 void AddClientForm::add_client()
 {
-    emit add_client(name_edit->text(), phone_edit->text(), registration_date_edit->text(), favourite_dish_select->currentIndex());
+    emit add_client(name_edit->text(), phone_edit->text(), registration_date_edit->text(), favourite_dish_select->currentText());
     // ПОТРІБНО КОРЕКТНО ОПРАЦЮВАТИ ІНДЕКСУВАННЯ
 }

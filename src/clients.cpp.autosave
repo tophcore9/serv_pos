@@ -26,6 +26,8 @@ void Clients::add_client(QString name, QString phone, QString date, QString favo
 {
     int favourite_dish;
     QSqlQuery query(db);
+    
+    // Обробка індексації
     query.exec("SELECT * FROM Dishes;");
 
     while (query.next())

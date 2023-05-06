@@ -83,11 +83,11 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QWidget *parent) : QDi
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_order()));
-    connect(this, SIGNAL(add_order(int,double,int,QString)), parent, SLOT(add_order(int,double,int,QString)));
+    connect(this, SIGNAL(add_order(QString,double,int,QString)), parent, SLOT(add_order(QString,double,int,QString)));
 }
 
 void AddOrderForm::add_order()
 {
-    emit add_order(client_select->currentIndex(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text());
+    emit add_order(client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text());
     // ДОДАЙ ОБРОБКУ ПОМИЛОК ТА НАЛАШТУЙ ІНДЕКСУВАННЯ
 }

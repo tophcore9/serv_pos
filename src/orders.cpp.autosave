@@ -29,6 +29,8 @@ void Orders::add_order(QString client, double total_price, int total_time, QStri
 {
     int client_id;
     QSqlQuery query(db);
+    
+    // Обробка індексації
     query.exec("SELECT * FROM Clients;");
 
     while (query.next())

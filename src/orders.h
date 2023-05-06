@@ -27,7 +27,7 @@ signals:
 public slots:
     void open_add_order_form();
     void remove_order(int);
-    void add_order(int client_id, double total_price, int total_time, QString date);
+    void add_order(QString client_id, double total_price, int total_time, QString date);
 };
 
 #endif // ORDERS_H

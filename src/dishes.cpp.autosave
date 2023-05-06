@@ -29,6 +29,8 @@ void Dishes::add_dish(QString name, double weight, double price, QString categor
 {
     int category_id;
     QSqlQuery query(db);
+    
+    // Обробка індексації
     query.exec("SELECT * FROM Categories;");
 
     while (query.next())

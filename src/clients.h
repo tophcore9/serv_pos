@@ -27,7 +27,7 @@ signals:
 public slots:
     void remove_client(int);
     void open_add_client_form();
-    void add_client(QString name, QString phone, QString date, int favourite);
+    void add_client(QString name, QString phone, QString date, QString favourite);
 };
 
 #endif // CLIENTS_H
