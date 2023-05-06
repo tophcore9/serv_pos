@@ -14,13 +14,14 @@ class Menu : public QWidget
 
 private:
     QSqlTableModel *model;
+    QSqlTableModel *dishes_model;
     MenuForm *menu_form;
     AddMenuForm *add_menu_form;
     QWidget *parent;
     QSqlDatabase db;
 
 public:
-    explicit Menu(QSqlDatabase &db, QWidget *parent = 0);
+    explicit Menu(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
     QSqlTableModel* get_model();
 

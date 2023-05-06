@@ -106,9 +106,9 @@ MainWindow::MainWindow(QWidget *parent)
         statusBar()->showMessage("Успішне підключення до БД " + db.databaseName());
 
         // Ініціалізація класів
-        menu = new Menu(db, this);
         categories = new Categories(db, this);
         dishes = new Dishes(db, categories->get_model(), this);
+        menu = new Menu(db, dishes->get_model(), this);
         clients = new Clients(db, dishes->get_model(), this);
         orders = new Orders(db, clients->get_model(), this);
 

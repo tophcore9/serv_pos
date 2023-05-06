@@ -29,7 +29,8 @@ void Dishes::add_dish(QString name, double weight, double price, int category, i
 {
     QSqlQuery query(db);
     query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES ('" +
-               name + "', " + QString::number(weight) + ", " + QString::number(price) + ", " + QString::number(category) + ", " + QString::number(estimated_time) + ", '" + url + "');");
+               name + "', " + QString::number(weight) + ", " + QString::number(price) + ", " +
+               QString::number(category) + ", " + QString::number(estimated_time) + ", '" + url + "');");
     model->select();
     // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
