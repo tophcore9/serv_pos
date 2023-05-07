@@ -28,11 +28,10 @@ void Orders::remove_order(int index)
     else qDebug() << "Incorect index";
 }
 
-void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<int> dishes) // Додай нескінченні параметри
+void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes) // Додай нескінченні параметри
 {
-    qDebug() << name;
     for (int i = 0; i < dishes.size(); ++i)
-        qDebug() << QString::number(dishes[i]);
+        qDebug() << dishes[i];
     //order_items->add_order_item();
 //    int client_id;
 //    QSqlQuery query(db);

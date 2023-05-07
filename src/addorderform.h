@@ -54,7 +54,7 @@ public:
     explicit AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
-    void add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<int> dishes);
+    void add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
 
 public slots:
     void add_order();

@@ -27,11 +27,10 @@ void Menu::remove_menu(int index)
     else qDebug() << "Incorect index";
 }
 
-void Menu::add_menu(QString name, std::vector<int> dishes) // Додай нескінченні параметри
+void Menu::add_menu(QString name, std::vector<QString> dishes) // Додай нескінченні параметри
 {
-    qDebug() << name;
     for (int i = 0; i < dishes.size(); ++i)
-        qDebug() << QString::number(dishes[i]);
+        qDebug() << dishes[i];
     //menu_items->add_menu_item(name);
 //    QSqlQuery query(db);
 //    qDebug() << query.value("menu_name");

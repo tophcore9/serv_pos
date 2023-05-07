@@ -58,7 +58,7 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_mode
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_menu()));
-    connect(this, SIGNAL(add_menu(QString,std::vector<int>)), parent, SLOT(add_menu(QString,std::vector<int>)));
+    connect(this, SIGNAL(add_menu(QString,std::vector<QString>)), parent, SLOT(add_menu(QString,std::vector<QString>)));
 
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
@@ -83,7 +83,12 @@ void AddMenuForm::add_dish()
 
 void AddMenuForm::add_menu()
 {
-    std::vector<int> dishes = {43, 21, 45};
+    std::vector<QString> dishes;
+
+    for (int i = 0; i < add_dish_selects.size() - 1; ++i)
+        if (add_dish_selects[i] != NULL)
+            dishes.push_back(add_dish_selects[i]->currentText());
+
     emit add_menu(name_edit->text(), dishes);
 }
 
@@ -91,8 +96,12 @@ void AddMenuForm::remove_dish(int index)
 {
     info_layout->removeWidget(add_dish_selects[index]);
     info_layout->removeWidget(remove_dish_btns[index]);
+
     delete add_dish_selects[index];
+    add_dish_selects[index] = NULL;
+
     delete remove_dish_btns[index];
+    remove_dish_btns[index] = NULL;
 
     // Вектор не змінюється
 //    add_dish_selects.erase(add_dish_selects.begin() + index);

@@ -36,7 +36,7 @@ public:
     explicit AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
-    void add_menu(QString name, std::vector<int> dishes);
+    void add_menu(QString name, std::vector<QString> dishes);
 
 public slots:
     void add_dish();

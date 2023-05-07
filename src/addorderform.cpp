@@ -107,14 +107,19 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_order()));
-    connect(this, SIGNAL(add_order(QString,QString,double,int,QString,std::vector<int>)), parent, SLOT(add_order(QString,QString,double,int,QString,std::vector<int>)));
+    connect(this, SIGNAL(add_order(QString,QString,double,int,QString,std::vector<QString>)), parent, SLOT(add_order(QString,QString,double,int,QString,std::vector<QString>)));
 
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
 
 void AddOrderForm::add_order()
 {
-    std::vector<int> dishes = {34, 12, 5};
+    std::vector<QString> dishes;
+
+    for (int i = 0; i < add_dish_selects.size(); ++i)
+        if (add_dish_selects[i] != NULL)
+            dishes.push_back(add_dish_selects[i]->currentText());
+
     emit add_order(name_edit->text(), client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text(), dishes);
     // ДОДАЙ ОБРОБКУ ПОМИЛОК ТА НАЛАШТУЙ ІНДЕКСУВАННЯ
 }
@@ -148,9 +153,15 @@ void AddOrderForm::remove_dish(int index)
     info_layout->removeWidget(add_dish_selects[index]);
     info_layout->removeWidget(count_dish_edits[index]);
     info_layout->removeWidget(remove_dish_btns[index]);
+
     delete add_dish_selects[index];
+    add_dish_selects[index] = NULL;
+
     delete count_dish_edits[index];
+    count_dish_edits[index] = NULL;
+
     delete remove_dish_btns[index];
+    remove_dish_btns[index] = NULL;
 
     // Вектор не змінюється
 //    add_dish_selects.erase(add_dish_selects.begin() + index);
