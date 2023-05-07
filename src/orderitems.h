@@ -21,6 +21,7 @@ public:
 signals:
 
 public slots:
+    void add_order_item(QString client_name, QString order_name);
 };
 
 #endif // ORDERITEMS_H

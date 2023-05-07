@@ -12,3 +12,8 @@ QSqlTableModel *OrderItems::get_model()
 {
     return model;
 }
+
+void OrderItems::add_order_item(QString client_name, QString order_name)
+{
+
+}
