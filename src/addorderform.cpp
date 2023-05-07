@@ -107,14 +107,15 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_order()));
-    connect(this, SIGNAL(add_order(QString,QString,double,int,QString)), parent, SLOT(add_order(QString,QString,double,int,QString)));
+    connect(this, SIGNAL(add_order(QString,QString,double,int,QString,std::vector<int>)), parent, SLOT(add_order(QString,QString,double,int,QString,std::vector<int>)));
 
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
 
 void AddOrderForm::add_order()
 {
-    emit add_order(name_edit->text(), client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text());
+    std::vector<int> dishes = {34, 12, 5};
+    emit add_order(name_edit->text(), client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text(), dishes);
     // ДОДАЙ ОБРОБКУ ПОМИЛОК ТА НАЛАШТУЙ ІНДЕКСУВАННЯ
 }
 

@@ -7,6 +7,7 @@
 #include <QSqlQuery>
 #include "addorderform.h"
 #include "orderitems.h"
+#include <cstdarg>
 
 class Orders : public QWidget
 {
@@ -30,7 +31,7 @@ signals:
 public slots:
     void open_add_order_form();
     void remove_order(int);
-    void add_order(QString name, QString client, double total_price, int total_time, QString date);
+    void add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<int> dishes);
 };
 
 #endif // ORDERS_H

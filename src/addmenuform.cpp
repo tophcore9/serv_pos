@@ -58,7 +58,7 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_mode
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_menu()));
-    connect(this, SIGNAL(add_menu(QString)), parent, SLOT(add_menu(QString)));
+    connect(this, SIGNAL(add_menu(QString,std::vector<int>)), parent, SLOT(add_menu(QString,std::vector<int>)));
 
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
@@ -83,7 +83,8 @@ void AddMenuForm::add_dish()
 
 void AddMenuForm::add_menu()
 {
-    emit add_menu(name_edit->text());
+    std::vector<int> dishes = {43, 21, 45};
+    emit add_menu(name_edit->text(), dishes);
 }
 
 void AddMenuForm::remove_dish(int index)
