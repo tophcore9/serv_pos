@@ -111,6 +111,8 @@ MainWindow::MainWindow(QWidget *parent)
         menu = new Menu(db, dishes->get_model(), this);
         clients = new Clients(db, dishes->get_model(), this);
         orders = new Orders(db, clients->get_model(), dishes->get_model(), this);
+        menu_items = new MenuItems(db, this);
+        order_items = new OrderItems(db, this);
 
         // Задання моделей таблицям
         order_list_view->setModel(orders->get_model());
