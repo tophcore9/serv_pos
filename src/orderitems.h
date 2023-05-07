@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QSqlTableModel>
 #include <QDebug>
+#include <QSqlQuery>
 
 class OrderItems : public QWidget
 {
@@ -21,7 +22,7 @@ public:
 signals:
 
 public slots:
-    void add_order_item(QString client_name, QString order_name);
+    void add_order_item(QString order_name, QString dish_name);
 };
 
 #endif // ORDERITEMS_H

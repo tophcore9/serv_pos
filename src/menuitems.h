@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include <QSqlTableModel>
+#include <QSqlQuery>
 #include <QDebug>
 
 class MenuItems : public QWidget
@@ -21,6 +22,7 @@ public:
 signals:
 
 public slots:
+    void add_menu_item(QString menu_name, QString dish_name);
 };
 
 #endif // MENUITEMS_H

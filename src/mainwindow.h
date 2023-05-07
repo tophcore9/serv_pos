@@ -8,8 +8,6 @@
 #include "clients.h"
 #include "categories.h"
 #include "menu.h"
-#include "menuitems.h"
-#include "orderitems.h"
 
 class MainWindow : public QMainWindow
 {
@@ -21,8 +19,6 @@ private:
     Orders *orders;
     Categories *categories;
     Menu *menu;
-    MenuItems *menu_items;
-    OrderItems *order_items;
 
     int current_client, current_dish, current_order;
 

@@ -9,6 +9,8 @@ Orders::Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *
     model = new QSqlTableModel(parent, this->db);
     model->setTable("Orders");
     model->select();
+
+    order_items = new OrderItems(db, this);
 }
 
 QSqlTableModel *Orders::get_model()
@@ -26,26 +28,28 @@ void Orders::remove_order(int index)
     else qDebug() << "Incorect index";
 }
 
-void Orders::add_order(QString client, double total_price, int total_time, QString date)
+void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date)
 {
-    int client_id;
-    QSqlQuery query(db);
+    qDebug() << name;
+    //order_items->add_order_item();
+//    int client_id;
+//    QSqlQuery query(db);
 
-    // Обробка індексації
-    query.exec("SELECT * FROM Clients;");
+//    // Обробка індексації
+//    query.exec("SELECT * FROM Clients;");
 
-    while (query.next())
-    {
-        if (query.value("client_name") == client)
-        {
-            client_id = query.value("client_id").toInt();
-            break;
-        }
-    }
+//    while (query.next())
+//    {
+//        if (query.value("client_name") == client)
+//        {
+//            client_id = query.value("client_id").toInt();
+//            break;
+//        }
+//    }
 
-    query.exec("INSERT INTO Orders (client_id, order_price, order_estimated_time, order_date) VALUES (" + QString::number(client_id) + ", " +
-               QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
-    model->select();
+//    query.exec("INSERT INTO Orders (client_id, order_price, order_estimated_time, order_date) VALUES (" + QString::number(client_id) + ", " +
+//               QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
+//    model->select();
     // Потрібно додати можливість додавання декількох страв
     // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }

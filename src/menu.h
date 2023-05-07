@@ -7,6 +7,7 @@
 #include <QSqlQuery>
 #include "menuform.h"
 #include "addmenuform.h"
+#include "menuitems.h"
 
 class Menu : public QWidget
 {
@@ -15,6 +16,7 @@ class Menu : public QWidget
 private:
     QSqlTableModel *model;
     QSqlTableModel *dishes_model;
+    MenuItems *menu_items;
     MenuForm *menu_form;
     AddMenuForm *add_menu_form;
     QWidget *parent;

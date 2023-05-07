@@ -23,6 +23,9 @@ private:
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
+    QLabel *l_name;
+    QLineEdit *name_edit;
+
     QLabel *l_client;
     QComboBox *client_select;
 
@@ -51,7 +54,7 @@ public:
     explicit AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
-    void add_order(QString client, double total_price, int total_time, QString date);
+    void add_order(QString name, QString client, double total_price, int total_time, QString date);
 
 public slots:
     void add_order();

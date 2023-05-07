@@ -8,20 +8,23 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     this->clients_model = clients_model;
     this->setWindowTitle("Додати замовлення");
     this->setFixedWidth(350);
-    dish_grid_index = 5;
+    dish_grid_index = 6;
     current_dish_item = 0;
 
 
     /// ВІДЖЕТИ
+    l_name = new QLabel("Ідентифікатор:");
+    name_edit = new QLineEdit("Замовлення#");
+
     l_client = new QLabel("Клієнт:");
     client_select = new QComboBox;
 
     l_price = new QLabel("Вартість:");
-    price_edit = new QLineEdit;
+    price_edit = new QLineEdit("0");
     price_l = new QLabel("грн.");
 
     l_estimated_time = new QLabel("Очікуваний час приготування:");
-    estimated_time_edit = new QLineEdit;
+    estimated_time_edit = new QLineEdit("0");
     estimated_time_l = new QLabel("хв.");
 
     l_date = new QLabel("Дата:");
@@ -37,6 +40,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
 
     // Налаштування віджетів
     // Розсташування лейблів біля полей
+    l_name->setAlignment(Qt::AlignRight);
     l_client->setAlignment(Qt::AlignRight);
     l_price->setAlignment(Qt::AlignRight);
     l_estimated_time->setAlignment(Qt::AlignRight);
@@ -53,6 +57,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
 
 
 
+    name_edit->setEnabled(false);
     estimated_time_edit->setEnabled(false);
     price_edit->setEnabled(false);
 
@@ -74,22 +79,25 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     buttons_layout->setAlignment(Qt::AlignBottom);
 
     // Компоновка віджетів
-    info_layout->addWidget(l_client, 0, 0);
-    info_layout->addWidget(client_select, 0, 1);
+    info_layout->addWidget(l_name, 0, 0);
+    info_layout->addWidget(name_edit, 0, 1);
 
-    info_layout->addWidget(l_price, 1, 0);
-    info_layout->addWidget(price_edit, 1, 1);
-    info_layout->addWidget(price_l, 1, 2);
+    info_layout->addWidget(l_client, 1, 0);
+    info_layout->addWidget(client_select, 1, 1);
 
-    info_layout->addWidget(l_estimated_time, 2, 0);
-    info_layout->addWidget(estimated_time_edit, 2, 1);
-    info_layout->addWidget(estimated_time_l, 2, 2);
+    info_layout->addWidget(l_price, 2, 0);
+    info_layout->addWidget(price_edit, 2, 1);
+    info_layout->addWidget(price_l, 2, 2);
 
-    info_layout->addWidget(l_date, 3, 0);
-    info_layout->addWidget(date_edit, 3, 1);
+    info_layout->addWidget(l_estimated_time, 3, 0);
+    info_layout->addWidget(estimated_time_edit, 3, 1);
+    info_layout->addWidget(estimated_time_l, 3, 2);
 
-    info_layout->addWidget(l_dishes, 4, 0);
-    info_layout->addWidget(add_dish_btn, 4, 1);
+    info_layout->addWidget(l_date, 4, 0);
+    info_layout->addWidget(date_edit, 4, 1);
+
+    info_layout->addWidget(l_dishes, 5, 0);
+    info_layout->addWidget(add_dish_btn, 5, 1);
 
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
@@ -99,14 +107,14 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_order()));
-    connect(this, SIGNAL(add_order(QString,double,int,QString)), parent, SLOT(add_order(QString,double,int,QString)));
+    connect(this, SIGNAL(add_order(QString,QString,double,int,QString)), parent, SLOT(add_order(QString,QString,double,int,QString)));
 
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
 
 void AddOrderForm::add_order()
 {
-    emit add_order(client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text());
+    emit add_order(name_edit->text(), client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text());
     // ДОДАЙ ОБРОБКУ ПОМИЛОК ТА НАЛАШТУЙ ІНДЕКСУВАННЯ
 }
 

@@ -8,6 +8,8 @@ Menu::Menu(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : QW
     model = new QSqlTableModel(parent, this->db);
     model->setTable("Menu");
     model->select();
+
+    menu_items = new MenuItems(db, this);
 }
 
 QSqlTableModel *Menu::get_model()
@@ -27,10 +29,12 @@ void Menu::remove_menu(int index)
 
 void Menu::add_menu(QString name)
 {
-    QSqlQuery query(db);
-    qDebug() << query.value("menu_name");
-    query.exec("INSERT INTO Menu (menu_name) VALUES ('" + name + "');");
-    model->select();
+    qDebug() << name;
+    //menu_items->add_menu_item(name);
+//    QSqlQuery query(db);
+//    qDebug() << query.value("menu_name");
+//    query.exec("INSERT INTO Menu (menu_name) VALUES ('" + name + "');");
+//    model->select();
     // Також потрібно додати можливість додавання декількох страв
 }
 
