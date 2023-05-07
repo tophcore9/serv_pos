@@ -52,6 +52,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     date_edit->setMaximumWidth(200);
 
 
+
     estimated_time_edit->setEnabled(false);
     price_edit->setEnabled(false);
 
@@ -110,17 +111,22 @@ void AddOrderForm::add_order()
 }
 
 // МОЖНА ДОДАТИ LINEEDIT З МОЖЛИВІСТЮ УКАЗАННЯ КІЛЬКОСТІ ПОРЦІЙ А ТАКОЖ НАЛАШТУВАТИ ЗОВНІШНІЙ ВИГЛЯД
+// ПОПЕРШЕ ЦЕ СТВОРЕННЯ SCROLL ОБЛАСТІ, А ПО ДРУГЕ УКАЗАННЯ СТРАВ ПЕРЕД COMBO_BOX ТАКИХ ЯК "СТРАВА 1", "СТРАВА 2" І Т.Д.
 void AddOrderForm::add_dish()
 {
     add_dish_selects.push_back(new QComboBox);
     add_dish_selects[current_dish_item]->setModel(dishes_model);
     add_dish_selects[current_dish_item]->setModelColumn(1);
 
-    remove_dish_btns.push_back(new QPushButton(QString::number(current_dish_item)));
+    count_dish_edits.push_back(new QLineEdit);
+    count_dish_edits[current_dish_item]->setPlaceholderText("Кількість порцій");
+
+    remove_dish_btns.push_back(new QPushButton("x"));
     remove_dish_btns[current_dish_item]->setFixedSize(25, 25);
 
     info_layout->addWidget(add_dish_selects[current_dish_item], dish_grid_index + 1, 0);
-    info_layout->addWidget(remove_dish_btns[current_dish_item], dish_grid_index + 1, 1);
+    info_layout->addWidget(count_dish_edits[current_dish_item], dish_grid_index + 1, 1);
+    info_layout->addWidget(remove_dish_btns[current_dish_item], dish_grid_index + 1, 2);
 
     connect(remove_dish_btns[current_dish_item], &QPushButton::clicked, this, std::bind(&AddOrderForm::remove_dish, this, current_dish_item));
 
@@ -131,8 +137,10 @@ void AddOrderForm::add_dish()
 void AddOrderForm::remove_dish(int index)
 {
     info_layout->removeWidget(add_dish_selects[index]);
+    info_layout->removeWidget(count_dish_edits[index]);
     info_layout->removeWidget(remove_dish_btns[index]);
     delete add_dish_selects[index];
+    delete count_dish_edits[index];
     delete remove_dish_btns[index];
 
     // Вектор не змінюється

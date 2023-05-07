@@ -69,7 +69,7 @@ void AddMenuForm::add_dish()
     add_dish_selects[current_dish_item]->setModel(dishes_model);
     add_dish_selects[current_dish_item]->setModelColumn(1);
 
-    remove_dish_btns.push_back(new QPushButton(QString::number(current_dish_item)));
+    remove_dish_btns.push_back(new QPushButton("x"));
     remove_dish_btns[current_dish_item]->setFixedSize(25, 25);
 
     info_layout->addWidget(add_dish_selects[current_dish_item], dish_grid_index + 1, 0);

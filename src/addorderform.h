@@ -41,6 +41,7 @@ private:
     QPushButton *add_dish_btn;
     std::vector<QComboBox*> add_dish_selects;
     std::vector<QPushButton*> remove_dish_btns;
+    std::vector<QLineEdit*> count_dish_edits;
 
 
     QPushButton *accept_btn;
