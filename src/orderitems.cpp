@@ -18,7 +18,7 @@ void OrderItems::add_order_item(QString order_name, QString dish_name)
     int order_id, dish_id;
     QSqlQuery query(db);
 
-    query.exec("SELECT * FROM Orders;");
+    query.exec("SELECT * FROM Orders");
     while (query.next())
     {
         if (query.value("order_name") == order_name)
@@ -28,7 +28,7 @@ void OrderItems::add_order_item(QString order_name, QString dish_name)
         }
     }
 
-    query.exec("SELECT * FROM Dishes;");
+    query.exec("SELECT * FROM Dishes");
     while (query.next())
     {
         if (query.value("dish_name") == dish_name)
@@ -38,5 +38,11 @@ void OrderItems::add_order_item(QString order_name, QString dish_name)
         }
     }
 
-    qDebug() << "order_id: " << QString::number(order_id) << "\ndish_id: " << QString::number(dish_id);
+    query.exec("INSERT INTO OrderItems (order_id, dish_id) VALUES (" + QString::number(order_id) + ", " + QString::number(dish_id) + ");");
+    model->select();
+}
+
+void OrderItems::remove_order_items(int order_id)
+{
+
 }

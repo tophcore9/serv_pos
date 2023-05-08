@@ -54,6 +54,7 @@ private:
 
 public:
     explicit AddOrderForm(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
+    QString generate_uniq_hash();
 
 signals:
     void add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);

@@ -7,7 +7,8 @@ AddOrderForm::AddOrderForm(QSqlDatabase &db, QSqlTableModel *clients_model, QSql
     this->dishes_model = dishes_model;
     this->clients_model = clients_model;
     this->setWindowTitle("Додати замовлення");
-    this->setFixedWidth(350);
+    this->setFixedWidth(400);
+    srand(time(NULL));
     dish_grid_index = 6;
     current_dish_item = 0;
 
@@ -112,7 +113,26 @@ AddOrderForm::AddOrderForm(QSqlDatabase &db, QSqlTableModel *clients_model, QSql
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
 
-// ПОТРІБНО ЩОСЬ ПРИДУМАТИ З #ЗАМОВЛЕННЯ, А ТАКОЖ З ДОДАВАННЯМ ТА ВИДАЛЯННЯМ СУМИ ВАРТОСТІ ТА ЧАСУ ПРИГОТУВАННЯ ЗАМОВЛЕННЯ
+QString AddOrderForm::generate_uniq_hash()
+{
+    QString u_cipher;
+
+    // Генерація унікальної строки
+    u_cipher += date_edit->text() +
+            price_edit->text() +
+            estimated_time_edit->text() +
+            QString::number(current_dish_item) +
+            client_select->currentText() +
+            rand();
+
+    // Хешування строки та обрізання її до 4-5 символів
+    QString hash = QString::number(std::hash<std::string>()(u_cipher.toStdString()));
+    hash.chop(15);
+
+    return hash;
+}
+
+// ПОТРІБНО ЩОСЬ ПРИДУМАТИ З #ЗАМОВЛЕННЯ, НАПРИКЛАД ШИФРАТОР ДАТИ ЗАМОВЛЕННЯ, ID-клієнта ТА ВИПАДКОВОГО ЧИСЛА
 void AddOrderForm::add_order()
 {
     std::vector<QString> dishes;
@@ -137,6 +157,7 @@ void AddOrderForm::add_dish()
 
     count_dish_edits.push_back(new QLineEdit);
     count_dish_edits[current_dish_item]->setPlaceholderText("Кількість порцій");
+    count_dish_edits[current_dish_item]->setText("1");
 
     remove_dish_btns.push_back(new QPushButton("x"));
     remove_dish_btns[current_dish_item]->setFixedSize(25, 25);
@@ -147,6 +168,7 @@ void AddOrderForm::add_dish()
 
     connect(remove_dish_btns[current_dish_item], &QPushButton::clicked, this, std::bind(&AddOrderForm::remove_dish, this, current_dish_item));
     connect(add_dish_selects[current_dish_item], &QComboBox::currentTextChanged, this, &AddOrderForm::refresh_values);
+    connect(count_dish_edits[current_dish_item], &QLineEdit::textChanged, this, &AddOrderForm::refresh_values);
 
     refresh_values(0);
 
@@ -182,28 +204,34 @@ void AddOrderForm::refresh_values(QString)
     {
         if (add_dish_selects[i] != NULL)
         {
+            // Підрахування вартості заказу
             query.exec("SELECT * FROM Dishes");
             while (query.next())
             {
                 if (query.value("dish_name") == add_dish_selects[i]->currentText())
                 {
-                    current_dish_price += ( query.value("dish_price").toDouble());
+                    current_dish_price += (count_dish_edits[i]->text().toInt() * query.value("dish_price").toDouble());
                     break;
                 }
             }
 
+            // Знаходження найбільшого часу приготування
             query.exec("SELECT * FROM Dishes");
             while (query.next())
             {
                 if (query.value("dish_name") == add_dish_selects[i]->currentText())
                 {
-                    if (current_dish_estimated_time < query.value("dish_estimated_time").toInt())
+                    if (count_dish_edits[i]->text().toInt() > 0 && current_dish_estimated_time < query.value("dish_estimated_time").toInt())
                         current_dish_estimated_time = query.value("dish_estimated_time").toInt();
                 }
             }
         }
     }
 
+    // Встановлення вартості та часу приготування заказу
     price_edit->setText(QString::number(current_dish_price));
     estimated_time_edit->setText(QString::number(current_dish_estimated_time));
+
+    // Регенерування шифру замовлення
+    name_edit->setText("Замовлення#" + generate_uniq_hash());
 }

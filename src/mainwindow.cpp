@@ -114,7 +114,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         // Задання моделей таблицям
         order_list_view->setModel(orders->get_model());
-        order_list_view->setModelColumn(0);
+        order_list_view->setModelColumn(1);
 
         dishes_list_view->setModel(dishes->get_model());
         dishes_list_view->setModelColumn(1);

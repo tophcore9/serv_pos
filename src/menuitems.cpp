@@ -38,5 +38,5 @@ void MenuItems::add_menu_item(QString menu_name, QString dish_name)
         }
     }
 
-    qDebug() << "menu_id: " << QString::number(menu_id) << "\ndish_id: " << QString::number(dish_id);
+    //qDebug() << "menu_id: " << QString::number(menu_id) << "\ndish_id: " << QString::number(dish_id);
 }

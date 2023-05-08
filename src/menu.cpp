@@ -27,7 +27,7 @@ void Menu::remove_menu(int index)
     else qDebug() << "Incorect index";
 }
 
-void Menu::add_menu(QString name, std::vector<QString> dishes) // Додай нескінченні параметри
+void Menu::add_menu(QString name, std::vector<QString> dishes)
 {
     for (int i = 0; i < dishes.size(); ++i)
         qDebug() << dishes[i];

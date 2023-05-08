@@ -26,31 +26,41 @@ void Orders::remove_order(int index)
         model->select();
     }
     else qDebug() << "Incorect index";
+
+
+
+    //order_items->remove_order_items();
 }
 
-void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes) // Додай нескінченні параметри
+void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
+//    for (int i = 0; i < dishes.size(); ++i)
+//        qDebug() << dishes[i];
+//    qDebug() << "\n";
+
+    int client_id;
+    QSqlQuery query(db);
+
+    // Обробка індексації
+    query.exec("SELECT * FROM Clients;");
+
+    while (query.next())
+    {
+        if (query.value("client_name") == client)
+        {
+            client_id = query.value("client_id").toInt();
+            break;
+        }
+    }
+
+    query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES ('" + name + "', " + QString::number(client_id) + ", " +
+               QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
+    model->select();
+
+
     for (int i = 0; i < dishes.size(); ++i)
-        qDebug() << dishes[i];
-    //order_items->add_order_item();
-//    int client_id;
-//    QSqlQuery query(db);
+        order_items->add_order_item(name, dishes[i]);
 
-//    // Обробка індексації
-//    query.exec("SELECT * FROM Clients;");
-
-//    while (query.next())
-//    {
-//        if (query.value("client_name") == client)
-//        {
-//            client_id = query.value("client_id").toInt();
-//            break;
-//        }
-//    }
-
-//    query.exec("INSERT INTO Orders (client_id, order_price, order_estimated_time, order_date) VALUES (" + QString::number(client_id) + ", " +
-//               QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
-//    model->select();
     // Потрібно додати можливість додавання декількох страв
     // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
