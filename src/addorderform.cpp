@@ -1,9 +1,9 @@
 #include "addorderform.h"
 
-AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
+AddOrderForm::AddOrderForm(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    //this->parent = parent;
+    this->db = db;
     this->dishes_model = dishes_model;
     this->clients_model = clients_model;
     this->setWindowTitle("Додати замовлення");
@@ -112,20 +112,23 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
 
+// ПОТРІБНО ЩОСЬ ПРИДУМАТИ З #ЗАМОВЛЕННЯ, А ТАКОЖ З ДОДАВАННЯМ ТА ВИДАЛЯННЯМ СУМИ ВАРТОСТІ ТА ЧАСУ ПРИГОТУВАННЯ ЗАМОВЛЕННЯ
 void AddOrderForm::add_order()
 {
     std::vector<QString> dishes;
 
     for (int i = 0; i < add_dish_selects.size(); ++i)
         if (add_dish_selects[i] != NULL)
-            dishes.push_back(add_dish_selects[i]->currentText());
+        {
+            for (int j = 0; j < count_dish_edits[i]->text().toInt(); ++j)
+                dishes.push_back(add_dish_selects[i]->currentText());
+        }
 
     emit add_order(name_edit->text(), client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text(), dishes);
     // ДОДАЙ ОБРОБКУ ПОМИЛОК ТА НАЛАШТУЙ ІНДЕКСУВАННЯ
 }
 
-// МОЖНА ДОДАТИ LINEEDIT З МОЖЛИВІСТЮ УКАЗАННЯ КІЛЬКОСТІ ПОРЦІЙ А ТАКОЖ НАЛАШТУВАТИ ЗОВНІШНІЙ ВИГЛЯД
-// ПОПЕРШЕ ЦЕ СТВОРЕННЯ SCROLL ОБЛАСТІ, А ПО ДРУГЕ УКАЗАННЯ СТРАВ ПЕРЕД COMBO_BOX ТАКИХ ЯК "СТРАВА 1", "СТРАВА 2" І Т.Д.
+// МОЖНА ПОКРАЩИТИ ЗОВНІШНІЙ ВИГЛЯД, ПОПЕРШЕ ЦЕ СТВОРЕННЯ SCROLL ОБЛАСТІ, А ПО ДРУГЕ УКАЗАННЯ СТРАВ ПЕРЕД COMBO_BOX ТАКИХ ЯК "СТРАВА 1", "СТРАВА 2" І Т.Д.
 void AddOrderForm::add_dish()
 {
     add_dish_selects.push_back(new QComboBox);
@@ -143,6 +146,9 @@ void AddOrderForm::add_dish()
     info_layout->addWidget(remove_dish_btns[current_dish_item], dish_grid_index + 1, 2);
 
     connect(remove_dish_btns[current_dish_item], &QPushButton::clicked, this, std::bind(&AddOrderForm::remove_dish, this, current_dish_item));
+    connect(add_dish_selects[current_dish_item], &QComboBox::currentTextChanged, this, &AddOrderForm::refresh_values);
+
+    refresh_values(0);
 
     ++dish_grid_index;
     ++current_dish_item;
@@ -150,20 +156,54 @@ void AddOrderForm::add_dish()
 
 void AddOrderForm::remove_dish(int index)
 {
+    // Видалення віджету
     info_layout->removeWidget(add_dish_selects[index]);
-    info_layout->removeWidget(count_dish_edits[index]);
-    info_layout->removeWidget(remove_dish_btns[index]);
-
     delete add_dish_selects[index];
     add_dish_selects[index] = NULL;
 
+    info_layout->removeWidget(count_dish_edits[index]);
     delete count_dish_edits[index];
     count_dish_edits[index] = NULL;
 
+    info_layout->removeWidget(remove_dish_btns[index]);
     delete remove_dish_btns[index];
     remove_dish_btns[index] = NULL;
 
-    // Вектор не змінюється
-//    add_dish_selects.erase(add_dish_selects.begin() + index);
-//    remove_dish_btns.erase(remove_dish_btns.begin() + index);
+    refresh_values(0);
+}
+
+void AddOrderForm::refresh_values(QString)
+{
+    QSqlQuery query(db);
+    double current_dish_price = 0;
+    int current_dish_estimated_time = 0;
+
+    for (int i = 0; i < add_dish_selects.size(); ++i)
+    {
+        if (add_dish_selects[i] != NULL)
+        {
+            query.exec("SELECT * FROM Dishes");
+            while (query.next())
+            {
+                if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                {
+                    current_dish_price += ( query.value("dish_price").toDouble());
+                    break;
+                }
+            }
+
+            query.exec("SELECT * FROM Dishes");
+            while (query.next())
+            {
+                if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                {
+                    if (current_dish_estimated_time < query.value("dish_estimated_time").toInt())
+                        current_dish_estimated_time = query.value("dish_estimated_time").toInt();
+                }
+            }
+        }
+    }
+
+    price_edit->setText(QString::number(current_dish_price));
+    estimated_time_edit->setText(QString::number(current_dish_estimated_time));
 }

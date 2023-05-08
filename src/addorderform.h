@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include <QSqlTableModel>
+#include <QSqlQuery>
 #include "clients.h"
 #include <functional>
 
@@ -14,6 +15,7 @@ private:
     //QSqlTableModel *model;
     QSqlTableModel *clients_model;
     QSqlTableModel *dishes_model;
+    QSqlDatabase db;
     //QWidget *parent;
     int dish_grid_index;
     int current_dish_item;
@@ -51,7 +53,7 @@ private:
     QPushButton *cancel_btn;
 
 public:
-    explicit AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
+    explicit AddOrderForm(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
     void add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
@@ -61,6 +63,7 @@ public slots:
     void add_dish();
 
     void remove_dish(int index);
+    void refresh_values(QString);
 };
 
 #endif // ADDORDERFORM_H

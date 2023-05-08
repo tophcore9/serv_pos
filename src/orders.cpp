@@ -57,7 +57,7 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
 
 void Orders::open_add_order_form()
 {
-    add_order_form = new AddOrderForm(clients_model, dishes_model, this);
+    add_order_form = new AddOrderForm(db, clients_model, dishes_model, this);
     add_order_form->setModal(true);
     add_order_form->show();
 }
