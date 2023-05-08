@@ -20,16 +20,15 @@ QSqlTableModel *Orders::get_model()
 
 void Orders::remove_order(int index)
 {
+    QVariant order_id = model->data(model->index(index, 0));
+    order_items->remove_order_items(order_id.toInt());
+
     if (model->rowCount() > index)
     {
         model->removeRow(index);
         model->select();
     }
     else qDebug() << "Incorect index";
-
-
-
-    //order_items->remove_order_items();
 }
 
 void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)

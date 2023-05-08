@@ -44,5 +44,15 @@ void OrderItems::add_order_item(QString order_name, QString dish_name)
 
 void OrderItems::remove_order_items(int order_id)
 {
-
+    QSqlQuery query(db);
+    query.exec("DELETE FROM OrderItems WHERE order_id = " + QString::number(order_id));
+    qDebug() << query.lastError().databaseText();
+//    query.exec("SELECT * FROM OrderItems");
+//    while(query.next())
+//    {
+//        if (query.value("order_id") == QString::number(order_id))
+//        {
+//            query.
+//        }
+//    }
 }
