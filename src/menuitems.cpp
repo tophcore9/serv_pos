@@ -38,5 +38,13 @@ void MenuItems::add_menu_item(QString menu_name, QString dish_name)
         }
     }
 
-    //qDebug() << "menu_id: " << QString::number(menu_id) << "\ndish_id: " << QString::number(dish_id);
+    query.exec("INSERT INTO MenuItems (menu_id, dish_id) VALUES (" + QString::number(menu_id) + ", " + QString::number(dish_id) + ");");
+    model->select();
+}
+
+void MenuItems::remove_menu_items(int menu_id)
+{
+    QSqlQuery query(db);
+    query.exec("DELETE FROM MenuItems WHERE menu_id = " + QString::number(menu_id));
+    qDebug() << query.lastError().databaseText();
 }

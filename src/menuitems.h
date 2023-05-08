@@ -5,6 +5,7 @@
 #include <QSqlTableModel>
 #include <QSqlQuery>
 #include <QDebug>
+#include <QSqlError>
 
 class MenuItems : public QWidget
 {
@@ -23,6 +24,7 @@ signals:
 
 public slots:
     void add_menu_item(QString menu_name, QString dish_name);
+    void remove_menu_items(int menu_id);
 };
 
 #endif // MENUITEMS_H
