@@ -10,10 +10,8 @@ class AddDishForm : public QDialog
     Q_OBJECT
 
 private:
-    //QSqlTableModel *model;
     QSqlTableModel *categories_model;
     QString img_path;
-    //QWidget *parent;
 
     /// GUI
     QVBoxLayout *main_layout;

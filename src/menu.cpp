@@ -31,16 +31,12 @@ void Menu::remove_menu(int index)
 
 void Menu::add_menu(QString name, std::vector<QString> dishes)
 {
-//    for (int i = 0; i < dishes.size(); ++i)
-//        qDebug() << dishes[i];
-
-    model->query().exec("INSERT INTO Menu (menu_name) VALUES ('" + name + "');");
+    QSqlQuery query(model->database());
+    query.exec("INSERT INTO Menu (menu_name) VALUES (\"" + name + "\");");
     model->select();
 
     for (int i = 0; i < dishes.size(); ++i)
         menu_items->add_menu_item(name, dishes[i]);
-
-    // Також потрібно додати можливість додавання декількох страв
 }
 
 void Menu::open_add_menu_form()

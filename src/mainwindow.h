@@ -63,9 +63,6 @@ public slots:
     void change_client_row(const QModelIndex index);
     void change_dish_row(const QModelIndex index);
     void change_order_row(const QModelIndex index);
-//    void get_db(QSqlDatabase &database);
-//    void get_clients(Clients *clients_);
-//    void get_orders(Orders *orders_);
 };
 
 #endif // MAINWINDOW_H

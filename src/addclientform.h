@@ -9,9 +9,7 @@ class AddClientForm : public QDialog
 {
     Q_OBJECT
 private:
-    //QSqlTableModel *model;
     QSqlTableModel *dishes_model;
-    //QWidget *parent;
 
     /// GUI
     QVBoxLayout *main_layout;

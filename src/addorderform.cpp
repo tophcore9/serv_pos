@@ -124,14 +124,13 @@ QString AddOrderForm::generate_uniq_hash()
             client_select->currentText() +
             rand();
 
-    // Хешування строки та обрізання її до 4-5 символів
+    // Хешування строки та обрізання її до 3-5 символів
     QString hash = QString::number(std::hash<std::string>()(u_cipher.toStdString()));
     hash.chop(15);
 
     return hash;
 }
 
-// ПОТРІБНО ЩОСЬ ПРИДУМАТИ З #ЗАМОВЛЕННЯ, НАПРИКЛАД ШИФРАТОР ДАТИ ЗАМОВЛЕННЯ, ID-клієнта ТА ВИПАДКОВОГО ЧИСЛА
 void AddOrderForm::add_order()
 {
     std::vector<QString> dishes;
@@ -195,6 +194,7 @@ void AddOrderForm::remove_dish(int index)
 
 void AddOrderForm::refresh_values(QString)
 {
+    QSqlQuery query(dishes_model->database());
     double current_dish_price = 0;
     int current_dish_estimated_time = 0;
 
@@ -203,24 +203,24 @@ void AddOrderForm::refresh_values(QString)
         if (add_dish_selects[i] != NULL)
         {
             // Підрахування вартості заказу
-            dishes_model->query().exec("SELECT * FROM Dishes");
-            while (dishes_model->query().next())
+            query.exec("SELECT * FROM Dishes");
+            while (query.next())
             {
-                if (dishes_model->query().value("dish_name") == add_dish_selects[i]->currentText())
+                if (query.value("dish_name") == add_dish_selects[i]->currentText())
                 {
-                    current_dish_price += (count_dish_edits[i]->text().toInt() * dishes_model->query().value("dish_price").toDouble());
+                    current_dish_price += (count_dish_edits[i]->text().toInt() * query.value("dish_price").toDouble());
                     break;
                 }
             }
 
             // Знаходження найбільшого часу приготування
-            dishes_model->query().exec("SELECT * FROM Dishes");
-            while (dishes_model->query().next())
+            query.exec("SELECT * FROM Dishes");
+            while (query.next())
             {
-                if (dishes_model->query().value("dish_name") == add_dish_selects[i]->currentText())
+                if (query.value("dish_name") == add_dish_selects[i]->currentText())
                 {
-                    if (count_dish_edits[i]->text().toInt() > 0 && current_dish_estimated_time < dishes_model->query().value("dish_estimated_time").toInt())
-                        current_dish_estimated_time = dishes_model->query().value("dish_estimated_time").toInt();
+                    if (count_dish_edits[i]->text().toInt() > 0 && current_dish_estimated_time < query.value("dish_estimated_time").toInt())
+                        current_dish_estimated_time = query.value("dish_estimated_time").toInt();
                 }
             }
         }

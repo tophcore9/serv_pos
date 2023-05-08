@@ -35,26 +35,26 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
     int client_id;
 
     // Обробка індексації
-    model->query().exec("SELECT * FROM Clients;");
+    QSqlQuery query(model->database());
+    query.prepare("SELECT * FROM Clients;");
+    query.exec();
 
-    while (model->query().next())
+    while (query.next())
     {
-        if (model->query().value("client_name") == client)
+        if (query.value("client_name") == client)
         {
-            client_id = model->query().value("client_id").toInt();
+            client_id = query.value("client_id").toInt();
             break;
         }
     }
 
-    model->query().exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES ('" + name + "', " + QString::number(client_id) + ", " +
-               QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
+    query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES (\"" + name + "\", " +
+                        QString::number(client_id) + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\");");
     model->select();
-
 
     for (int i = 0; i < dishes.size(); ++i)
         order_items->add_order_item(name, dishes[i]);
 
-    // Потрібно додати можливість додавання декількох страв
     // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
 

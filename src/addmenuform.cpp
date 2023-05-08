@@ -102,8 +102,4 @@ void AddMenuForm::remove_dish(int index)
 
     delete remove_dish_btns[index];
     remove_dish_btns[index] = NULL;
-
-    // Вектор не змінюється
-//    add_dish_selects.erase(add_dish_selects.begin() + index);
-//    remove_dish_btns.erase(remove_dish_btns.begin() + index);
 }

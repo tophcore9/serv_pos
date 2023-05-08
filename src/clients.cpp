@@ -23,22 +23,23 @@ void Clients::open_add_client_form()
 
 void Clients::add_client(QString name, QString phone, QString date, QString favourite)
 {
+    QSqlQuery query(model->database());
     int favourite_dish;
 
     // Обробка індексації
-    model->query().exec("SELECT * FROM Dishes;");
+    query.exec("SELECT * FROM Dishes;");
 
-    while (model->query().next())
+    while (query.next())
     {
-        if (model->query().value("dish_name") == favourite)
+        if (query.value("dish_name") == favourite)
         {
-            favourite_dish = model->query().value("dish_id").toInt();
+            favourite_dish = query.value("dish_id").toInt();
             break;
         }
     }
 
-    model->query().exec("INSERT INTO Clients (client_name, client_phone, client_registration_date, client_favourite_dish) VALUES('" +
-               name + "', '" + phone + "', '" + date + "', " + QString::number(favourite_dish) + ");");
+    query.exec("INSERT INTO Clients (client_name, client_phone, client_registration_date, client_favourite_dish) VALUES(\"" +
+               name + "\", \"" + phone + "\", \"" + date + "\", " + QString::number(favourite_dish) + ");");
     model->select();
     // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }

@@ -32,7 +32,8 @@ void Categories::open_add_category_form()
 
 void Categories::add_category(QString name)
 {
-    model->query().exec("INSERT INTO Categories (category_name) VALUES ('" + name + "');");
+    QSqlQuery query(model->database());
+    query.exec("INSERT INTO Categories (category_name) VALUES (\"" + name + "\");");
     model->select();
 }
 

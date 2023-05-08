@@ -26,24 +26,25 @@ void Dishes::remove_dish(int index)
 
 void Dishes::add_dish(QString name, double weight, double price, QString category, int estimated_time, QString url)
 {
+    QSqlQuery query(model->database());
     int category_id;
 
     // Обробка індексації
-    model->query().exec("SELECT * FROM Categories");
-
-    while (model->query().next())
+    query.exec("SELECT * FROM Categories");
+    while (query.next())
     {
-        if (model->query().value("category_name") == category)
+        if (query.value("category_name") == category)
         {
-            category_id = model->query().value("category_id").toInt();
+            category_id = query.value("category_id").toInt();
             break;
         }
     }
 
-    model->query().exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES ('" +
-               name + "', " + QString::number(weight) + ", " + QString::number(price) + ", " +
-               QString::number(category_id) + ", " + QString::number(estimated_time) + ", '" + url + "');");
+    query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES (\"" +
+               name + "\", " + QString::number(weight) + ", " + QString::number(price) + ", " +
+               QString::number(category_id) + ", " + QString::number(estimated_time) + ", \"" + url + "\");");
     model->select();
+
     // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
 

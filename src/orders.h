@@ -7,7 +7,6 @@
 #include <QSqlQuery>
 #include "addorderform.h"
 #include "orderitems.h"
-#include <cstdarg>
 
 class Orders : public QWidget
 {

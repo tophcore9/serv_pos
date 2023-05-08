@@ -14,34 +14,36 @@ QSqlTableModel *OrderItems::get_model()
 
 void OrderItems::add_order_item(QString order_name, QString dish_name)
 {
+    QSqlQuery query(model->database());
     int order_id, dish_id;
 
-    model->query().exec("SELECT * FROM Orders");
-    while (model->query().next())
+    query.exec("SELECT * FROM Orders");
+    while (query.next())
     {
-        if (model->query().value("order_name") == order_name)
+        if (query.value("order_name") == order_name)
         {
-            order_id = model->query().value("order_id").toInt();
+            order_id = query.value("order_id").toInt();
             break;
         }
     }
 
-    model->query().exec("SELECT * FROM Dishes");
-    while (model->query().next())
+    query.exec("SELECT * FROM Dishes");
+    while (query.next())
     {
-        if (model->query().value("dish_name") == dish_name)
+        if (query.value("dish_name") == dish_name)
         {
-            dish_id = model->query().value("dish_id").toInt();
+            dish_id = query.value("dish_id").toInt();
             break;
         }
     }
 
-    model->query().exec("INSERT INTO OrderItems (order_id, dish_id) VALUES (" + QString::number(order_id) + ", " + QString::number(dish_id) + ");");
+    query.exec("INSERT INTO OrderItems (order_id, dish_id) VALUES (" + QString::number(order_id) + ", " + QString::number(dish_id) + ");");
     model->select();
 }
 
 void OrderItems::remove_order_items(int order_id)
 {
-    //QSqlQuery query(db);
-    model->query().exec("DELETE FROM OrderItems WHERE order_id = " + QString::number(order_id));
+    QSqlQuery query(model->database());
+    query.exec("DELETE FROM OrderItems WHERE order_id = " + QString::number(order_id));
+    model->select();
 }

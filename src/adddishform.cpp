@@ -183,5 +183,4 @@ void AddDishForm::add_dish()
 {
     emit add_dish(name_edit->text(), weight_edit->text().toDouble(), price_edit->text().toDouble(),
                   categories_select->currentText(), estimated_time_edit->text().toInt(), img_path);
-    // ПОТРІБНО КОРРЕКТНО ОПРАЦЮВАТИ ІНДЕКСУВАННЯ
 }
