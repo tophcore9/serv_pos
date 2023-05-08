@@ -3,10 +3,9 @@
 Orders::Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
 {
     this->dishes_model = dishes_model;
-    this->db = db;
     this->parent = parent;
     this->clients_model = clients_model;
-    model = new QSqlTableModel(parent, this->db);
+    model = new QSqlTableModel(parent, db);
     model->setTable("Orders");
     model->select();
 
@@ -33,26 +32,21 @@ void Orders::remove_order(int index)
 
 void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
-//    for (int i = 0; i < dishes.size(); ++i)
-//        qDebug() << dishes[i];
-//    qDebug() << "\n";
-
     int client_id;
-    QSqlQuery query(db);
 
     // Обробка індексації
-    query.exec("SELECT * FROM Clients;");
+    model->query().exec("SELECT * FROM Clients;");
 
-    while (query.next())
+    while (model->query().next())
     {
-        if (query.value("client_name") == client)
+        if (model->query().value("client_name") == client)
         {
-            client_id = query.value("client_id").toInt();
+            client_id = model->query().value("client_id").toInt();
             break;
         }
     }
 
-    query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES ('" + name + "', " + QString::number(client_id) + ", " +
+    model->query().exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES ('" + name + "', " + QString::number(client_id) + ", " +
                QString::number(total_price) + ", " + QString::number(total_time) + ", '" + date + "');");
     model->select();
 
@@ -66,7 +60,7 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
 
 void Orders::open_add_order_form()
 {
-    add_order_form = new AddOrderForm(db, clients_model, dishes_model, this);
+    add_order_form = new AddOrderForm(clients_model, dishes_model, this);
     add_order_form->setModal(true);
     add_order_form->show();
 }

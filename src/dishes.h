@@ -16,7 +16,6 @@ private:
     QSqlTableModel *categories_model;
     AddDishForm *add_dish_form;
     QWidget *parent;
-    QSqlDatabase db;
 
 public:
     explicit Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent = 0);

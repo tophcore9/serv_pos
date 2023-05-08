@@ -12,11 +12,8 @@ class AddOrderForm : public QDialog
     Q_OBJECT
 
 private:
-    //QSqlTableModel *model;
     QSqlTableModel *clients_model;
     QSqlTableModel *dishes_model;
-    QSqlDatabase db;
-    //QWidget *parent;
     int dish_grid_index;
     int current_dish_item;
 
@@ -53,7 +50,7 @@ private:
     QPushButton *cancel_btn;
 
 public:
-    explicit AddOrderForm(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
+    explicit AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
     QString generate_uniq_hash();
 
 signals:

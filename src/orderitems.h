@@ -13,7 +13,6 @@ class OrderItems : public QWidget
 
 private:
     QSqlTableModel *model;
-    QSqlDatabase db;
 
 public:
     explicit OrderItems(QSqlDatabase &db, QWidget *parent = 0);

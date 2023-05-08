@@ -2,10 +2,9 @@
 
 Dishes::Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent) : QWidget(parent)
 {
-    this->db = db;
     this->categories_model = categories_model;
     this->parent = parent;
-    model = new QSqlTableModel(parent, this->db);
+    model = new QSqlTableModel(parent, db);
     model->setTable("Dishes");
     model->select();
 }
@@ -28,21 +27,20 @@ void Dishes::remove_dish(int index)
 void Dishes::add_dish(QString name, double weight, double price, QString category, int estimated_time, QString url)
 {
     int category_id;
-    QSqlQuery query(db);
 
     // Обробка індексації
-    query.exec("SELECT * FROM Categories;");
+    model->query().exec("SELECT * FROM Categories");
 
-    while (query.next())
+    while (model->query().next())
     {
-        if (query.value("category_name") == category)
+        if (model->query().value("category_name") == category)
         {
-            category_id = query.value("category_id").toInt();
+            category_id = model->query().value("category_id").toInt();
             break;
         }
     }
 
-    query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES ('" +
+    model->query().exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES ('" +
                name + "', " + QString::number(weight) + ", " + QString::number(price) + ", " +
                QString::number(category_id) + ", " + QString::number(estimated_time) + ", '" + url + "');");
     model->select();

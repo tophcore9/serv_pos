@@ -4,7 +4,6 @@
 #include <QtWidgets>
 #include <QDebug>
 #include <QSqlTableModel>
-#include <QSqlQuery>
 #include "menuform.h"
 #include "addmenuform.h"
 #include "menuitems.h"
@@ -20,7 +19,6 @@ private:
     MenuForm *menu_form;
     AddMenuForm *add_menu_form;
     QWidget *parent;
-    QSqlDatabase db;
 
 public:
     explicit Menu(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent = 0);

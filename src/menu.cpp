@@ -3,9 +3,8 @@
 Menu::Menu(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
 {
     this->dishes_model = dishes_model;
-    this->db = db;
     this->parent = parent;
-    model = new QSqlTableModel(parent, this->db);
+    model = new QSqlTableModel(parent, db);
     model->setTable("Menu");
     model->select();
 
@@ -35,9 +34,7 @@ void Menu::add_menu(QString name, std::vector<QString> dishes)
 //    for (int i = 0; i < dishes.size(); ++i)
 //        qDebug() << dishes[i];
 
-    QSqlQuery query(db);
-    qDebug() << query.value("menu_name");
-    query.exec("INSERT INTO Menu (menu_name) VALUES ('" + name + "');");
+    model->query().exec("INSERT INTO Menu (menu_name) VALUES ('" + name + "');");
     model->select();
 
     for (int i = 0; i < dishes.size(); ++i)

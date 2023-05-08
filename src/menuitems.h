@@ -13,7 +13,6 @@ class MenuItems : public QWidget
 
 private:
     QSqlTableModel *model;
-    QSqlDatabase db;
 
 public:
     explicit MenuItems(QSqlDatabase &db, QWidget *parent = 0);

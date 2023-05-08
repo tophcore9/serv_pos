@@ -16,7 +16,6 @@ private:
     QSqlTableModel *model;
     CategoriesForm *categories_form;
     AddCategoryForm *add_category_form;
-    QSqlDatabase db;
     QWidget *parent;
 
 public:

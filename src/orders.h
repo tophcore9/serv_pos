@@ -18,7 +18,6 @@ private:
     QSqlTableModel *dishes_model;
     OrderItems *order_items;
     AddOrderForm *add_order_form;
-    QSqlDatabase db;
     QWidget *parent;
 
 public:

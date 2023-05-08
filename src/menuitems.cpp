@@ -2,8 +2,7 @@
 
 MenuItems::MenuItems(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 {
-    this->db = db;
-    model = new QSqlTableModel(parent, this->db);
+    model = new QSqlTableModel(parent, db);
     model->setTable("MenuItems");
     model->select();
 }
@@ -16,35 +15,32 @@ QSqlTableModel *MenuItems::get_model()
 void MenuItems::add_menu_item(QString menu_name, QString dish_name)
 {
     int menu_id, dish_id;
-    QSqlQuery query(db);
 
-    query.exec("SELECT * FROM Menu;");
-    while (query.next())
+    model->query().exec("SELECT * FROM Menu;");
+    while (model->query().next())
     {
-        if (query.value("menu_name") == menu_name)
+        if (model->query().value("menu_name") == menu_name)
         {
-            menu_id = query.value("menu_id").toInt();
+            menu_id = model->query().value("menu_id").toInt();
             break;
         }
     }
 
-    query.exec("SELECT * FROM Dishes;");
-    while (query.next())
+    model->query().exec("SELECT * FROM Dishes;");
+    while (model->query().next())
     {
-        if (query.value("dish_name") == dish_name)
+        if (model->query().value("dish_name") == dish_name)
         {
-            dish_id = query.value("dish_id").toInt();
+            dish_id = model->query().value("dish_id").toInt();
             break;
         }
     }
 
-    query.exec("INSERT INTO MenuItems (menu_id, dish_id) VALUES (" + QString::number(menu_id) + ", " + QString::number(dish_id) + ");");
+    model->query().exec("INSERT INTO MenuItems (menu_id, dish_id) VALUES (" + QString::number(menu_id) + ", " + QString::number(dish_id) + ");");
     model->select();
 }
 
 void MenuItems::remove_menu_items(int menu_id)
 {
-    QSqlQuery query(db);
-    query.exec("DELETE FROM MenuItems WHERE menu_id = " + QString::number(menu_id));
-    qDebug() << query.lastError().databaseText();
+    model->query().exec("DELETE FROM MenuItems WHERE menu_id = " + QString::number(menu_id));
 }
