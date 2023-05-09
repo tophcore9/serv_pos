@@ -14,6 +14,13 @@ QSqlTableModel *Dishes::get_model()
     return model;
 }
 
+void Dishes::open_show_dish_form()
+{
+    show_dish_form = new ShowDishForm(this);
+    show_dish_form->setModal(true);
+    show_dish_form->show();
+}
+
 void Dishes::remove_dish(int index)
 {
     if (model->rowCount() > index)

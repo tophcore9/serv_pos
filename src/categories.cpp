@@ -13,6 +13,13 @@ QSqlTableModel *Categories::get_model()
     return model;
 }
 
+void Categories::open_show_category_form()
+{
+    show_category_form = new ShowCategoryForm(this);
+    show_category_form->setModal(true);
+    show_category_form->show();
+}
+
 void Categories::remove_category(int index)
 {
     if (model->rowCount() > index)

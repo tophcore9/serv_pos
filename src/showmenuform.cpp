@@ -1,6 +1,6 @@
 #include "showmenuform.h"
 
-ShowMenuForm::ShowMenuForm(QWidget *parent) : QWidget(parent)
+ShowMenuForm::ShowMenuForm(QWidget *parent) : QDialog(parent)
 {
 
 }

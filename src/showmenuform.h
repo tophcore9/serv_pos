@@ -1,9 +1,10 @@
 #ifndef SHOWMENUFORM_H
 #define SHOWMENUFORM_H
 
-#include <QWidget>
+#include <QDialog>
+#include <QtWidgets>
 
-class ShowMenuForm : public QWidget
+class ShowMenuForm : public QDialog
 {
     Q_OBJECT
 public:

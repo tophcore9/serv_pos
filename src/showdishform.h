@@ -1,9 +1,10 @@
 #ifndef SHOWDISHFORM_H
 #define SHOWDISHFORM_H
 
-#include <QWidget>
+#include <QDialog>
+#include <QtWidgets>
 
-class ShowDishForm : public QWidget
+class ShowDishForm : public QDialog
 {
     Q_OBJECT
 public:

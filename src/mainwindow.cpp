@@ -133,6 +133,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // СИГНАЛИ ТА СЛОТИ
+    connect(client_list_view, &QListView::doubleClicked, clients, &Clients::open_show_client_form);
+    connect(order_list_view, &QListView::doubleClicked, orders, &Orders::open_show_order_form);
+    connect(dishes_list_view, &QListView::doubleClicked, dishes, &Dishes::open_show_dish_form);
+
     connect(add_client_btn, &QPushButton::clicked, clients, &Clients::open_add_client_form);
     connect(add_dish_btn, &QPushButton::clicked, dishes, &Dishes::open_add_dish_form);
     connect(add_order_btn, &QPushButton::clicked, orders, &Orders::open_add_order_form);

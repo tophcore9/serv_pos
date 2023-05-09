@@ -17,6 +17,13 @@ QSqlTableModel *Orders::get_model()
     return model;
 }
 
+void Orders::open_show_order_form()
+{
+    show_order_form = new ShowOrderForm(this);
+    show_order_form->setModal(true);
+    show_order_form->show();
+}
+
 void Orders::remove_order(int index)
 {
     QVariant order_id = model->data(model->index(index, 0));

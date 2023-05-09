@@ -1,6 +1,6 @@
 #include "showclientform.h"
 
-ShowClientForm::ShowClientForm(QWidget *parent) : QWidget(parent)
+ShowClientForm::ShowClientForm(QWidget *parent) : QDialog(parent)
 {
 
 }

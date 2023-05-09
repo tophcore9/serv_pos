@@ -5,8 +5,10 @@
 #include <QDebug>
 #include <QSqlTableModel>
 #include <QSqlQuery>
+
 #include "addorderform.h"
 #include "orderitems.h"
+#include "showorderform.h"
 
 class Orders : public QWidget
 {
@@ -15,8 +17,11 @@ private:
     QSqlTableModel *model;
     QSqlTableModel *clients_model;
     QSqlTableModel *dishes_model;
+
     OrderItems *order_items;
     AddOrderForm *add_order_form;
+    ShowOrderForm *show_order_form;
+
     QWidget *parent;
 
 public:
@@ -27,6 +32,7 @@ public:
 signals:
 
 public slots:
+    void open_show_order_form();
     void open_add_order_form();
     void remove_order(int);
     void add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);

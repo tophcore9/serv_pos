@@ -1,9 +1,10 @@
 #ifndef SHOWORDERFORM_H
 #define SHOWORDERFORM_H
 
-#include <QWidget>
+#include <QDialog>
+#include <QtWidgets>
 
-class ShowOrderForm : public QWidget
+class ShowOrderForm : public QDialog
 {
     Q_OBJECT
 public:

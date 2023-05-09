@@ -40,6 +40,8 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
     connect(exit_btn, SIGNAL(clicked()), this, SLOT(close()));
     connect(add_menu_btn, SIGNAL(clicked()), parent, SLOT(open_add_menu_form()));
 
+    connect(list_view, SIGNAL(doubleClicked(QModelIndex)), parent, SLOT(open_show_menu_form()));
+
     connect(list_view, SIGNAL(clicked(QModelIndex)), this, SLOT(change_menu_row(QModelIndex)));
 
     // Видалення меню

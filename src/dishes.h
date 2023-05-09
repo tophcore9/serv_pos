@@ -6,7 +6,9 @@
 #include <QSqlTableModel>
 #include <QSqlQuery>
 #include <QSqlError>
+
 #include "adddishform.h"
+#include "showdishform.h"
 
 class Dishes : public QWidget
 {
@@ -14,7 +16,10 @@ class Dishes : public QWidget
 private:
     QSqlTableModel *model;
     QSqlTableModel *categories_model;
+
     AddDishForm *add_dish_form;
+    ShowDishForm *show_dish_form;
+
     QWidget *parent;
 
 public:
@@ -25,6 +30,7 @@ public:
 signals:
 
 public slots:
+    void open_show_dish_form();
     void open_add_dish_form();
     void remove_dish(int);
     void add_dish(QString name, double weight, double price, QString category, int estimated_time, QString url);

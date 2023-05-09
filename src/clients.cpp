@@ -14,6 +14,13 @@ QSqlTableModel *Clients::get_model()
     return model;
 }
 
+void Clients::open_show_client_form()
+{
+    show_client_form = new ShowClientForm(this);
+    show_client_form->setModal(true);
+    show_client_form->show();
+}
+
 void Clients::open_add_client_form()
 {
     add_client_form = new AddClientForm(dishes_model, this);

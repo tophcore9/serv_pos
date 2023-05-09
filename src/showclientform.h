@@ -1,9 +1,10 @@
 #ifndef SHOWCLIENTFORM_H
 #define SHOWCLIENTFORM_H
 
-#include <QWidget>
+#include <QDialog>
+#include <QtWidgets>
 
-class ShowClientForm : public QWidget
+class ShowClientForm : public QDialog
 {
     Q_OBJECT
 public:

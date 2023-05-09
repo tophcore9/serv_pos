@@ -39,6 +39,8 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
     /// СИГНАЛИ ТА СЛОТИ
     connect(exit_btn, SIGNAL(clicked()), this, SLOT(close()));
 
+    connect(list_view, SIGNAL(doubleClicked(QModelIndex)), parent, SLOT(open_show_category_form()));
+
     connect(list_view, SIGNAL(clicked(QModelIndex)), this, SLOT(change_category_row(QModelIndex)));
 
     connect(delete_category_btn, SIGNAL(clicked()), this, SLOT(remove_category_row()));

@@ -1,9 +1,10 @@
 #ifndef SHOWCATEGORYFORM_H
 #define SHOWCATEGORYFORM_H
 
-#include <QWidget>
+#include <QDialog>
+#include <QtWidgets>
 
-class ShowCategoryForm : public QWidget
+class ShowCategoryForm : public QDialog
 {
     Q_OBJECT
 public:

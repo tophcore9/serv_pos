@@ -16,6 +16,13 @@ QSqlTableModel *Menu::get_model()
     return model;
 }
 
+void Menu::open_show_menu_form()
+{
+    show_menu_form = new ShowMenuForm(this);
+    show_menu_form->setModal(true);
+    show_menu_form->show();
+}
+
 void Menu::remove_menu(int index)
 {
     QVariant menu_id = model->data(model->index(index, 0));

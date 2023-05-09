@@ -1,6 +1,6 @@
 #include "showorderform.h"
 
-ShowOrderForm::ShowOrderForm(QWidget *parent) : QWidget(parent)
+ShowOrderForm::ShowOrderForm(QWidget *parent) : QDialog(parent)
 {
 
 }

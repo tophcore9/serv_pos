@@ -4,9 +4,11 @@
 #include <QtWidgets>
 #include <QDebug>
 #include <QSqlTableModel>
+
 #include "menuform.h"
 #include "addmenuform.h"
 #include "menuitems.h"
+#include "showmenuform.h"
 
 class Menu : public QWidget
 {
@@ -15,9 +17,12 @@ class Menu : public QWidget
 private:
     QSqlTableModel *model;
     QSqlTableModel *dishes_model;
+
     MenuItems *menu_items;
     MenuForm *menu_form;
     AddMenuForm *add_menu_form;
+    ShowMenuForm *show_menu_form;
+
     QWidget *parent;
 
 public:
@@ -28,6 +33,7 @@ public:
 signals:
 
 public slots:
+    void open_show_menu_form();
     void open_add_menu_form();
     void open_menu();
     void remove_menu(int);

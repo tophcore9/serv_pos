@@ -1,6 +1,6 @@
 #include "showdishform.h"
 
-ShowDishForm::ShowDishForm(QWidget *parent) : QWidget(parent)
+ShowDishForm::ShowDishForm(QWidget *parent) : QDialog(parent)
 {
 
 }
