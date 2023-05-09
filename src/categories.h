@@ -3,8 +3,10 @@
 
 #include <QtWidgets>
 #include <QDebug>
+
 #include <QSqlTableModel>
 #include <QSqlQuery>
+#include <QSqlError>
 
 #include "categoriesform.h"
 #include "addcategoryform.h"

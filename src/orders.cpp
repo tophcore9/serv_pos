@@ -34,7 +34,11 @@ void Orders::remove_order(int index)
         model->removeRow(index);
         model->select();
     }
-    else qDebug() << "Incorect index";
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+    }
 }
 
 void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
@@ -55,14 +59,21 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
         }
     }
 
-    query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES (\"" + name + "\", " +
-                        QString::number(client_id) + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\");");
-    model->select();
+    if (query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES (\"" + name + "\", " +
+                        QString::number(client_id) + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\");"))
+    {
+        model->select();
+        add_order_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(add_order_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 
     for (int i = 0; i < dishes.size(); ++i)
         order_items->add_order_item(name, dishes[i]);
-
-    // ДОДАЙ ОБРОБКУ ПОМИЛОК
 }
 
 void Orders::open_add_order_form()

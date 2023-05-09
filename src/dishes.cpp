@@ -28,7 +28,11 @@ void Dishes::remove_dish(int index)
         model->removeRow(index);
         model->select();
     }
-    else qDebug() << "Incorect index";
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+    }
 }
 
 void Dishes::add_dish(QString name, double weight, double price, QString category, int estimated_time, QString url)
@@ -47,12 +51,20 @@ void Dishes::add_dish(QString name, double weight, double price, QString categor
         }
     }
 
-    query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES (\"" +
+    // Виконання запиту і обробка помилок
+    if (query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES (\"" +
                name + "\", " + QString::number(weight) + ", " + QString::number(price) + ", " +
-               QString::number(category_id) + ", " + QString::number(estimated_time) + ", \"" + url + "\");");
-    model->select();
-
-    // ДОДАЙ ОБРОБКУ ПОМИЛОК
+               QString::number(category_id) + ", " + QString::number(estimated_time) + ", \"" + url + "\");"))
+    {
+        model->select();
+        add_dish_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(add_dish_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 }
 
 void Dishes::open_add_dish_form()

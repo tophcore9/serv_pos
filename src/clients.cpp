@@ -45,10 +45,19 @@ void Clients::add_client(QString name, QString phone, QString date, QString favo
         }
     }
 
-    query.exec("INSERT INTO Clients (client_name, client_phone, client_registration_date, client_favourite_dish) VALUES(\"" +
-               name + "\", \"" + phone + "\", \"" + date + "\", " + QString::number(favourite_dish) + ");");
-    model->select();
-    // ДОДАЙ ОБРОБКУ ПОМИЛОК
+    // Виконання запиту і обробка помилок
+    if (query.exec("INSERT INTO Clients (client_name, client_phone, client_registration_date, client_favourite_dish) VALUES(\"" +
+               name + "\", \"" + phone + "\", \"" + date + "\", " + QString::number(favourite_dish) + ");"))
+    {
+        model->select();
+        add_client_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(add_client_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 }
 
 void Clients::remove_client(int index)
@@ -58,5 +67,9 @@ void Clients::remove_client(int index)
         model->removeRow(index);
         model->select();
     }
-    else qDebug() << "Incorect index";
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+    }
 }

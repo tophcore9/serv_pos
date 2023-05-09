@@ -103,8 +103,6 @@ MainWindow::MainWindow(QWidget *parent)
     if (db.open())
     {
         /// ГОЛОВНА ЧАСТИНА ПРОГРАМИ
-        statusBar()->showMessage("Успішне підключення до БД " + db.databaseName());
-
         // Ініціалізація класів
         categories = new Categories(db, this);
         dishes = new Dishes(db, categories->get_model(), this);
@@ -125,7 +123,10 @@ MainWindow::MainWindow(QWidget *parent)
     else
     {
         /// ОБРОБКА ПОМИЛОК
-        statusBar()->showMessage("Помилка: " + db.lastError().text());
+        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
+                              "Повідомлення БД: " + db.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + db.lastError().driverText());
+        this->close();
     }
 
 
@@ -181,5 +182,4 @@ void MainWindow::remove_order_row()
 void MainWindow::change_client_row(const QModelIndex index)
 {
     current_client = index.row();
-    statusBar()->showMessage(QString::number(current_client));
 }

@@ -37,8 +37,12 @@ void MenuItems::add_menu_item(QString menu_name, QString dish_name)
         }
     }
 
-    query.exec("INSERT INTO MenuItems (menu_id, dish_id) VALUES (" + QString::number(menu_id) + ", " + QString::number(dish_id) + ");");
-    model->select();
+    if (query.exec("INSERT INTO MenuItems (menu_id, dish_id) VALUES (" + QString::number(menu_id) + ", " + QString::number(dish_id) + ");"))
+        model->select();
+    else
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
 }
 
 void MenuItems::remove_menu_items(int menu_id)

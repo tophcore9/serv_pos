@@ -27,7 +27,11 @@ void Categories::remove_category(int index)
         model->removeRow(index);
         model->select();
     }
-    else qDebug() << "Incorect index";
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+    }
 }
 
 void Categories::open_add_category_form()
@@ -40,8 +44,18 @@ void Categories::open_add_category_form()
 void Categories::add_category(QString name)
 {
     QSqlQuery query(model->database());
-    query.exec("INSERT INTO Categories (category_name) VALUES (\"" + name + "\");");
-    model->select();
+
+    if (query.exec("INSERT INTO Categories (category_name) VALUES (\"" + name + "\");"))
+    {
+        model->select();
+        add_category_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(add_category_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 }
 
 void Categories::open_categories()

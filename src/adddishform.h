@@ -56,6 +56,7 @@ signals:
 public slots:
     void select_image();
     void reselect_image();
+    void cancel_add_dish();
     void add_dish();
 };
 

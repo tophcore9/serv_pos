@@ -99,7 +99,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
 
 
     /// СИГНАЛИ ТА СЛОТИ
-    connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+    connect(cancel_btn, SIGNAL(clicked()), this, SLOT(cancel_add_dish()));
 
     connect(picture_select_btn, SIGNAL(clicked()), this, SLOT(select_image()));
 
@@ -141,6 +141,10 @@ void AddDishForm::select_image()
             connect(rechoose_picture_btn, SIGNAL(clicked()), this, SLOT(reselect_image()));
         }
     }
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось відкрити/копіювати файл!\n" + source.errorString());
+    }
 }
 
 void AddDishForm::reselect_image()
@@ -176,7 +180,20 @@ void AddDishForm::reselect_image()
             info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
         }
     }
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось відкрити/копіювати файл!\n" + source.errorString());
+    }
+}
 
+void AddDishForm::cancel_add_dish()
+{
+    // Видалення зображення
+    QFile file_to_delete(img_path);
+    file_to_delete.open(QIODevice::WriteOnly);
+    file_to_delete.remove();
+    file_to_delete.close();
+    this->close();
 }
 
 void AddDishForm::add_dish()

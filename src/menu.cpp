@@ -33,14 +33,28 @@ void Menu::remove_menu(int index)
         model->removeRow(index);
         model->select();
     }
-    else qDebug() << "Incorect index";
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+    }
 }
 
 void Menu::add_menu(QString name, std::vector<QString> dishes)
 {
     QSqlQuery query(model->database());
-    query.exec("INSERT INTO Menu (menu_name) VALUES (\"" + name + "\");");
-    model->select();
+
+    if (query.exec("INSERT INTO Menu (menu_name) VALUES (\"" + name + "\");"))
+    {
+        model->select();
+        add_menu_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(add_menu_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 
     for (int i = 0; i < dishes.size(); ++i)
         menu_items->add_menu_item(name, dishes[i]);

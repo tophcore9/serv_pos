@@ -50,6 +50,4 @@ AddCategoryForm::AddCategoryForm(QSqlTableModel *categories_model, QWidget *pare
 void AddCategoryForm::add_category()
 {
     emit add_category(name_edit->text());
-
-    this->close();
 }

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include <QSqlError>
+
 #include "orders.h"
 #include "dishes.h"
 #include "clients.h"
