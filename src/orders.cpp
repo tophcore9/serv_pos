@@ -17,9 +17,14 @@ QSqlTableModel *Orders::get_model()
     return model;
 }
 
+void Orders::change_index(const QModelIndex index)
+{
+    this->index = index;
+}
+
 void Orders::open_show_order_form()
 {
-    show_order_form = new ShowOrderForm(this);
+    show_order_form = new ShowOrderForm(index, dish_index, client_index, this);
     show_order_form->setModal(true);
     show_order_form->show();
 }

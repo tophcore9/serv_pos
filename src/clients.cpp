@@ -14,9 +14,14 @@ QSqlTableModel *Clients::get_model()
     return model;
 }
 
+void Clients::change_index(const QModelIndex index)
+{
+    this->index = index;
+}
+
 void Clients::open_show_client_form()
 {
-    show_client_form = new ShowClientForm(this);
+    show_client_form = new ShowClientForm(index, dish_index, this);
     show_client_form->setModal(true);
     show_client_form->show();
 }

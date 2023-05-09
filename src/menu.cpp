@@ -16,9 +16,14 @@ QSqlTableModel *Menu::get_model()
     return model;
 }
 
+void Menu::change_index(const QModelIndex index)
+{
+    this->index = index;
+}
+
 void Menu::open_show_menu_form()
 {
-    show_menu_form = new ShowMenuForm(this);
+    show_menu_form = new ShowMenuForm(index, this);
     show_menu_form->setModal(true);
     show_menu_form->show();
 }

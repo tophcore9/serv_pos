@@ -1,6 +1,0 @@
-#include "showdishform.h"
-
-ShowDishForm::ShowDishForm(QSqlTableModel *dish_model, QSqlTableModel *category_model, QWidget *parent) : QDialog(parent)
-{
-
-}

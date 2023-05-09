@@ -41,6 +41,7 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
     connect(add_menu_btn, SIGNAL(clicked()), parent, SLOT(open_add_menu_form()));
 
     connect(list_view, SIGNAL(doubleClicked(QModelIndex)), parent, SLOT(open_show_menu_form()));
+    connect(this, SIGNAL(send_index(QModelIndex)), parent, SLOT(change_index(QModelIndex)));
 
     connect(list_view, SIGNAL(clicked(QModelIndex)), this, SLOT(change_menu_row(QModelIndex)));
 

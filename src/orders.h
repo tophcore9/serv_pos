@@ -18,6 +18,10 @@ private:
     QSqlTableModel *clients_model;
     QSqlTableModel *dishes_model;
 
+    QModelIndex index;
+    QModelIndex client_index;
+    QModelIndex dish_index;
+
     OrderItems *order_items;
     AddOrderForm *add_order_form;
     ShowOrderForm *show_order_form;
@@ -32,6 +36,7 @@ public:
 signals:
 
 public slots:
+    void change_index(const QModelIndex index);
     void open_show_order_form();
     void open_add_order_form();
     void remove_order(int);

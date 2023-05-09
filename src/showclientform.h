@@ -4,11 +4,20 @@
 #include <QDialog>
 #include <QtWidgets>
 
+#include <QSqlTableModel>
+
 class ShowClientForm : public QDialog
 {
     Q_OBJECT
+
+private:
+    /// GUI
+    QVBoxLayout *main_layout;
+    QGridLayout *info_layout;
+    QHBoxLayout *buttons_layout;
+
 public:
-    explicit ShowClientForm(QWidget *parent = 0);
+    explicit ShowClientForm(QModelIndex client_index, QModelIndex dish_index, QWidget *parent = 0);
 
 signals:
 

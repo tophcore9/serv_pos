@@ -25,6 +25,7 @@ public:
     explicit MenuForm(QSqlTableModel *menu_model, QWidget *parent = 0);
 
 signals:
+    void send_index(const QModelIndex);
     void remove_menu_row(int);
 
 public slots:

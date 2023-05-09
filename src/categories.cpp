@@ -15,7 +15,7 @@ QSqlTableModel *Categories::get_model()
 
 void Categories::open_show_category_form()
 {
-    show_category_form = new ShowCategoryForm(this);
+    show_category_form = new ShowCategoryForm(index, this);
     show_category_form->setModal(true);
     show_category_form->show();
 }
@@ -32,6 +32,11 @@ void Categories::remove_category(int index)
         QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
                               "Будь ласка, оберіть елемент перед тим, як видалити його.");
     }
+}
+
+void Categories::change_index(const QModelIndex index)
+{
+    this->index = index;
 }
 
 void Categories::open_add_category_form()

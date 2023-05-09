@@ -14,9 +14,14 @@ QSqlTableModel *Dishes::get_model()
     return model;
 }
 
+void Dishes::change_index(const QModelIndex index)
+{
+    this->index = index;
+}
+
 void Dishes::open_show_dish_form()
 {
-    show_dish_form = new ShowDishForm(this);
+    show_dish_form = new ShowDishForm(index, category_index, this);
     show_dish_form->setModal(true);
     show_dish_form->show();
 }

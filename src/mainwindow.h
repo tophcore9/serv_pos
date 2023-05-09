@@ -56,6 +56,9 @@ public:
     MainWindow(QWidget *parent = 0);
 
 signals:
+    void send_client_index(const QModelIndex);
+    void send_dish_index(const QModelIndex);
+    void send_order_index(const QModelIndex);
 
 public slots:
     void remove_client_row();

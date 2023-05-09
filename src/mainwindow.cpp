@@ -138,6 +138,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(order_list_view, &QListView::doubleClicked, orders, &Orders::open_show_order_form);
     connect(dishes_list_view, &QListView::doubleClicked, dishes, &Dishes::open_show_dish_form);
 
+    connect(this, SIGNAL(send_client_index(QModelIndex)), clients, SLOT(change_index(QModelIndex)));
+    connect(this, SIGNAL(send_dish_index(QModelIndex)), dishes, SLOT(change_index(QModelIndex)));
+    connect(this, SIGNAL(send_order_index(QModelIndex)), orders, SLOT(change_index(QModelIndex)));
+
     connect(add_client_btn, &QPushButton::clicked, clients, &Clients::open_add_client_form);
     connect(add_dish_btn, &QPushButton::clicked, dishes, &Dishes::open_add_dish_form);
     connect(add_order_btn, &QPushButton::clicked, orders, &Orders::open_add_order_form);
@@ -157,11 +161,13 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::change_dish_row(const QModelIndex index)
 {
     current_dish = index.row();
+    send_dish_index(index);
 }
 
 void MainWindow::change_order_row(const QModelIndex index)
 {
     current_order = index.row();
+    send_order_index(index);
 }
 
 void MainWindow::remove_client_row()
@@ -182,4 +188,5 @@ void MainWindow::remove_order_row()
 void MainWindow::change_client_row(const QModelIndex index)
 {
     current_client = index.row();
+    send_client_index(index);
 }

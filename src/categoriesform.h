@@ -26,6 +26,7 @@ public:
 
 signals:
     void remove_category_row(int);
+    void send_index(const QModelIndex);
 
 public slots:
     void change_category_row(const QModelIndex index);

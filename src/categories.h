@@ -19,6 +19,8 @@ class Categories : public QWidget
 private:
     QSqlTableModel *model;
 
+    QModelIndex index;
+
     CategoriesForm *categories_form;
     AddCategoryForm *add_category_form;
     ShowCategoryForm *show_category_form;
@@ -38,6 +40,7 @@ public slots:
     void add_category(QString name);
     void open_categories();
     void remove_category(int);
+    void change_index(const QModelIndex index);
 };
 
 #endif // CATEGORIES_H
