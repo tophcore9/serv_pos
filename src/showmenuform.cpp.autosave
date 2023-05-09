@@ -1,0 +1,6 @@
+#include "showmenuform.h"
+
+ShowMenuForm::ShowMenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent)
+{
+
+}

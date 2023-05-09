@@ -1,0 +1,20 @@
+#ifndef SHOWCLIENTFORM_H
+#define SHOWCLIENTFORM_H
+
+#include <QDialog>
+#include <QtWidgets>
+
+#include <QSqlTableModel>
+
+class ShowClientForm : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit ShowClientForm(QSqlTableModel *client_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
+
+signals:
+
+public slots:
+};
+
+#endif // SHOWCLIENTFORM_H

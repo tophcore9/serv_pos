@@ -1,0 +1,6 @@
+#include "showclientform.h"
+
+ShowClientForm::ShowClientForm(QSqlTableModel *client_model, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
+{
+
+}

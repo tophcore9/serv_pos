@@ -1,0 +1,6 @@
+#include "showcategoryform.h"
+
+ShowCategoryForm::ShowCategoryForm(QSqlTableModel *category_model, QWidget *parent) : QDialog(parent)
+{
+	
+}
