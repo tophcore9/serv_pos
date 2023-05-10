@@ -53,6 +53,7 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
 void MenuForm::change_menu_row(const QModelIndex index)
 {
     current_menu = index.row();
+    send_index(index);
 }
 
 void MenuForm::remove_menu_row()

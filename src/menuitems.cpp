@@ -17,7 +17,7 @@ void MenuItems::add_menu_item(QString menu_name, QString dish_name)
     QSqlQuery query(model->database());
     int menu_id, dish_id;
 
-    query.exec("SELECT * FROM Menu;");
+    query.exec("SELECT * FROM Menu");
     while (query.next())
     {
         if (query.value("menu_name") == menu_name)
@@ -27,12 +27,12 @@ void MenuItems::add_menu_item(QString menu_name, QString dish_name)
         }
     }
 
-    query.exec("SELECT * FROM Dishes;");
+    query.exec("SELECT * FROM Dishes");
     while (query.next())
     {
         if (query.value("dish_name") == dish_name)
         {
-            dish_id = model->query().value("dish_id").toInt();
+            dish_id = query.value("dish_id").toInt();
             break;
         }
     }

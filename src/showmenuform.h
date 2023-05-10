@@ -18,6 +18,8 @@ private:
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
+    std::vector<QString> dishes;
+
 public:
     explicit ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *parent = 0);
 

@@ -2,26 +2,35 @@
 
 ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *parent) : QDialog(parent)
 {
+    QString order_id, order_name, client_name, client_phone, order_price, order_estimated_time, order_date;
+
     QSqlQuery query(db);
-    if (query.exec("SELECT * FROM Dishes JOIN Categories ON Dishes.dish_category = Categories.category_id"))
+    if (query.exec("SELECT * FROM Orders JOIN Clients ON Orders.client_id = Clients.client_id"))
     {
         while (query.next())
         {
-//            if (dish_index.data(0).toString() == query.value("dish_name"))
-//            {
-//                dish_name = query.value("dish_name").toString();
-//                dish_price = query.value("dish_price").toString();
-//                dish_weight = query.value("dish_weight").toString();
-//                dish_category = query.value("category_name").toString();
-//                dish_estimated_time = query.value("dish_estimated_time").toString();
-//                dish_photo = query.value("dish_photo").toString();
-//            }
+            if (order_index.data(0).toString() == query.value("order_name"))
+            {
+                order_id = query.value("order_id").toString();
+                order_name = query.value("order_name").toString();
+                client_name = query.value("client_name").toString();
+                client_phone = query.value("client_phone").toString();
+                order_price = query.value("order_price").toString();
+                order_estimated_time = query.value("order_estimated_time").toString();
+                order_date = query.value("order_date").toString();
+            }
         }
     }
-    else
+
+    if (query.exec("SELECT * FROM OrderItems JOIN Dishes ON OrderItems.dish_id = Dishes.dish_id"))
     {
-        // Обробка помилок
-        qDebug() << query.lastError().text();
+        while (query.next())
+        {
+            if (query.value("order_id") == order_id)
+            {
+                dishes.push_back(query.value("dish_name").toString());
+            }
+        }
     }
 
     /// МАКЕТИ ТА КОМПОНОВКА
@@ -37,4 +46,11 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *
 
     buttons_layout->setAlignment(Qt::AlignBottom);
 
+    // ТИМЧАСОВЕ
+    QString dishs = "";
+    for (int i = 0; i < dishes.size(); ++i)
+        dishs += dishes[i] + "\n";
+    QLabel *lb = new QLabel(order_name + "\n" + client_name + "\n" + client_phone + "\n" + order_price + "\n" + order_estimated_time + "\n" + order_date + "\n" + dishs);
+
+    info_layout->addWidget(lb);
 }

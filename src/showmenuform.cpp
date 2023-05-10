@@ -2,26 +2,31 @@
 
 ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *parent) : QDialog(parent)
 {
+    QString menu_name = menu_index.data(0).toString();
+    QString menu_id;
+
     QSqlQuery query(db);
-    if (query.exec("SELECT * FROM Dishes JOIN Categories ON Dishes.dish_category = Categories.category_id"))
+    query.exec("SELECT * FROM Menu");
+    while (query.next())
     {
-        while (query.next())
+        if (query.value("menu_name").toString() == menu_name)
         {
-//            if (dish_index.data(0).toString() == query.value("dish_name"))
-//            {
-//                dish_name = query.value("dish_name").toString();
-//                dish_price = query.value("dish_price").toString();
-//                dish_weight = query.value("dish_weight").toString();
-//                dish_category = query.value("category_name").toString();
-//                dish_estimated_time = query.value("dish_estimated_time").toString();
-//                dish_photo = query.value("dish_photo").toString();
-//            }
+            menu_id = query.value("menu_id").toString();
+            break;
         }
     }
-    else
+
+    if (query.exec("SELECT * FROM MenuItems JOIN Dishes ON MenuItems.dish_id = Dishes.dish_id"))
+    while (query.next())
     {
-        // Обробка помилок
-        qDebug() << query.lastError().text();
+        if (query.value("menu_id").toString() == menu_id)
+        {
+            dishes.push_back(query.value("dish_name").toString());
+        }
+        else
+        {
+            // ОБРОБКА ПОМИЛОК
+        }
     }
 
     /// МАКЕТИ ТА КОМПОНОВКА
@@ -37,4 +42,9 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
 
     buttons_layout->setAlignment(Qt::AlignBottom);
 
+    QString dshs = "";
+    for (int i = 0; i < dishes.size(); ++i)
+        dshs += dishes[i] + "\n";
+    QLabel *lb = new QLabel(menu_name + "\n" + dshs);
+    info_layout->addWidget(lb);
 }
