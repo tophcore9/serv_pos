@@ -12,13 +12,12 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
     /// ВІДЖЕТИ
     // Додавання віджетів
     l_name = new QLabel("Назва категорії:");
-    name_edit = new QLineEdit;
+    name_edit = new QLineEdit(category_name);
 
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
 
     // Налаштування віджетів
-    name_edit->setText(category_name);
 
     /// МАКЕТИ І КОМПОНОВКА
     // Додавання і налаштування макетів

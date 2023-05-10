@@ -55,8 +55,6 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     estimated_time_edit->setMaximumWidth(200);
     date_edit->setMaximumWidth(200);
 
-
-
     name_edit->setEnabled(false);
     estimated_time_edit->setEnabled(false);
     price_edit->setEnabled(false);

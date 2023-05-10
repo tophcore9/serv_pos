@@ -1,14 +1,14 @@
 #include "showorderform.h"
 
-ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *parent) : QDialog(parent)
+ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setFixedSize(500, 400);
+    this->setFixedWidth(400);
     this->setWindowTitle("Перегляд замовлення");
 
     QString order_id, order_name, client_name, client_phone, order_price, order_estimated_time, order_date;
 
-    QSqlQuery query(db);
+    QSqlQuery query(clients_model->database());
     if (query.exec("SELECT * FROM Orders JOIN Clients ON Orders.client_id = Clients.client_id"))
     {
         while (query.next())
@@ -40,14 +40,54 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *
 
     /// ВІДЖЕТИ
     // Додавання віджетів
+    l_name = new QLabel("Ідентифікатор:");
+    name_edit = new QLineEdit(order_name);
+
+    l_client = new QLabel("Клієнт:");
+    client_select = new QComboBox;
+
+    l_price = new QLabel("Вартість:");
+    price_edit = new QLineEdit("0");
+    price_l = new QLabel("грн.");
+
+    l_estimated_time = new QLabel("Очікуваний час приготування:");
+    estimated_time_edit = new QLineEdit("0");
+    estimated_time_l = new QLabel("хв.");
+
+    l_date = new QLabel("Дата:");
+    date_edit = new QLineEdit(order_date);
+
+    l_dishes = new QLabel("Страви:");
+    add_dish_btn = new QPushButton("+");
+
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
 
     // Налаштування віджетів
-    QString dishs = "";
-    for (int i = 0; i < dishes.size(); ++i)
-        dishs += dishes[i] + "\n";
-    QLabel *lb = new QLabel(order_name + "\n" + client_name + "\n" + client_phone + "\n" + order_price + "\n" + order_estimated_time + "\n" + order_date + "\n" + dishs);
+    // Розсташування лейблів біля полей
+    l_name->setAlignment(Qt::AlignRight);
+    l_client->setAlignment(Qt::AlignRight);
+    l_price->setAlignment(Qt::AlignRight);
+    l_estimated_time->setAlignment(Qt::AlignRight);
+    l_date->setAlignment(Qt::AlignRight);
+
+    l_dishes->setAlignment(Qt::AlignRight);
+    add_dish_btn->setFixedSize(25, 25);
+
+    // Встановлення статичного розміру полей вводу
+    name_edit->setMaximumWidth(200);
+    client_select->setMaximumWidth(200);
+    price_edit->setMaximumWidth(200);
+    estimated_time_edit->setMaximumWidth(200);
+    date_edit->setMaximumWidth(200);
+
+    name_edit->setEnabled(false);
+    estimated_time_edit->setEnabled(false);
+    price_edit->setEnabled(false);
+
+    client_select->setModel(clients_model);
+    client_select->setModelColumn(2);
+    client_select->setCurrentText(client_phone);
 
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -64,7 +104,26 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *
     main_layout->addLayout(buttons_layout);
 
     // Компоновка віджетів
-    info_layout->addWidget(lb);
+    info_layout->addWidget(l_name, 0, 0);
+    info_layout->addWidget(name_edit, 0, 1);
+
+    info_layout->addWidget(l_client, 1, 0);
+    info_layout->addWidget(client_select, 1, 1);
+
+    info_layout->addWidget(l_price, 2, 0);
+    info_layout->addWidget(price_edit, 2, 1);
+    info_layout->addWidget(price_l, 2, 2);
+
+    info_layout->addWidget(l_estimated_time, 3, 0);
+    info_layout->addWidget(estimated_time_edit, 3, 1);
+    info_layout->addWidget(estimated_time_l, 3, 2);
+
+    info_layout->addWidget(l_date, 4, 0);
+    info_layout->addWidget(date_edit, 4, 1);
+
+    info_layout->addWidget(l_dishes, 5, 0);
+    info_layout->addWidget(add_dish_btn, 5, 1);
+
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 

@@ -31,16 +31,16 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     /// ВІДЖЕТИ
     // Додавання віджетів
     l_name = new QLabel("ПІБ:");
-    name_edit = new QLineEdit;
+    name_edit = new QLineEdit(client_name);
 
     l_phone = new QLabel("Номер телефону:");
-    phone_edit = new QLineEdit;
+    phone_edit = new QLineEdit(client_phone);
 
     l_favourite_dish = new QLabel("Улюблена страва:");
     favourite_dish_select = new QComboBox;
 
     l_registration_date = new QLabel("Дата реєстрації:");
-    registration_date_edit = new QLineEdit(QDate::currentDate().toString(Qt::ISODate));
+    registration_date_edit = new QLineEdit(client_registration_date);
 
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
@@ -61,10 +61,6 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     favourite_dish_select->setModel(dishes_model);
     favourite_dish_select->setModelColumn(1);
     favourite_dish_select->setCurrentText(client_favourite_dish);
-
-    name_edit->setText(client_name);
-    phone_edit->setText(client_phone);
-    registration_date_edit->setText(client_registration_date);
 
 
     /// МАКЕТИ І КОМПОНОВКА
