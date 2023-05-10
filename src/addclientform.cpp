@@ -62,10 +62,13 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
     // Компоновка віджетів
     info_layout->addWidget(l_name, 0, 0);
     info_layout->addWidget(name_edit, 0, 1);
+
     info_layout->addWidget(l_phone, 1, 0);
     info_layout->addWidget(phone_edit, 1, 1);
+
     info_layout->addWidget(l_favourite_dish, 2, 0);
     info_layout->addWidget(favourite_dish_select, 2, 1);
+
     info_layout->addWidget(l_registration_date, 3, 0);
     info_layout->addWidget(registration_date_edit, 3, 1);
 
