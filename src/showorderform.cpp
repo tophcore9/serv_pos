@@ -2,7 +2,12 @@
 
 ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *parent) : QDialog(parent)
 {
+    this->setFixedSize(500, 400);
+    this->setWindowTitle("Перегляд замовлення");
     QString order_id, order_name, client_name, client_phone, order_price, order_estimated_time, order_date;
+
+    accept_btn = new QPushButton("Підтвердити");
+    cancel_btn = new QPushButton("Скасувати");
 
     QSqlQuery query(db);
     if (query.exec("SELECT * FROM Orders JOIN Clients ON Orders.client_id = Clients.client_id"))
@@ -53,4 +58,16 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *
     QLabel *lb = new QLabel(order_name + "\n" + client_name + "\n" + client_phone + "\n" + order_price + "\n" + order_estimated_time + "\n" + order_date + "\n" + dishs);
 
     info_layout->addWidget(lb);
+    buttons_layout->addWidget(accept_btn);
+    buttons_layout->addWidget(cancel_btn);
+
+    connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_order()));
+    connect(this, SIGNAL(edit_order(QString,QString,double,int,QString,std::vector<QString>)), parent, SLOT(edit_order(QString,QString,double,int,QString,std::vector<QString>)));
+
+    connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+}
+
+void ShowOrderForm::edit_order()
+{
+    emit edit_order("", "", 0.0, 0, "", {""});
 }

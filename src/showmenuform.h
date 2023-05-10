@@ -20,12 +20,17 @@ private:
 
     std::vector<QString> dishes;
 
+    QPushButton *accept_btn;
+    QPushButton *cancel_btn;
+
 public:
     explicit ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *parent = 0);
 
 signals:
+    void edit_menu(QString name, std::vector<QString> dishes);
 
 public slots:
+    void edit_menu();
 };
 
 #endif // SHOWMENUFORM_H

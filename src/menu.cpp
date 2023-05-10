@@ -65,6 +65,28 @@ void Menu::add_menu(QString name, std::vector<QString> dishes)
         menu_items->add_menu_item(name, dishes[i]);
 }
 
+void Menu::edit_menu(QString name, std::vector<QString> dishes)
+{
+    qDebug() << "Editing";
+//    QSqlQuery query(model->database());
+
+//    if (query.exec("INSERT INTO Menu (menu_name) VALUES (\"" + name + "\");"))
+//    {
+//        model->select();
+//        add_menu_form->close();
+//    }
+//    else
+//    {
+//        QMessageBox::critical(add_menu_form, "Помилка!", "Не вдалось виконати запит!\n"
+//                              "Повідомлення БД: " + query.lastError().databaseText() +
+//                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+//    }
+
+//    for (int i = 0; i < dishes.size(); ++i)
+//        menu_items->add_menu_item(name, dishes[i]);
+
+}
+
 void Menu::open_add_menu_form()
 {
     add_menu_form = new AddMenuForm(model, dishes_model, this);

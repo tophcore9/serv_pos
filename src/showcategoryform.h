@@ -16,12 +16,17 @@ private:
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
+    QPushButton *accept_btn;
+    QPushButton *cancel_btn;
+
 public:
     explicit ShowCategoryForm(QModelIndex category_index, QWidget *parent = 0);
 
 signals:
+    void edit_category(QString name);
 
 public slots:
+    void edit_category();
 };
 
 #endif // SHOWCATEGORYFORM_H

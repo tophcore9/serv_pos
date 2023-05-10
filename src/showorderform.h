@@ -20,12 +20,17 @@ private:
 
     std::vector<QString> dishes;
 
+    QPushButton *accept_btn;
+    QPushButton *cancel_btn;
+
 public:
     explicit ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *parent = 0);
 
 signals:
+    void edit_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
 
 public slots:
+    void edit_order();
 };
 
 #endif // SHOWORDERFORM_H

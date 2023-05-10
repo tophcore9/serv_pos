@@ -38,6 +38,7 @@ public slots:
     void open_show_category_form();
     void open_add_category_form();
     void add_category(QString name);
+    void edit_category(QString name);
     void open_categories();
     void remove_category(int);
     void change_index(const QModelIndex index);

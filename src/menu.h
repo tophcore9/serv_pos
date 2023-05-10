@@ -40,6 +40,7 @@ public slots:
     void open_menu();
     void remove_menu(int);
     void add_menu(QString name, std::vector<QString> dishes);
+    void edit_menu(QString name, std::vector<QString> dishes);
 };
 
 #endif // MENU_H
