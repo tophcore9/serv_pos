@@ -5,6 +5,8 @@
 #include <QtWidgets>
 
 #include <QSqlTableModel>
+#include <QSqlQuery>
+#include <QSqlError>
 
 class ShowClientForm : public QDialog
 {
@@ -17,7 +19,7 @@ private:
     QHBoxLayout *buttons_layout;
 
 public:
-    explicit ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_model, QWidget *parent = 0);
+    explicit ShowClientForm(QModelIndex client_index, QSqlDatabase db, QWidget *parent = 0);
 
 signals:
 

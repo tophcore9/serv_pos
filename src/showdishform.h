@@ -19,10 +19,8 @@ private:
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
-    QLabel *lb;
-
 public:
-    explicit ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_model, QWidget *parent = 0);
+    explicit ShowDishForm(QModelIndex dish_index, QSqlDatabase db, QWidget *parent = 0);
 
 signals:
 

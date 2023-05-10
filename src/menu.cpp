@@ -23,7 +23,7 @@ void Menu::change_index(const QModelIndex index)
 
 void Menu::open_show_menu_form()
 {
-    show_menu_form = new ShowMenuForm(index, this);
+    show_menu_form = new ShowMenuForm(index, model->database(), this);
     show_menu_form->setModal(true);
     show_menu_form->show();
 }

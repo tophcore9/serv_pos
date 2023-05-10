@@ -5,6 +5,8 @@
 #include <QtWidgets>
 
 #include <QSqlTableModel>
+#include <QSqlQuery>
+#include <QSqlError>
 
 class ShowOrderForm : public QDialog
 {
@@ -17,7 +19,7 @@ private:
     QHBoxLayout *buttons_layout;
 
 public:
-    explicit ShowOrderForm(QModelIndex order_index, QSqlTableModel *dishes_model, QSqlTableModel *clients_model, QWidget *parent = 0);
+    explicit ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *parent = 0);
 
 signals:
 

@@ -5,6 +5,8 @@
 #include <QtWidgets>
 
 #include <QSqlTableModel>
+#include <QSqlQuery>
+#include <QSqlError>
 
 class ShowMenuForm : public QDialog
 {
@@ -17,7 +19,7 @@ private:
     QHBoxLayout *buttons_layout;
 
 public:
-    explicit ShowMenuForm(QModelIndex menu_index, QWidget *parent = 0);
+    explicit ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *parent = 0);
 
 signals:
 

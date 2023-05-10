@@ -24,7 +24,7 @@ void Orders::change_index(const QModelIndex index)
 
 void Orders::open_show_order_form()
 {
-    show_order_form = new ShowOrderForm(index, dishes_model, clients_model, this);
+    show_order_form = new ShowOrderForm(index, model->database(), this);
     show_order_form->setModal(true);
     show_order_form->show();
 }
