@@ -9,29 +9,40 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
     QString menu_id;
 
     QSqlQuery query(db);
-    query.exec("SELECT * FROM Menu");
-    while (query.next())
+    if (query.exec("SELECT * FROM Menu"))
     {
-        if (query.value("menu_name").toString() == menu_name)
+        while (query.next())
         {
-            menu_id = query.value("menu_id").toString();
-            break;
+            if (query.value("menu_name").toString() == menu_name)
+            {
+                menu_id = query.value("menu_id").toString();
+                break;
+            }
         }
+    }
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
+                              "Повідомлення БД: " + db.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + db.lastError().driverText());
     }
 
     if (query.exec("SELECT * FROM MenuItems JOIN Dishes ON MenuItems.dish_id = Dishes.dish_id"))
-    while (query.next())
     {
-        if (query.value("menu_id").toString() == menu_id)
+        while (query.next())
         {
-            dishes.push_back(query.value("dish_name").toString());
-        }
-        else
-        {
-            // ОБРОБКА ПОМИЛОК
+            if (query.value("menu_id").toString() == menu_id)
+            {
+                dishes.push_back(query.value("dish_name").toString());
+            }
         }
     }
-
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
+                              "Повідомлення БД: " + db.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + db.lastError().driverText());
+    }
 
     /// ВІДЖЕТИ
     // Додавання віджетів

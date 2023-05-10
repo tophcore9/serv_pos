@@ -24,7 +24,9 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     else
     {
         // Обробка помилок
-        qDebug() << query.lastError().text();
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
     }
 
 

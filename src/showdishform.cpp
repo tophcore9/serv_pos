@@ -26,7 +26,9 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     else
     {
         // Обробка помилок
-        qDebug() << query.lastError().text();
+        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
     }
 
     /// ВІДЖЕТИ
