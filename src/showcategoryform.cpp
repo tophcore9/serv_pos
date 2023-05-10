@@ -3,7 +3,7 @@
 ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setFixedSize(500, 400);
+    this->setFixedSize(300, 80);
     this->setWindowTitle("Перегляд категорії");
     QString category_name = category_index.data(0).toString();
     setWindowTitle(category_name);
@@ -11,11 +11,14 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
 
     /// ВІДЖЕТИ
     // Додавання віджетів
+    l_name = new QLabel("Назва категорії:");
+    name_edit = new QLineEdit;
+
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
 
     // Налаштування віджетів
-
+    name_edit->setText(category_name);
 
     /// МАКЕТИ І КОМПОНОВКА
     // Додавання і налаштування макетів
@@ -31,6 +34,9 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
     main_layout->addLayout(buttons_layout);
 
     // Компоновка віджетів
+    info_layout->addWidget(l_name, 0, 0);
+    info_layout->addWidget(name_edit, 0, 1);
+
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 

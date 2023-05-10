@@ -16,6 +16,9 @@ private:
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
+    QLabel *l_name;
+    QLineEdit *name_edit;
+
     QPushButton *accept_btn;
     QPushButton *cancel_btn;
 
