@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setWindowTitle("ServPOS");
     this->setFixedSize(1200, 700);
-    this->setWindowIcon(QIcon("/home/acheadd/Downloads/main_icon.png"));
+    this->setWindowIcon(QIcon("../img/icons/main_icon.png"));
 
     // Зміна кольору вікна
     QPalette pal = this->palette();
