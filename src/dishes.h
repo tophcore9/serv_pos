@@ -16,9 +16,7 @@ class Dishes : public QWidget
 private:
     QSqlTableModel *model;
     QSqlTableModel *categories_model;
-
     QModelIndex index;
-    QModelIndex category_index;
 
     AddDishForm *add_dish_form;
     ShowDishForm *show_dish_form;
@@ -37,7 +35,7 @@ public slots:
     void open_show_dish_form();
     void open_add_dish_form();
     void remove_dish(int);
-    void add_dish(QString name, double weight, double price, QString category, int estimated_time, QString url);
+    void add_dish(QString name, int weight, double price, QString category, int estimated_time, QString url);
 };
 
 #endif // DISHES_H

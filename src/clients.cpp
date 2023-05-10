@@ -21,7 +21,7 @@ void Clients::change_index(const QModelIndex index)
 
 void Clients::open_show_client_form()
 {
-    show_client_form = new ShowClientForm(index, dish_index, this);
+    show_client_form = new ShowClientForm(index, dishes_model, this);
     show_client_form->setModal(true);
     show_client_form->show();
 }

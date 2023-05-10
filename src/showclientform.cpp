@@ -1,8 +1,7 @@
 #include "showclientform.h"
 
-ShowClientForm::ShowClientForm(QModelIndex client_index, QModelIndex dish_index, QWidget *parent) : QDialog(parent)
+ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
-    this->setWindowTitle("client:" + QString::number(client_index.row()) + " dish:" + QString::number(dish_index.row()));
     /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QVBoxLayout;

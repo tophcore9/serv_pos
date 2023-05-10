@@ -17,9 +17,7 @@ class Menu : public QWidget
 private:
     QSqlTableModel *model;
     QSqlTableModel *dishes_model;
-
     QModelIndex index;
-    QModelIndex dish_index;
 
     MenuItems *menu_items;
     MenuForm *menu_form;

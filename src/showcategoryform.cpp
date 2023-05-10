@@ -2,7 +2,6 @@
 
 ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) : QDialog(parent)
 {
-    this->setWindowTitle(QString::number(category_index.row()));
     /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
 //    main_layout = new QVBoxLayout;

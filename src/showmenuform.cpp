@@ -2,7 +2,6 @@
 
 ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QWidget *parent) : QDialog(parent)
 {
-    this->setWindowTitle("menu:" + QString::number(menu_index.row()));
     /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QVBoxLayout;

@@ -17,10 +17,7 @@ private:
     QSqlTableModel *model;
     QSqlTableModel *clients_model;
     QSqlTableModel *dishes_model;
-
     QModelIndex index;
-    QModelIndex client_index;
-    QModelIndex dish_index;
 
     OrderItems *order_items;
     AddOrderForm *add_order_form;

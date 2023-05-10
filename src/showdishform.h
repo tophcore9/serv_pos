@@ -3,8 +3,11 @@
 
 #include <QDialog>
 #include <QtWidgets>
+#include <QDebug>
 
 #include <QSqlTableModel>
+#include <QSqlQuery>
+#include <QSqlError>
 
 class ShowDishForm : public QDialog
 {
@@ -16,8 +19,10 @@ private:
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
+    QLabel *lb;
+
 public:
-    explicit ShowDishForm(QModelIndex dish_index, QModelIndex category_index, QWidget *parent = 0);
+    explicit ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_model, QWidget *parent = 0);
 
 signals:
 

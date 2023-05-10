@@ -1,8 +1,7 @@
 #include "showorderform.h"
 
-ShowOrderForm::ShowOrderForm(QModelIndex order_index, QModelIndex dish_index, QModelIndex client_index, QWidget *parent) : QDialog(parent)
+ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *dishes_model, QSqlTableModel *clients_model, QWidget *parent) : QDialog(parent)
 {
-    this->setWindowTitle("order:" + QString::number(order_index.row()) + " dish:" + QString::number(dish_index.row()) + " client:" + QString::number(client_index.row()));
     /// МАКЕТИ ТА КОМПОНОВКА
     // Налаштування макетів
     main_layout = new QVBoxLayout;

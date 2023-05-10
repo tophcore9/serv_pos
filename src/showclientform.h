@@ -17,7 +17,7 @@ private:
     QHBoxLayout *buttons_layout;
 
 public:
-    explicit ShowClientForm(QModelIndex client_index, QModelIndex dish_index, QWidget *parent = 0);
+    explicit ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
 

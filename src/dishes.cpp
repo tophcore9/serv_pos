@@ -21,7 +21,7 @@ void Dishes::change_index(const QModelIndex index)
 
 void Dishes::open_show_dish_form()
 {
-    show_dish_form = new ShowDishForm(index, category_index, this);
+    show_dish_form = new ShowDishForm(index, categories_model, this);
     show_dish_form->setModal(true);
     show_dish_form->show();
 }
@@ -40,7 +40,7 @@ void Dishes::remove_dish(int index)
     }
 }
 
-void Dishes::add_dish(QString name, double weight, double price, QString category, int estimated_time, QString url)
+void Dishes::add_dish(QString name, int weight, double price, QString category, int estimated_time, QString url)
 {
     QSqlQuery query(model->database());
     int category_id;
