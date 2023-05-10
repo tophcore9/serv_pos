@@ -21,7 +21,7 @@ void Dishes::change_index(const QModelIndex index)
 
 void Dishes::open_show_dish_form()
 {
-    show_dish_form = new ShowDishForm(index, model->database(), this);
+    show_dish_form = new ShowDishForm(index, categories_model, this);
     show_dish_form->setModal(true);
     show_dish_form->show();
 }

@@ -21,7 +21,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
 
     l_weight = new QLabel("Вага:");
     weight_edit = new QLineEdit;
-    weight_l = new QLabel("кг.");
+    weight_l = new QLabel("г.");
 
     l_price = new QLabel("Вартість:");
     price_edit = new QLineEdit;
