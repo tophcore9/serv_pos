@@ -13,12 +13,20 @@ class ShowMenuForm : public QDialog
     Q_OBJECT
 
 private:
+    std::vector<QString> dishes;
+
     /// GUI
     QVBoxLayout *main_layout;
     QGridLayout *info_layout;
     QHBoxLayout *buttons_layout;
 
-    std::vector<QString> dishes;
+    QLabel *l_name;
+    QLineEdit *name_edit;
+
+    QLabel *l_dishes;
+    QPushButton *add_dish_btn;
+    std::vector<QComboBox*> add_dish_selects;
+    std::vector<QPushButton*> remove_dish_btns;
 
     QPushButton *accept_btn;
     QPushButton *cancel_btn;

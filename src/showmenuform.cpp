@@ -3,7 +3,7 @@
 ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setFixedSize(500, 400);
+    this->setFixedWidth(300);
     this->setWindowTitle("Перегляд меню");
     QString menu_name = menu_index.data(0).toString();
     QString menu_id;
@@ -35,14 +35,20 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
 
     /// ВІДЖЕТИ
     // Додавання віджетів
+    l_name = new QLabel("Назва меню:");
+    name_edit = new QLineEdit;
+
+    l_dishes = new QLabel("Страви:");
+    add_dish_btn = new QPushButton("+");
+    add_dish_selects.push_back(new QComboBox);
+
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
 
     // Налаштування віджетів
-    QString dshs = "";
-    for (int i = 0; i < dishes.size(); ++i)
-        dshs += dishes[i] + "\n";
-    QLabel *lb = new QLabel(menu_name + "\n" + dshs);
+    l_name->setAlignment(Qt::AlignRight);
+    name_edit->setText(menu_name);
+    add_dish_btn->setMaximumSize(25, 25);
 
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -59,7 +65,12 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
     main_layout->addLayout(buttons_layout);
 
     // Компоновка віджетів
-    info_layout->addWidget(lb);
+    info_layout->addWidget(l_name, 0, 0);
+    info_layout->addWidget(name_edit, 0, 1);
+
+    info_layout->addWidget(l_dishes, 1, 0);
+    info_layout->addWidget(add_dish_btn, 1, 1);
+
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 
