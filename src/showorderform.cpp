@@ -2,12 +2,11 @@
 
 ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *parent) : QDialog(parent)
 {
+    /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(500, 400);
     this->setWindowTitle("Перегляд замовлення");
-    QString order_id, order_name, client_name, client_phone, order_price, order_estimated_time, order_date;
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    QString order_id, order_name, client_name, client_phone, order_price, order_estimated_time, order_date;
 
     QSqlQuery query(db);
     if (query.exec("SELECT * FROM Orders JOIN Clients ON Orders.client_id = Clients.client_id"))
@@ -38,29 +37,39 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlDatabase db, QWidget *
         }
     }
 
-    /// МАКЕТИ ТА КОМПОНОВКА
-    // Налаштування макетів
-    main_layout = new QVBoxLayout;
-    info_layout = new QGridLayout;
-    buttons_layout = new QHBoxLayout;
-    setLayout(main_layout);
 
-    // Компоновка макетів
-    main_layout->addLayout(info_layout);
-    main_layout->addLayout(buttons_layout);
+    /// ВІДЖЕТИ
+    // Додавання віджетів
+    accept_btn = new QPushButton("Підтвердити");
+    cancel_btn = new QPushButton("Скасувати");
 
-    buttons_layout->setAlignment(Qt::AlignBottom);
-
-    // ТИМЧАСОВЕ
+    // Налаштування віджетів
     QString dishs = "";
     for (int i = 0; i < dishes.size(); ++i)
         dishs += dishes[i] + "\n";
     QLabel *lb = new QLabel(order_name + "\n" + client_name + "\n" + client_phone + "\n" + order_price + "\n" + order_estimated_time + "\n" + order_date + "\n" + dishs);
 
+
+    /// МАКЕТИ І КОМПОНОВКА
+    // Додавання і налаштування макетів
+    main_layout = new QVBoxLayout;
+    info_layout = new QGridLayout;
+    buttons_layout = new QHBoxLayout;
+
+    setLayout(main_layout);
+    buttons_layout->setAlignment(Qt::AlignBottom);
+
+    // Компоновка макетів
+    main_layout->addLayout(info_layout);
+    main_layout->addLayout(buttons_layout);
+
+    // Компоновка віджетів
     info_layout->addWidget(lb);
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 
+
+    /// СИГНАЛИ І СЛОТИ
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_order()));
     connect(this, SIGNAL(edit_order(QString,QString,double,int,QString,std::vector<QString>)), parent, SLOT(edit_order(QString,QString,double,int,QString,std::vector<QString>)));
 

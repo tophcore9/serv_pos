@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     /// МАКЕТИ І КОМПОНОВКА
-    // Налаштування макетів
+    // Додавання і налаштування макетів
     main_layout = new QHBoxLayout;
     orders_layout = new QVBoxLayout;
     dishes_layout = new QVBoxLayout;
@@ -133,7 +133,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    // СИГНАЛИ ТА СЛОТИ
+    /// СИГНАЛИ ТА СЛОТИ
     connect(client_list_view, &QListView::doubleClicked, clients, &Clients::open_show_client_form);
     connect(order_list_view, &QListView::doubleClicked, orders, &Orders::open_show_order_form);
     connect(dishes_list_view, &QListView::doubleClicked, dishes, &Dishes::open_show_dish_form);
