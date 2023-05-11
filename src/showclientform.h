@@ -14,7 +14,6 @@ class ShowClientForm : public QDialog
 
 private:
     QString past_client_phone;
-
     QString new_client_name;
     QString new_client_phone;
     QString new_client_dish;

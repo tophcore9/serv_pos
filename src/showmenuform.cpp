@@ -6,8 +6,8 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
     this->setFixedWidth(300);
     this->setWindowTitle("Перегляд меню");
     QString menu_name = menu_index.data(0).toString();
-    QString menu_id;
 
+    QString menu_id;
     QSqlQuery query(db);
     if (query.exec("SELECT * FROM Menu"))
     {

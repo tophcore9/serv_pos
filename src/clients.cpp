@@ -68,43 +68,39 @@ void Clients::add_client(QString name, QString phone, QString date, QString favo
 void Clients::edit_client(QString default_phone, QString name, QString phone, QString date, QString favourite)
 {
     qDebug() << default_phone << endl << name << endl << phone << endl << date << endl << favourite;
-//    QString new_name = name;
-//    QString new_phone = phone;
-//    QString new_favourite = favourite;
-//    QString new_date = date;
 
-//    QSqlQuery query(model->database());
-//    int favourite_dish;
+    QSqlQuery query(model->database());
+    QString favourite_dish;
 
-//    // Обробка індексації
-//    query.exec("SELECT * FROM Dishes;");
+    // Обробка індексації
+    query.exec("SELECT * FROM Dishes;");
 
-//    while (query.next())
-//    {
-//        if (query.value("dish_name") == favourite)
-//        {
-//            favourite_dish = query.value("dish_id").toInt();
-//            break;
-//        }
-//    }
+    while (query.next())
+    {
+        if (query.value("dish_name") == favourite)
+        {
+            favourite_dish = query.value("dish_id").toString();
+            break;
+        }
+    }
 
-//    // Виконання запиту і обробка помилок
-//    if (query.exec("UPDATE Clients SET client_name = \"" + new_name +
-//                   "\", client_phone = \"" + new_phone +
-//                   "\", client_favourite_dish = " + new_favourite +
-//                   ", \"" + new_date + "\"" +
-//                   "WHERE client_phone = \"" + phone + "\")"))
-//    {
-//        model->select();
-//        add_client_form->close();
-//    }
-//    else
-//    {
-//        QMessageBox::critical(add_client_form, "Помилка!", "Не вдалось виконати запит!\n"
-//                              "Повідомлення БД: " + query.lastError().databaseText() +
-//                              "\nПовідомлення драйвера: " + query.lastError().driverText());
-//    }
-
+    // Виконання запиту і обробка помилок
+    if (query.exec("UPDATE Clients SET "
+                   "client_name = \"" + name + "\", "
+                   "client_phone = \"" + phone + "\", "
+                   "client_favourite_dish = " + favourite_dish + ", "
+                   "client_registration_date = \"" + date + "\" "
+                   "WHERE client_phone = \"" + default_phone + "\""))
+    {
+        model->select();
+        show_client_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(show_client_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 }
 
 void Clients::remove_client(int index)

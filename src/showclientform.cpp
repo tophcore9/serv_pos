@@ -5,7 +5,7 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(350, 500);
     this->setWindowTitle("Перегляд клієнта");
-
+    past_client_phone = client_index.data(0).toString();
 
 
     /// ВІДЖЕТИ
@@ -46,7 +46,7 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     {
         while (query.next())
         {
-            if (client_index.data(0).toString() == query.value("client_phone"))
+            if (query.value("client_phone") == past_client_phone)
             {
                 name_edit->setText(query.value("client_name").toString());
                 new_client_name = name_edit->text();
