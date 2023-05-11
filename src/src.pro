@@ -54,3 +54,6 @@ HEADERS  += mainwindow.h \
     showmenuform.h \
     showdishform.h \
     showcategoryform.h
+
+TRANSLATIONS += src_ua.ts \
+    src_en.ts

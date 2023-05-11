@@ -11,6 +11,9 @@ class ShowCategoryForm : public QDialog
     Q_OBJECT
 
 private:
+    QString category_name;
+    QString new_category_name;
+
     /// GUI
     QVBoxLayout *main_layout;
     QGridLayout *info_layout;
@@ -26,10 +29,11 @@ public:
     explicit ShowCategoryForm(QModelIndex category_index, QWidget *parent = 0);
 
 signals:
-    void edit_category(QString name);
+    void edit_category(QString default_name, QString name);
 
 public slots:
     void edit_category();
+    void change_name(QString new_name);
 };
 
 #endif // SHOWCATEGORYFORM_H

@@ -14,6 +14,14 @@ class ShowDishForm : public QDialog
     Q_OBJECT
 
 private:
+    QString dish_name;
+    QString dish_price;
+    QString dish_weight;
+    QString dish_category;
+    QString dish_estimated_time;
+    QString dish_photo;
+    QString dish_new_photo;
+
     /// GUI
     QVBoxLayout *main_layout;
     QGridLayout *info_layout;
@@ -53,6 +61,8 @@ signals:
 
 public slots:
     void edit_dish();
+    void reselect_image();
+    void cancel_edit_dish();
 };
 
 #endif // SHOWDISHFORM_H

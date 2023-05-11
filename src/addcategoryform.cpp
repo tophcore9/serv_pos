@@ -3,7 +3,7 @@
 AddCategoryForm::AddCategoryForm(QSqlTableModel *categories_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setWindowTitle("Додати категорію");
+    this->setWindowTitle(tr("Додати категорію"));
     this->setFixedSize(300, 80);
 
     /// ВІДЖЕТИ

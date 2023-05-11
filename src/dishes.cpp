@@ -74,28 +74,25 @@ void Dishes::add_dish(QString name, int weight, double price, QString category, 
 
 void Dishes::edit_dish(QString name, int weight, double price, QString category, int estimated_time, QString url)
 {
-    qDebug() << "Editing";
-//    QSqlQuery query(model->database());
-//    int category_id;
+    QSqlQuery query(model->database());
+    int category_id;
 
-//    // Обробка індексації
-//    query.exec("SELECT * FROM Categories");
-//    while (query.next())
-//    {
-//        if (query.value("category_name") == category)
-//        {
-//            category_id = query.value("category_id").toInt();
-//            break;
-//        }
-//    }
+    // Обробка індексації
+    query.exec("SELECT * FROM Categories");
+    while (query.next())
+    {
+        if (query.value("category_name") == category)
+        {
+            category_id = query.value("category_id").toInt();
+            break;
+        }
+    }
 
-//    // Виконання запиту і обробка помилок
-//    if (query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES (\"" +
-//               name + "\", " + QString::number(weight) + ", " + QString::number(price) + ", " +
-//               QString::number(category_id) + ", " + QString::number(estimated_time) + ", \"" + url + "\");"))
+    // Виконання запиту і обробка помилок
+//    if (query.exec("UPDATE Dishes")
 //    {
 //        model->select();
-//        add_dish_form->close();
+//        show_dish_form->close();
 //    }
 //    else
 //    {
@@ -103,7 +100,6 @@ void Dishes::edit_dish(QString name, int weight, double price, QString category,
 //                              "Повідомлення БД: " + query.lastError().databaseText() +
 //                              "\nПовідомлення драйвера: " + query.lastError().driverText());
 //    }
-
 }
 
 void Dishes::open_add_dish_form()

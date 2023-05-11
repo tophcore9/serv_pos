@@ -5,7 +5,6 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(600, 500);
     this->setWindowTitle("Перегляд страви");
-    QString dish_name, dish_price, dish_weight, dish_category, dish_estimated_time, dish_photo;
 
     QSqlQuery query(categories_model->database());
     if (query.exec("SELECT * FROM Dishes JOIN Categories ON Dishes.dish_category = Categories.category_id"))
@@ -39,14 +38,14 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     rechoose_picture_btn = new QPushButton("Переобрати");
 
     l_name = new QLabel("Назва:");
-    name_edit = new QLineEdit;
+    name_edit = new QLineEdit(dish_name);
 
     l_weight = new QLabel("Вага:");
-    weight_edit = new QLineEdit;
+    weight_edit = new QLineEdit(dish_weight);
     weight_l = new QLabel("г.");
 
     l_price = new QLabel("Вартість:");
-    price_edit = new QLineEdit;
+    price_edit = new QLineEdit(dish_price);
     price_l = new QLabel("грн.");
 
     l_categories = new QLabel("Категорія:");
@@ -56,8 +55,8 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     estimated_time_edit = new QLineEdit;
     estimated_time_l = new QLabel("хв.");
 
-    QPixmap *pixmap = new QPixmap;
-    QLabel *picture = new QLabel;
+    pixmap = new QPixmap;
+    picture = new QLabel;
 
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
@@ -137,10 +136,67 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_dish()));
     connect(this, SIGNAL(edit_dish(QString,int,double,QString,int,QString)), parent, SLOT(edit_dish(QString,int,double,QString,int,QString)));
 
-    connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+    connect(rechoose_picture_btn, SIGNAL(clicked()), this, SLOT(reselect_image()));
+
+    connect(cancel_btn, SIGNAL(clicked()), this, SLOT(cancel_edit_dish()));
 }
 
 void ShowDishForm::edit_dish()
 {
-    emit edit_dish("", 0, 0.0, "", 0, "");
+    // Видалення попереднього зображення
+    QFile file_to_delete(dish_photo);
+    file_to_delete.open(QIODevice::WriteOnly);
+    file_to_delete.remove();
+    file_to_delete.close();
+
+    emit edit_dish("", 0, 0.0, "", 0, dish_new_photo);
+}
+
+void ShowDishForm::reselect_image()
+{
+    // Обрання нового зображення
+    QString file_path = QFileDialog::getOpenFileName(this, "Open File", "/home", "Images (*.png *.jpg *.jpeg)");
+    QString img_folder = "../img/" + QFileInfo(file_path).fileName();
+
+    // Створюємо файли
+    QFile source(file_path);
+    QFile destination(img_folder);
+
+    if (source.open(QIODevice::ReadOnly) && destination.open(QIODevice::WriteOnly))
+    {
+        if (destination.write(source.readAll()) == source.size())
+        {
+            // Видалення попереднього зображення
+            QFile file_to_delete(dish_new_photo);
+            file_to_delete.open(QIODevice::WriteOnly);
+            file_to_delete.remove();
+
+            dish_new_photo = img_folder;
+
+            // Закриваємо файли
+            source.close();
+            destination.close();
+            file_to_delete.close();
+
+            // Створюємо зображення
+            pixmap->load(dish_new_photo);
+            picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
+
+            info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
+        }
+    }
+    else
+    {
+        QMessageBox::critical(this, "Помилка!", "Не вдалось відкрити/копіювати файл!\n" + source.errorString());
+    }
+}
+
+void ShowDishForm::cancel_edit_dish()
+{
+    // Видалення зображення
+    QFile file_to_delete(dish_new_photo);
+    file_to_delete.open(QIODevice::WriteOnly);
+    file_to_delete.remove();
+    file_to_delete.close();
+    this->close();
 }

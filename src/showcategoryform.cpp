@@ -5,8 +5,8 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(300, 80);
     this->setWindowTitle("Перегляд категорії");
-    QString category_name = category_index.data(0).toString();
-    setWindowTitle(category_name);
+    category_name = category_index.data(0).toString();
+    new_category_name = category_name;
 
 
     /// ВІДЖЕТИ
@@ -42,12 +42,19 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
 
     /// СИГНАЛИ І СЛОТИ
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_category()));
-    connect(this, SIGNAL(edit_category(QString)), parent, SLOT(edit_category(QString)));
+    connect(this, SIGNAL(edit_category(QString,QString)), parent, SLOT(edit_category(QString,QString)));
+
+    connect(name_edit, SIGNAL(textChanged(QString)), this, SLOT(change_name(QString)));
 
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void ShowCategoryForm::edit_category()
 {
-    emit edit_category("");
+    emit edit_category(category_name, new_category_name);
+}
+
+void ShowCategoryForm::change_name(QString new_name)
+{
+    new_category_name = new_name;
 }

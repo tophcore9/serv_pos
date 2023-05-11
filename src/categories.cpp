@@ -63,23 +63,24 @@ void Categories::add_category(QString name)
     }
 }
 
-void Categories::edit_category(QString name)
+void Categories::edit_category(QString default_name, QString name)
 {
     qDebug() << "Editing";
-//    QSqlQuery query(model->database());
+    QSqlQuery query(model->database());
 
-//    if (query.exec("INSERT INTO Categories (category_name) VALUES (\"" + name + "\");"))
-//    {
-//        model->select();
-//        add_category_form->close();
-//    }
-//    else
-//    {
-//        QMessageBox::critical(add_category_form, "Помилка!", "Не вдалось виконати запит!\n"
-//                              "Повідомлення БД: " + query.lastError().databaseText() +
-//                              "\nПовідомлення драйвера: " + query.lastError().driverText());
-//    }
-
+    if (query.exec("UPDATE Categories SET "
+                   "category_name = \"" + name +
+                   "\" WHERE category_name = \"" + default_name + "\""))
+    {
+        model->select();
+        show_category_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(show_category_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 }
 
 void Categories::open_categories()
