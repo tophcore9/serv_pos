@@ -5,19 +5,20 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(300, 80);
     this->setWindowTitle("Перегляд категорії");
-    category_name = category_index.data(0).toString();
-    new_category_name = category_name;
 
 
     /// ВІДЖЕТИ
     // Додавання віджетів
     l_name = new QLabel("Назва категорії:");
-    name_edit = new QLineEdit(category_name);
+    name_edit = new QLineEdit;
 
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
 
     // Налаштування віджетів
+    name_edit->setText(category_index.data(0).toString());
+    category_name = name_edit->text();
+    new_category_name = name_edit->text();
 
     /// МАКЕТИ І КОМПОНОВКА
     // Додавання і налаштування макетів
@@ -44,9 +45,9 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_category()));
     connect(this, SIGNAL(edit_category(QString,QString)), parent, SLOT(edit_category(QString,QString)));
 
-    connect(name_edit, SIGNAL(textChanged(QString)), this, SLOT(change_name(QString)));
-
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+
+    connect(name_edit, SIGNAL(textChanged(QString)), this, SLOT(name_changed(QString)));
 }
 
 void ShowCategoryForm::edit_category()
@@ -54,7 +55,7 @@ void ShowCategoryForm::edit_category()
     emit edit_category(category_name, new_category_name);
 }
 
-void ShowCategoryForm::change_name(QString new_name)
+void ShowCategoryForm::name_changed(QString new_name)
 {
     new_category_name = new_name;
 }

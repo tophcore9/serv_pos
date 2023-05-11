@@ -33,7 +33,7 @@ signals:
 
 public slots:
     void edit_category();
-    void change_name(QString new_name);
+    void name_changed(QString new_name);
 };
 
 #endif // SHOWCATEGORYFORM_H
