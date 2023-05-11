@@ -6,29 +6,6 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     this->setFixedSize(600, 500);
     this->setWindowTitle("Перегляд страви");
 
-    QSqlQuery query(categories_model->database());
-    if (query.exec("SELECT * FROM Dishes JOIN Categories ON Dishes.dish_category = Categories.category_id"))
-    {
-        while (query.next())
-        {
-            if (dish_index.data(0).toString() == query.value("dish_name"))
-            {
-                dish_name = query.value("dish_name").toString();
-                dish_price = query.value("dish_price").toString();
-                dish_weight = query.value("dish_weight").toString();
-                dish_category = query.value("category_name").toString();
-                dish_estimated_time = query.value("dish_estimated_time").toString();
-                dish_photo = query.value("dish_photo").toString();
-            }
-        }
-    }
-    else
-    {
-        // Обробка помилок
-        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
-    }
 
     /// ВІДЖЕТИ
     // Додавання віджетів
@@ -38,14 +15,14 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     rechoose_picture_btn = new QPushButton("Переобрати");
 
     l_name = new QLabel("Назва:");
-    name_edit = new QLineEdit(dish_name);
+    name_edit = new QLineEdit;
 
     l_weight = new QLabel("Вага:");
-    weight_edit = new QLineEdit(dish_weight);
+    weight_edit = new QLineEdit;
     weight_l = new QLabel("г.");
 
     l_price = new QLabel("Вартість:");
-    price_edit = new QLineEdit(dish_price);
+    price_edit = new QLineEdit;
     price_l = new QLabel("грн.");
 
     l_categories = new QLabel("Категорія:");
@@ -80,15 +57,46 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
 
     categories_select->setModel(categories_model);
     categories_select->setModelColumn(1);
-    categories_select->setCurrentText(dish_category);
 
-    pixmap->load(dish_photo);
-    picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
 
-    name_edit->setText(dish_name);
-    weight_edit->setText(dish_weight);
-    price_edit->setText(dish_price);
-    estimated_time_edit->setText(dish_estimated_time);
+    QSqlQuery query(categories_model->database());
+    if (query.exec("SELECT * FROM Dishes JOIN Categories ON Dishes.dish_category = Categories.category_id"))
+    {
+        while (query.next())
+        {
+            if (dish_index.data(0).toString() == query.value("dish_name"))
+            {
+                name_edit->setText(query.value("dish_name").toString());
+                new_dish_name = name_edit->text();
+                past_dish_name = name_edit->text();
+
+                price_edit->setText(query.value("dish_price").toString());
+                new_dish_price = price_edit->text();
+
+                weight_edit->setText(query.value("dish_weight").toString());
+                new_dish_weight = weight_edit->text();
+
+                categories_select->setCurrentText(query.value("category_name").toString());
+                new_dish_category = categories_select->currentText();
+                categories_select->setCurrentText(new_dish_category);
+
+                estimated_time_edit->setText(query.value("dish_estimated_time").toString());
+                new_dish_estimated_time = estimated_time_edit->text();
+
+                past_dish_photo = query.value("dish_photo").toString();
+                new_dish_photo = "__new";
+                pixmap->load(past_dish_photo);
+                picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
+            }
+        }
+    }
+    else
+    {
+        // Обробка помилок
+        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 
 
     /// МАКЕТИ ТА КОМПОНОВКА
@@ -139,17 +147,30 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
     connect(rechoose_picture_btn, SIGNAL(clicked()), this, SLOT(reselect_image()));
 
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(cancel_edit_dish()));
+
+    connect(name_edit, SIGNAL(textChanged(QString)), this, SLOT(changed_name(QString)));
+    connect(price_edit, SIGNAL(textChanged(QString)), this, SLOT(changed_price(QString)));
+    connect(weight_edit, SIGNAL(textChanged(QString)), this, SLOT(changed_weight(QString)));
+    connect(categories_select, SIGNAL(currentTextChanged(QString)), this, SLOT(changed_category(QString)));
+    connect(estimated_time_edit, SIGNAL(textChanged(QString)), this, SLOT(changed_time(QString)));
 }
 
 void ShowDishForm::edit_dish()
 {
-    // Видалення попереднього зображення
-    QFile file_to_delete(dish_photo);
-    file_to_delete.open(QIODevice::WriteOnly);
-    file_to_delete.remove();
-    file_to_delete.close();
+    if (new_dish_photo == "__new")
+    {
+        new_dish_photo = past_dish_photo;
+    }
+    else
+    {
+        // Видалення попереднього зображення
+        QFile file_to_delete(past_dish_photo);
+        file_to_delete.open(QIODevice::WriteOnly);
+        file_to_delete.remove();
+        file_to_delete.close();
+    }
 
-    emit edit_dish("", "", 0, 0.0, "", 0, dish_new_photo);
+    emit edit_dish(past_dish_name, new_dish_name, new_dish_weight.toInt(), new_dish_price.toDouble(), new_dish_category, new_dish_estimated_time.toInt(), new_dish_photo);
 }
 
 void ShowDishForm::reselect_image()
@@ -167,11 +188,11 @@ void ShowDishForm::reselect_image()
         if (destination.write(source.readAll()) == source.size())
         {
             // Видалення попереднього зображення
-            QFile file_to_delete(dish_new_photo);
+            QFile file_to_delete(new_dish_photo);
             file_to_delete.open(QIODevice::WriteOnly);
             file_to_delete.remove();
 
-            dish_new_photo = img_folder;
+            new_dish_photo = img_folder;
 
             // Закриваємо файли
             source.close();
@@ -179,7 +200,7 @@ void ShowDishForm::reselect_image()
             file_to_delete.close();
 
             // Створюємо зображення
-            pixmap->load(dish_new_photo);
+            pixmap->load(new_dish_photo);
             picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
 
             info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
@@ -194,9 +215,34 @@ void ShowDishForm::reselect_image()
 void ShowDishForm::cancel_edit_dish()
 {
     // Видалення зображення
-    QFile file_to_delete(dish_new_photo);
+    QFile file_to_delete(new_dish_photo);
     file_to_delete.open(QIODevice::WriteOnly);
     file_to_delete.remove();
     file_to_delete.close();
     this->close();
+}
+
+void ShowDishForm::changed_name(QString new_name)
+{
+    new_dish_name = new_name;
+}
+
+void ShowDishForm::changed_price(QString new_price)
+{
+    new_dish_price = new_price;
+}
+
+void ShowDishForm::changed_weight(QString new_weight)
+{
+    new_dish_weight = new_weight;
+}
+
+void ShowDishForm::changed_category(QString new_category)
+{
+    new_dish_category = new_category;
+}
+
+void ShowDishForm::changed_time(QString new_time)
+{
+    new_dish_estimated_time = new_time;
 }

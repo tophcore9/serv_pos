@@ -14,13 +14,14 @@ class ShowDishForm : public QDialog
     Q_OBJECT
 
 private:
-    QString dish_name;
-    QString dish_price;
-    QString dish_weight;
-    QString dish_category;
-    QString dish_estimated_time;
-    QString dish_photo;
-    QString dish_new_photo;
+    QString past_dish_name;
+    QString past_dish_photo;
+    QString new_dish_name;
+    QString new_dish_price;
+    QString new_dish_weight;
+    QString new_dish_category;
+    QString new_dish_estimated_time;
+    QString new_dish_photo;
 
     /// GUI
     QVBoxLayout *main_layout;
@@ -63,6 +64,12 @@ public slots:
     void edit_dish();
     void reselect_image();
     void cancel_edit_dish();
+
+    void changed_name(QString new_name);
+    void changed_price(QString new_price);
+    void changed_weight(QString new_weight);
+    void changed_category(QString new_category);
+    void changed_time(QString new_time);
 };
 
 #endif // SHOWDISHFORM_H
