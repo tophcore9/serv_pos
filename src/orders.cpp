@@ -81,7 +81,7 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
         order_items->add_order_item(name, dishes[i]);
 }
 
-void Orders::edit_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
+void Orders::edit_order(QString default_name, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
     qDebug() << "Editing";
 //    int client_id;

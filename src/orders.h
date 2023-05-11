@@ -38,7 +38,7 @@ public slots:
     void open_add_order_form();
     void remove_order(int);
     void add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
-    void edit_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
+    void edit_order(QString default_name, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
 };
 
 #endif // ORDERS_H

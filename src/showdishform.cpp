@@ -134,7 +134,7 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
 
     /// СИГНАЛИ І СЛОТИ
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_dish()));
-    connect(this, SIGNAL(edit_dish(QString,int,double,QString,int,QString)), parent, SLOT(edit_dish(QString,int,double,QString,int,QString)));
+    connect(this, SIGNAL(edit_dish(QString,QString,int,double,QString,int,QString)), parent, SLOT(edit_dish(QString,QString,int,double,QString,int,QString)));
 
     connect(rechoose_picture_btn, SIGNAL(clicked()), this, SLOT(reselect_image()));
 
@@ -149,7 +149,7 @@ void ShowDishForm::edit_dish()
     file_to_delete.remove();
     file_to_delete.close();
 
-    emit edit_dish("", 0, 0.0, "", 0, dish_new_photo);
+    emit edit_dish("", "", 0, 0.0, "", 0, dish_new_photo);
 }
 
 void ShowDishForm::reselect_image()

@@ -35,7 +35,7 @@ public:
     explicit ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *parent = 0);
 
 signals:
-    void edit_menu(QString name, std::vector<QString> dishes);
+    void edit_menu(QString default_name, QString name, std::vector<QString> dishes);
 
 public slots:
     void edit_menu();

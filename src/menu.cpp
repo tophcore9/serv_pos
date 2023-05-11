@@ -65,7 +65,7 @@ void Menu::add_menu(QString name, std::vector<QString> dishes)
         menu_items->add_menu_item(name, dishes[i]);
 }
 
-void Menu::edit_menu(QString name, std::vector<QString> dishes)
+void Menu::edit_menu(QString default_name, QString name, std::vector<QString> dishes)
 {
     qDebug() << "Editing";
 //    QSqlQuery query(model->database());

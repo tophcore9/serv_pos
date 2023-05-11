@@ -57,7 +57,7 @@ public:
     explicit ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_model, QWidget *parent = 0);
 
 signals:
-    void edit_dish(QString name, int weight, double price, QString category, int estimated_time, QString url);
+    void edit_dish(QString default_name, QString name, int weight, double price, QString category, int estimated_time, QString url);
 
 public slots:
     void edit_dish();

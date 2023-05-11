@@ -72,7 +72,7 @@ void Dishes::add_dish(QString name, int weight, double price, QString category, 
     }
 }
 
-void Dishes::edit_dish(QString name, int weight, double price, QString category, int estimated_time, QString url)
+void Dishes::edit_dish(QString default_name, QString name, int weight, double price, QString category, int estimated_time, QString url)
 {
     QSqlQuery query(model->database());
     int category_id;

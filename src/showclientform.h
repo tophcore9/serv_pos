@@ -37,7 +37,7 @@ public:
     explicit ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
-    void edit_client(QString name, QString phone, QString date, QString favourite);
+    void edit_client(QString default_phone, QString name, QString phone, QString date, QString favourite);
 
 public slots:
     void edit_client();

@@ -88,12 +88,12 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
 
     /// СИГНАЛИ І СЛОТИ
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_menu()));
-    connect(this, SIGNAL(edit_menu(QString,std::vector<QString>)), parent, SLOT(edit_menu(QString,std::vector<QString>)));
+    connect(this, SIGNAL(edit_menu(QString,QString,std::vector<QString>)), parent, SLOT(edit_menu(QString,QString,std::vector<QString>)));
 
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void ShowMenuForm::edit_menu()
 {
-    emit edit_menu("", {""});
+    emit edit_menu("", "", {""});
 }

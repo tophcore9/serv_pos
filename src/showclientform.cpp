@@ -97,12 +97,12 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
 
     /// СИГНАЛИ І СЛОТИ
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_client()));
-    connect(this, SIGNAL(edit_client(QString,QString,QString,QString)), parent, SLOT(edit_client(QString,QString,QString,QString)));
+    connect(this, SIGNAL(edit_client(QString,QString,QString,QString,QString)), parent, SLOT(edit_client(QString,QString,QString,QString,QString)));
 
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void ShowClientForm::edit_client()
 {
-    emit edit_client("", "", "", "");
+    emit edit_client("", "", "", "", "");
 }

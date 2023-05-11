@@ -130,12 +130,13 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
 
     /// СИГНАЛИ І СЛОТИ
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_order()));
-    connect(this, SIGNAL(edit_order(QString,QString,double,int,QString,std::vector<QString>)), parent, SLOT(edit_order(QString,QString,double,int,QString,std::vector<QString>)));
+    connect(this, SIGNAL(edit_order(QString,QString,QString,double,int,QString,std::vector<QString>)),
+            parent, SLOT(edit_order(QString,QString,QString,double,int,QString,std::vector<QString>)));
 
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void ShowOrderForm::edit_order()
 {
-    emit edit_order("", "", 0.0, 0, "", {""});
+    emit edit_order("", "", "", 0.0, 0, "", {""});
 }

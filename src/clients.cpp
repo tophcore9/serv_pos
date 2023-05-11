@@ -65,7 +65,7 @@ void Clients::add_client(QString name, QString phone, QString date, QString favo
     }
 }
 
-void Clients::edit_client(QString name, QString phone, QString date, QString favourite)
+void Clients::edit_client(QString default_phone, QString name, QString phone, QString date, QString favourite)
 {
     qDebug() << "Editing";
 //    QString new_name = name;
