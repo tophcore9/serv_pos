@@ -40,9 +40,9 @@ void OrderItems::add_order_item(QString order_name, QString dish_name)
     if (query.exec("INSERT INTO OrderItems (order_id, dish_id) VALUES (" + QString::number(order_id) + ", " + QString::number(dish_id) + ");"))
         model->select();
     else
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
 }
 
 void OrderItems::remove_order_items(int order_id)
@@ -52,7 +52,7 @@ void OrderItems::remove_order_items(int order_id)
     if (query.exec("DELETE FROM OrderItems WHERE order_id = " + QString::number(order_id)))
         model->select();
     else
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
 }

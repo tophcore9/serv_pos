@@ -4,26 +4,26 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(350, 500);
-    this->setWindowTitle("Перегляд клієнта");
+    this->setWindowTitle(tr("Перегляд клієнта"));
     past_client_phone = client_index.data(0).toString();
 
 
     /// ВІДЖЕТИ
     // Додавання віджетів
-    l_name = new QLabel("ПІБ:");
+    l_name = new QLabel(tr("ПІБ:"));
     name_edit = new QLineEdit;
 
-    l_phone = new QLabel("Номер телефону:");
+    l_phone = new QLabel(tr("Номер телефону:"));
     phone_edit = new QLineEdit;
 
-    l_favourite_dish = new QLabel("Улюблена страва:");
+    l_favourite_dish = new QLabel(tr("Улюблена страва:"));
     favourite_dish_select = new QComboBox;
 
-    l_registration_date = new QLabel("Дата реєстрації:");
+    l_registration_date = new QLabel(tr("Дата реєстрації:"));
     registration_date_edit = new QLineEdit;
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
     // Налаштування віджетів
     // Розсташування лейблів біля полей
@@ -66,9 +66,9 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     else
     {
         // Обробка помилок
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 
 

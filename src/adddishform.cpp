@@ -5,38 +5,38 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     /// БАЗОВІ НАЛАШТУВАННЯ
     //this->parent = parent;
     this->categories_model = categories_model;
-    this->setWindowTitle("Додати страву");
+    this->setWindowTitle(tr("Додати страву"));
     this->setFixedSize(600, 500);
 
 
     /// ВІДЖЕТИ
-    l_picture = new QLabel("Зображення:");
-    picture_select_btn = new QPushButton("Обрати зображення");
+    l_picture = new QLabel(tr("Зображення:"));
+    picture_select_btn = new QPushButton(tr("Обрати зображення"));
     pixmap = new QPixmap;
-    picture = new QLabel("Помилка завантаження зображення");
-    rechoose_picture_btn = new QPushButton("Переобрати");
+    picture = new QLabel(tr("Помилка завантаження зображення"));
+    rechoose_picture_btn = new QPushButton(tr("Переобрати"));
 
-    l_name = new QLabel("Назва:");
+    l_name = new QLabel(tr("Назва:"));
     name_edit = new QLineEdit;
 
-    l_weight = new QLabel("Вага:");
+    l_weight = new QLabel(tr("Вага:"));
     weight_edit = new QLineEdit;
-    weight_l = new QLabel("г.");
+    weight_l = new QLabel(tr("г."));
 
-    l_price = new QLabel("Вартість:");
+    l_price = new QLabel(tr("Вартість:"));
     price_edit = new QLineEdit;
-    price_l = new QLabel("грн.");
+    price_l = new QLabel(tr("грн."));
 
-    l_categories = new QLabel("Категорія:");
+    l_categories = new QLabel(tr("Категорія:"));
     categories_select = new QComboBox;
 
-    l_estimated_time = new QLabel("Очікуваний час приготування:");
+    l_estimated_time = new QLabel(tr("Очікуваний час приготування:"));
     estimated_time_edit = new QLineEdit;
-    estimated_time_l = new QLabel("хв.");
+    estimated_time_l = new QLabel(tr("хв."));
 
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
     // Налаштування віджетів
     // Розсташування лейблів біля полів
@@ -143,7 +143,7 @@ void AddDishForm::select_image()
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось відкрити/копіювати файл!\n" + source.errorString());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось відкрити/копіювати файл!\n") + source.errorString());
     }
 }
 
@@ -182,7 +182,7 @@ void AddDishForm::reselect_image()
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось відкрити/копіювати файл!\n" + source.errorString());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось відкрити/копіювати файл!\n") + source.errorString());
     }
 }
 

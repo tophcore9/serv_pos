@@ -59,9 +59,9 @@ void Clients::add_client(QString name, QString phone, QString date, QString favo
     }
     else
     {
-        QMessageBox::critical(add_client_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(add_client_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 }
 
@@ -97,9 +97,9 @@ void Clients::edit_client(QString default_phone, QString name, QString phone, QS
     }
     else
     {
-        QMessageBox::critical(show_client_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(show_client_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 }
 
@@ -112,7 +112,7 @@ void Clients::remove_client(int index)
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
     }
 }

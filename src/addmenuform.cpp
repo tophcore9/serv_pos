@@ -4,22 +4,22 @@
 AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setWindowTitle("Додати меню");
+    this->setWindowTitle(tr("Додати меню"));
     this->setFixedWidth(300);
     this->dishes_model = dishes_model;
     dish_grid_index = 2;
     current_dish_item = 0;
 
     /// ВІДЖЕТИ
-    l_name = new QLabel("Назва меню:");
+    l_name = new QLabel(tr("Назва меню:"));
     name_edit = new QLineEdit;
 
-    l_dishes = new QLabel("Страви:");
+    l_dishes = new QLabel(tr("Страви:"));
     add_dish_btn = new QPushButton("+");
     add_dish_selects.push_back(new QComboBox);
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
 
     // Налаштування віджетів

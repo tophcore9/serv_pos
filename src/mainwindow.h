@@ -15,6 +15,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
+    QTranslator language;
+
     QSqlDatabase db;
     Clients *clients;
     Dishes *dishes;

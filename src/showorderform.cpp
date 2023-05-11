@@ -4,7 +4,7 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedWidth(400);
-    this->setWindowTitle("Перегляд замовлення");
+    this->setWindowTitle(tr("Перегляд замовлення"));
 
     QString order_id, order_name, client_name, client_phone, order_price, order_estimated_time, order_date;
 
@@ -40,28 +40,28 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
 
     /// ВІДЖЕТИ
     // Додавання віджетів
-    l_name = new QLabel("Ідентифікатор:");
+    l_name = new QLabel(tr("Ідентифікатор:"));
     name_edit = new QLineEdit(order_name);
 
-    l_client = new QLabel("Клієнт:");
+    l_client = new QLabel(tr("Клієнт:"));
     client_select = new QComboBox;
 
-    l_price = new QLabel("Вартість:");
+    l_price = new QLabel(tr("Вартість:"));
     price_edit = new QLineEdit("0");
-    price_l = new QLabel("грн.");
+    price_l = new QLabel(tr("грн."));
 
-    l_estimated_time = new QLabel("Очікуваний час приготування:");
+    l_estimated_time = new QLabel(tr("Очікуваний час приготування:"));
     estimated_time_edit = new QLineEdit("0");
-    estimated_time_l = new QLabel("хв.");
+    estimated_time_l = new QLabel(tr("хв."));
 
-    l_date = new QLabel("Дата:");
+    l_date = new QLabel(tr("Дата:"));
     date_edit = new QLineEdit(order_date);
 
-    l_dishes = new QLabel("Страви:");
+    l_dishes = new QLabel(tr("Страви:"));
     add_dish_btn = new QPushButton("+");
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
     // Налаштування віджетів
     // Розсташування лейблів біля полей

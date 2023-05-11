@@ -5,7 +5,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->dishes_model = dishes_model;
     this->clients_model = clients_model;
-    this->setWindowTitle("Додати замовлення");
+    this->setWindowTitle(tr("Додати замовлення"));
     this->setFixedWidth(400);
     srand(time(NULL));
     dish_grid_index = 6;
@@ -13,29 +13,29 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
 
 
     /// ВІДЖЕТИ
-    l_name = new QLabel("Ідентифікатор:");
-    name_edit = new QLineEdit("Замовлення#");
+    l_name = new QLabel(tr("Ідентифікатор:"));
+    name_edit = new QLineEdit(tr("Замовлення#"));
 
-    l_client = new QLabel("Клієнт:");
+    l_client = new QLabel(tr("Клієнт:"));
     client_select = new QComboBox;
 
-    l_price = new QLabel("Вартість:");
+    l_price = new QLabel(tr("Вартість:"));
     price_edit = new QLineEdit("0");
-    price_l = new QLabel("грн.");
+    price_l = new QLabel(tr("грн."));
 
-    l_estimated_time = new QLabel("Очікуваний час приготування:");
+    l_estimated_time = new QLabel(tr("Очікуваний час приготування:"));
     estimated_time_edit = new QLineEdit("0");
-    estimated_time_l = new QLabel("хв.");
+    estimated_time_l = new QLabel(tr("хв."));
 
-    l_date = new QLabel("Дата:");
+    l_date = new QLabel(tr("Дата:"));
     date_edit = new QLineEdit(QDate::currentDate().toString(Qt::ISODate));
 
-    l_dishes = new QLabel("Страви:");
+    l_dishes = new QLabel(tr("Страви:"));
     add_dish_btn = new QPushButton("+");
 
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
 
     // Налаштування віджетів
@@ -105,7 +105,8 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(add_order()));
-    connect(this, SIGNAL(add_order(QString,QString,double,int,QString,std::vector<QString>)), parent, SLOT(add_order(QString,QString,double,int,QString,std::vector<QString>)));
+    connect(this, SIGNAL(add_order(QString,QString,double,int,QString,std::vector<QString>)),
+            parent, SLOT(add_order(QString,QString,double,int,QString,std::vector<QString>)));
 
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
@@ -141,7 +142,6 @@ void AddOrderForm::add_order()
         }
 
     emit add_order(name_edit->text(), client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text(), dishes);
-    // ДОДАЙ ОБРОБКУ ПОМИЛОК ТА НАЛАШТУЙ ІНДЕКСУВАННЯ
 }
 
 // МОЖНА ПОКРАЩИТИ ЗОВНІШНІЙ ВИГЛЯД, ПОПЕРШЕ ЦЕ СТВОРЕННЯ SCROLL ОБЛАСТІ, А ПО ДРУГЕ УКАЗАННЯ СТРАВ ПЕРЕД COMBO_BOX ТАКИХ ЯК "СТРАВА 1", "СТРАВА 2" І Т.Д.
@@ -152,7 +152,7 @@ void AddOrderForm::add_dish()
     add_dish_selects[current_dish_item]->setModelColumn(1);
 
     count_dish_edits.push_back(new QLineEdit);
-    count_dish_edits[current_dish_item]->setPlaceholderText("Кількість порцій");
+    count_dish_edits[current_dish_item]->setPlaceholderText(tr("Кількість порцій"));
     count_dish_edits[current_dish_item]->setText("1");
 
     remove_dish_btns.push_back(new QPushButton("x"));
@@ -229,5 +229,5 @@ void AddOrderForm::refresh_values(QString)
     estimated_time_edit->setText(QString::number(current_dish_estimated_time));
 
     // Регенерування шифру замовлення
-    name_edit->setText("Замовлення#" + generate_uniq_hash());
+    name_edit->setText(tr("Замовлення#") + generate_uniq_hash());
 }

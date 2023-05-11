@@ -29,8 +29,8 @@ void Categories::remove_category(int index)
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n"
+                              "Будь ласка, оберіть елемент перед тим, як видалити його."));
     }
 }
 
@@ -57,9 +57,9 @@ void Categories::add_category(QString name)
     }
     else
     {
-        QMessageBox::critical(add_category_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(add_category_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 }
 
@@ -76,9 +76,9 @@ void Categories::edit_category(QString default_name, QString name)
     }
     else
     {
-        QMessageBox::critical(show_category_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(show_category_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 }
 

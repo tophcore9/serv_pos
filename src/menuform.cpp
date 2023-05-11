@@ -4,14 +4,14 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(500, 600);
-    this->setWindowTitle("Меню");
+    this->setWindowTitle(tr("Меню"));
 
 
     /// ВІДЖЕТИ
     list_view = new QListView;
-    add_menu_btn = new QPushButton("Додати");
-    delete_menu_btn = new QPushButton("Видалити");
-    exit_btn = new QPushButton("Вийти");
+    add_menu_btn = new QPushButton(tr("Додати"));
+    delete_menu_btn = new QPushButton(tr("Видалити"));
+    exit_btn = new QPushButton(tr("Вийти"));
 
     // Налаштування віджетів
     list_view->setModel(menu_model);

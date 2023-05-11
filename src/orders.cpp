@@ -41,8 +41,8 @@ void Orders::remove_order(int index)
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
     }
 }
 
@@ -72,9 +72,9 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
     }
     else
     {
-        QMessageBox::critical(add_order_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(add_order_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 
     for (int i = 0; i < dishes.size(); ++i)

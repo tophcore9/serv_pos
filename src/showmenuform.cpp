@@ -4,7 +4,7 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedWidth(300);
-    this->setWindowTitle("Перегляд меню");
+    this->setWindowTitle(tr("Перегляд меню"));
     QString menu_name = menu_index.data(0).toString();
 
     QString menu_id;
@@ -22,9 +22,9 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
-                              "Повідомлення БД: " + db.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + db.lastError().driverText());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 
     if (query.exec("SELECT * FROM MenuItems JOIN Dishes ON MenuItems.dish_id = Dishes.dish_id"))
@@ -39,22 +39,22 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
-                              "Повідомлення БД: " + db.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + db.lastError().driverText());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 
     /// ВІДЖЕТИ
     // Додавання віджетів
-    l_name = new QLabel("Назва меню:");
+    l_name = new QLabel(tr("Назва меню:"));
     name_edit = new QLineEdit;
 
-    l_dishes = new QLabel("Страви:");
+    l_dishes = new QLabel(tr("Страви:"));
     add_dish_btn = new QPushButton("+");
     add_dish_selects.push_back(new QComboBox);
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
     // Налаштування віджетів
     l_name->setAlignment(Qt::AlignRight);

@@ -55,5 +55,5 @@ HEADERS  += mainwindow.h \
     showdishform.h \
     showcategoryform.h
 
-TRANSLATIONS += src_ua.ts \
-    src_en.ts
+TRANSLATIONS += ../translations/lang_ua.ts \
+    ../translations/lang_en.ts

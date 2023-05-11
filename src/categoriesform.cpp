@@ -3,15 +3,15 @@
 CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setWindowTitle("Категорії");
+    this->setWindowTitle(tr("Категорії"));
     this->setFixedSize(500, 600);
 
 
     /// ВІДЖЕТИ
     list_view = new QListView;
-    add_category_btn = new QPushButton("Додати");
-    delete_category_btn = new QPushButton("Видалити");
-    exit_btn = new QPushButton("Вийти");
+    add_category_btn = new QPushButton(tr("Додати"));
+    delete_category_btn = new QPushButton(tr("Видалити"));
+    exit_btn = new QPushButton(tr("Вийти"));
 
     // Налаштування віджетів
     list_view->setModel(categories_model);

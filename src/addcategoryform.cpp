@@ -7,11 +7,11 @@ AddCategoryForm::AddCategoryForm(QSqlTableModel *categories_model, QWidget *pare
     this->setFixedSize(300, 80);
 
     /// ВІДЖЕТИ
-    l_name = new QLabel("Назва категорії:");
+    l_name = new QLabel(tr("Назва категорії:"));
     name_edit = new QLineEdit;
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
 
     // Налаштування віджетів

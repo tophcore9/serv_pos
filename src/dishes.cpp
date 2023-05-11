@@ -35,8 +35,8 @@ void Dishes::remove_dish(int index)
     }
     else
     {
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Будь ласка, оберіть елемент перед тим, як видалити його.");
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
     }
 }
 
@@ -66,9 +66,9 @@ void Dishes::add_dish(QString name, int weight, double price, QString category, 
     }
     else
     {
-        QMessageBox::critical(add_dish_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(add_dish_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 }
 
@@ -104,9 +104,9 @@ void Dishes::edit_dish(QString default_name, QString name, int weight, double pr
     }
     else
     {
-        QMessageBox::critical(show_dish_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+        QMessageBox::critical(show_dish_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 }
 

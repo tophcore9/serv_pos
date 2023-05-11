@@ -4,16 +4,16 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(300, 80);
-    this->setWindowTitle("Перегляд категорії");
+    this->setWindowTitle(tr("Перегляд категорії"));
 
 
     /// ВІДЖЕТИ
     // Додавання віджетів
-    l_name = new QLabel("Назва категорії:");
+    l_name = new QLabel(tr("Назва категорії:"));
     name_edit = new QLineEdit;
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
     // Налаштування віджетів
     name_edit->setText(category_index.data(0).toString());

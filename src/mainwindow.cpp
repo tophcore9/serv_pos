@@ -12,6 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFixedSize(1200, 700);
     this->setWindowIcon(QIcon("../img/icons/main_icon.png"));
 
+    language.load("../translations/lang_en.qm");
+    qApp->installTranslator(&language);
+
     // Зміна кольору вікна
     QPalette pal = this->palette();
     pal.setColor(QPalette::Background, Qt::gray);
@@ -20,25 +23,25 @@ MainWindow::MainWindow(QWidget *parent)
 
     /// ВІДЖЕТИ
     // Додавання віджетів
-    l_order = new QLabel("Замовлення");
+    l_order = new QLabel(tr("Замовлення"));
     order_list_view = new QListView;
-    add_order_btn = new QPushButton("Додати");
-    delete_order_btn = new QPushButton("Видалити");
+    add_order_btn = new QPushButton(tr("Додати"));
+    delete_order_btn = new QPushButton(tr("Видалити"));
 
-    l_dishes = new QLabel("Страви");
+    l_dishes = new QLabel(tr("Страви"));
     dishes_list_view = new QListView;
-    add_dish_btn = new QPushButton("Додати");
-    delete_dish_btn = new QPushButton("Видалити");
+    add_dish_btn = new QPushButton(tr("Додати"));
+    delete_dish_btn = new QPushButton(tr("Видалити"));
 
-    l_clients = new QLabel("Клієнти");
+    l_clients = new QLabel(tr("Клієнти"));
     client_list_view = new QListView;
-    add_client_btn = new QPushButton("Додати");
-    delete_client_btn = new QPushButton("Видалити");
+    add_client_btn = new QPushButton(tr("Додати"));
+    delete_client_btn = new QPushButton(tr("Видалити"));
 
-    l_other = new QLabel("Інше");
-    open_categories_btn = new QPushButton("Категорії");
-    open_menu_btn = new QPushButton("Меню");
-    open_statistics_btn = new QPushButton("Статистика");
+    l_other = new QLabel(tr("Інше"));
+    open_categories_btn = new QPushButton(tr("Категорії"));
+    open_menu_btn = new QPushButton(tr("Меню"));
+    open_statistics_btn = new QPushButton(tr("Статистика"));
 
 
     // Налаштування віджетів
@@ -124,9 +127,9 @@ MainWindow::MainWindow(QWidget *parent)
     else
     {
         /// ОБРОБКА ПОМИЛОК
-        QMessageBox::critical(this, "Помилка!", "Не вдалось підключитись до бази даних!\n"
-                              "Повідомлення БД: " + db.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + db.lastError().driverText());
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось підключитись до бази даних!\n") +
+                              tr("Повідомлення БД: ") + db.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + db.lastError().driverText());
         this->close();
     }
 

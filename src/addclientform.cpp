@@ -5,26 +5,26 @@ AddClientForm::AddClientForm(QSqlTableModel *dishes_model, QWidget *parent) : QD
     /// БАЗОВІ НАЛАШТУВАННЯ
     //this->parent = parent;
     this->dishes_model = dishes_model;
-    this->setWindowTitle("Додати клієнта");
+    this->setWindowTitle(tr("Додати клієнта"));
     this->setFixedSize(350, 500);
 
 
     /// ВІДЖЕТИ
-    l_name = new QLabel("ПІБ:");
+    l_name = new QLabel(tr("ПІБ:"));
     name_edit = new QLineEdit;
 
-    l_phone = new QLabel("Номер телефону:");
+    l_phone = new QLabel(tr("Номер телефону:"));
     phone_edit = new QLineEdit;
 
-    l_favourite_dish = new QLabel("Улюблена страва:");
+    l_favourite_dish = new QLabel(tr("Улюблена страва:"));
     favourite_dish_select = new QComboBox;
 
-    l_registration_date = new QLabel("Дата реєстрації:");
+    l_registration_date = new QLabel(tr("Дата реєстрації:"));
     registration_date_edit = new QLineEdit(QDate::currentDate().toString(Qt::ISODate));
 
 
-    accept_btn = new QPushButton("Підтвердити");
-    cancel_btn = new QPushButton("Скасувати");
+    accept_btn = new QPushButton(tr("Підтвердити"));
+    cancel_btn = new QPushButton(tr("Скасувати"));
 
 
     // Налаштування віджетів
