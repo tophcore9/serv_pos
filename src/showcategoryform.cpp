@@ -17,7 +17,7 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
 
     // Налаштування віджетів
     name_edit->setText(category_index.data(0).toString());
-    category_name = name_edit->text();
+    past_category_name = name_edit->text();
     new_category_name = name_edit->text();
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -52,7 +52,7 @@ ShowCategoryForm::ShowCategoryForm(QModelIndex category_index, QWidget *parent) 
 
 void ShowCategoryForm::edit_category()
 {
-    emit edit_category(category_name, new_category_name);
+    emit edit_category(past_category_name, new_category_name);
 }
 
 void ShowCategoryForm::name_changed(QString new_name)

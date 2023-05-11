@@ -65,7 +65,6 @@ void Categories::add_category(QString name)
 
 void Categories::edit_category(QString default_name, QString name)
 {
-    qDebug() << "Editing";
     QSqlQuery query(model->database());
 
     if (query.exec("UPDATE Categories SET "

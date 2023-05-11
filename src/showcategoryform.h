@@ -11,7 +11,7 @@ class ShowCategoryForm : public QDialog
     Q_OBJECT
 
 private:
-    QString category_name;
+    QString past_category_name;
     QString new_category_name;
 
     /// GUI

@@ -5,44 +5,22 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedSize(350, 500);
     this->setWindowTitle("Перегляд клієнта");
-    QString client_name, client_phone, client_favourite_dish, client_registration_date;
 
-    QSqlQuery query(dishes_model->database());
-    if (query.exec("SELECT * FROM Clients JOIN Dishes ON Clients.client_favourite_dish = Dishes.dish_id"))
-    {
-        while (query.next())
-        {
-            if (client_index.data(0).toString() == query.value("client_phone"))
-            {
-                client_name = query.value("client_name").toString();
-                client_phone = query.value("client_phone").toString();
-                client_favourite_dish = query.value("dish_name").toString();
-                client_registration_date = query.value("client_registration_date").toString();
-            }
-        }
-    }
-    else
-    {
-        // Обробка помилок
-        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
-    }
 
 
     /// ВІДЖЕТИ
     // Додавання віджетів
     l_name = new QLabel("ПІБ:");
-    name_edit = new QLineEdit(client_name);
+    name_edit = new QLineEdit;
 
     l_phone = new QLabel("Номер телефону:");
-    phone_edit = new QLineEdit(client_phone);
+    phone_edit = new QLineEdit;
 
     l_favourite_dish = new QLabel("Улюблена страва:");
     favourite_dish_select = new QComboBox;
 
     l_registration_date = new QLabel("Дата реєстрації:");
-    registration_date_edit = new QLineEdit(client_registration_date);
+    registration_date_edit = new QLineEdit;
 
     accept_btn = new QPushButton("Підтвердити");
     cancel_btn = new QPushButton("Скасувати");
@@ -62,7 +40,36 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
 
     favourite_dish_select->setModel(dishes_model);
     favourite_dish_select->setModelColumn(1);
-    favourite_dish_select->setCurrentText(client_favourite_dish);
+
+    QSqlQuery query(dishes_model->database());
+    if (query.exec("SELECT * FROM Clients JOIN Dishes ON Clients.client_favourite_dish = Dishes.dish_id"))
+    {
+        while (query.next())
+        {
+            if (client_index.data(0).toString() == query.value("client_phone"))
+            {
+                name_edit->setText(query.value("client_name").toString());
+                new_client_name = name_edit->text();
+
+                phone_edit->setText(query.value("client_phone").toString());
+                new_client_phone = phone_edit->text();
+                past_client_phone = phone_edit->text();
+
+                favourite_dish_select->setCurrentText(query.value("dish_name").toString());
+                new_client_dish = favourite_dish_select->currentText();
+
+                registration_date_edit->setText(query.value("client_registration_date").toString());
+                new_client_date = registration_date_edit->text();
+            }
+        }
+    }
+    else
+    {
+        // Обробка помилок
+        QMessageBox::critical(this, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -100,9 +107,34 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     connect(this, SIGNAL(edit_client(QString,QString,QString,QString,QString)), parent, SLOT(edit_client(QString,QString,QString,QString,QString)));
 
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+
+    connect(name_edit, SIGNAL(textChanged(QString)), this, SLOT(name_changed(QString)));
+    connect(phone_edit, SIGNAL(textChanged(QString)), this, SLOT(phone_changed(QString)));
+    connect(registration_date_edit, SIGNAL(textChanged(QString)), this, SLOT(date_changed(QString)));
+    connect(favourite_dish_select, SIGNAL(currentTextChanged(QString)), this, SLOT(dish_changed(QString)));
 }
 
 void ShowClientForm::edit_client()
 {
-    emit edit_client("", "", "", "", "");
+    emit edit_client(past_client_phone, new_client_name, new_client_phone, new_client_date, new_client_dish);
+}
+
+void ShowClientForm::name_changed(QString)
+{
+    new_client_name = name_edit->text();
+}
+
+void ShowClientForm::phone_changed(QString)
+{
+    new_client_phone = phone_edit->text();
+}
+
+void ShowClientForm::date_changed(QString)
+{
+    new_client_date = registration_date_edit->text();
+}
+
+void ShowClientForm::dish_changed(QString)
+{
+    new_client_dish = favourite_dish_select->currentText();
 }

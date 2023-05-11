@@ -13,6 +13,13 @@ class ShowClientForm : public QDialog
     Q_OBJECT
 
 private:
+    QString past_client_phone;
+
+    QString new_client_name;
+    QString new_client_phone;
+    QString new_client_dish;
+    QString new_client_date;
+
     /// GUI
     QVBoxLayout *main_layout;
     QGridLayout *info_layout;
@@ -41,6 +48,11 @@ signals:
 
 public slots:
     void edit_client();
+
+    void name_changed(QString);
+    void phone_changed(QString);
+    void date_changed(QString);
+    void dish_changed(QString);
 };
 
 #endif // SHOWCLIENTFORM_H
