@@ -48,24 +48,23 @@ void Orders::remove_order(int index)
 
 void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
-    int client_id;
+    QString client_id;
 
     // Обробка індексації
     QSqlQuery query(model->database());
-    query.prepare("SELECT * FROM Clients;");
-    query.exec();
+    query.exec("SELECT * FROM Clients");
 
     while (query.next())
     {
         if (query.value("client_name") == client)
         {
-            client_id = query.value("client_id").toInt();
+            client_id = query.value("client_id").toString();
             break;
         }
     }
 
     if (query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES (\"" + name + "\", " +
-                        QString::number(client_id) + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\");"))
+                        client_id + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\");"))
     {
         model->select();
         add_order_form->close();
@@ -81,41 +80,44 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
         order_items->add_order_item(name, dishes[i]);
 }
 
-void Orders::edit_order(QString default_name, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
+void Orders::edit_order(QString order_id, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
-    qDebug() << "Editing";
-//    int client_id;
+    QString client_id;
 
-//    // Обробка індексації
-//    QSqlQuery query(model->database());
-//    query.prepare("SELECT * FROM Clients;");
-//    query.exec();
+    // Обробка індексації
+    QSqlQuery query(model->database());
+    query.exec("SELECT * FROM Clients");
 
-//    while (query.next())
-//    {
-//        if (query.value("client_name") == client)
-//        {
-//            client_id = query.value("client_id").toInt();
-//            break;
-//        }
-//    }
+    while (query.next())
+    {
+        if (query.value("client_phone") == client)
+        {
+            client_id = query.value("client_id").toString();
+            break;
+        }
+    }
 
-//    if (query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES (\"" + name + "\", " +
-//                        QString::number(client_id) + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\");"))
-//    {
-//        model->select();
-//        add_order_form->close();
-//    }
-//    else
-//    {
-//        QMessageBox::critical(add_order_form, "Помилка!", "Не вдалось виконати запит!\n"
-//                              "Повідомлення БД: " + query.lastError().databaseText() +
-//                              "\nПовідомлення драйвера: " + query.lastError().driverText());
-//    }
+    if (query.exec("UPDATE Orders SET "
+                   "client_id = " + client_id + ", "
+                   "order_price = " + QString::number(total_price) + ", "
+                   "order_estimated_time = " + QString::number(total_time) + ", "
+                   "order_date = \"" + date + "\" "
+                   "WHERE order_id = \"" + order_id + "\""))
+    {
+        model->select();
+        show_order_form->close();
+    }
+    else
+    {
+        QMessageBox::critical(show_order_form, "Помилка!", "Не вдалось виконати запит!\n"
+                              "Повідомлення БД: " + query.lastError().databaseText() +
+                              "\nПовідомлення драйвера: " + query.lastError().driverText());
+    }
 
-//    for (int i = 0; i < dishes.size(); ++i)
-//        order_items->add_order_item(name, dishes[i]);
+    order_items->remove_order_items(order_id.toInt());
 
+    for (int i = 0; i < dishes.size(); ++i)
+        order_items->add_order_item(name, dishes[i]);
 }
 
 void Orders::change_sort(int sort_index)

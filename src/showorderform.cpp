@@ -69,8 +69,7 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
             {
                 order_id = query.value("order_id").toString();
                 name_edit->setText(query.value("order_name").toString());
-                client_select->setCurrentText(query.value("client_name").toString());
-                past_client_phone = query.value("client_phone").toString();
+                client_select->setCurrentText(query.value("client_phone").toString());
                 price_edit->setText(query.value("order_price").toString());
                 estimated_time_edit->setText(query.value("order_estimated_time").toString());
                 date_edit->setText(query.value("order_date").toString());
@@ -103,11 +102,6 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
             ++counts[i];
         }
     }
-
-//    for (int i = 0; i < count_dish_edits.size(); ++i)
-//        qDebug() << count_dish_edits[i]->text();
-//        count_dish_edits[i]->setText(QString::number(counts[i]));
-//        qDebug() << dishes[i] << " " << QString::number(counts[i]);
 
     current_dish_item = 0;
     dish_grid_index = 6;
@@ -172,7 +166,17 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
 
 void ShowOrderForm::edit_order()
 {
-    emit edit_order("", "", "", 0.0, 0, "", {""});
+    std::vector<QString> sorted_dishes;
+
+    for (int i = 0; i < add_dish_selects.size(); ++i)
+        if (add_dish_selects[i] != NULL)
+        {
+            for (int j = 0; j < count_dish_edits[i]->text().toInt(); ++j)
+                sorted_dishes.push_back(add_dish_selects[i]->currentText());
+        }
+
+    emit edit_order(order_id, name_edit->text(), client_select->currentText(), price_edit->text().toDouble(),
+                    estimated_time_edit->text().toInt(), date_edit->text(), sorted_dishes);
 }
 
 void ShowOrderForm::add_dish()

@@ -19,9 +19,7 @@ private:
     int dish_grid_index;
     int current_dish_item;
     std::vector<QString> dishes;
-    QString past_client_phone;
     QString order_id;
-    QString new_order_name;
     QString new_client_name;
     QString new_client_phone;
     QString new_order_price;
@@ -63,7 +61,7 @@ public:
     explicit ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
-    void edit_order(QString default_name, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
+    void edit_order(QString order_id, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
 
 public slots:
     void edit_order();
