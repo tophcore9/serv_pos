@@ -34,9 +34,14 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
 
     // Встановлення статичного розміру полей вводу
     name_edit->setMaximumWidth(200);
+
     phone_edit->setMaximumWidth(200);
+    phone_edit->setInputMask("(+380) 00-000-00-00");
+
     favourite_dish_select->setMaximumWidth(200);
+
     registration_date_edit->setMaximumWidth(200);
+    registration_date_edit->setInputMask("0000-00-00");
 
     favourite_dish_select->setModel(dishes_model);
     favourite_dish_select->setModelColumn(1);

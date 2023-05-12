@@ -50,10 +50,17 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
 
     // Встановлення статичного розміру полей вводу
     name_edit->setMaximumWidth(200);
+
     price_edit->setMaximumWidth(200);
+    price_edit->setValidator(new QDoubleValidator);
+
     categories_select->setMaximumWidth(200);
+
     estimated_time_edit->setMaximumWidth(200);
+    estimated_time_edit->setValidator(new QIntValidator);
+
     weight_edit->setMaximumWidth(200);
+    weight_edit->setValidator(new QIntValidator);
 
     categories_select->setModel(categories_model);
     categories_select->setModelColumn(1);

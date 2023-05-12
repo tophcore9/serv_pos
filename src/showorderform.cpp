@@ -79,7 +79,9 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
     client_select->setMaximumWidth(200);
     price_edit->setMaximumWidth(200);
     estimated_time_edit->setMaximumWidth(200);
+
     date_edit->setMaximumWidth(200);
+    date_edit->setInputMask("0000-00-00");
 
     name_edit->setEnabled(false);
     estimated_time_edit->setEnabled(false);

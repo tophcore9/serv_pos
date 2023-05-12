@@ -53,7 +53,9 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     client_select->setMaximumWidth(200);
     price_edit->setMaximumWidth(200);
     estimated_time_edit->setMaximumWidth(200);
+
     date_edit->setMaximumWidth(200);
+    date_edit->setInputMask("0000-00-00");
 
     name_edit->setEnabled(false);
     estimated_time_edit->setEnabled(false);
@@ -154,6 +156,7 @@ void AddOrderForm::add_dish()
     count_dish_edits.push_back(new QLineEdit);
     count_dish_edits[current_dish_item]->setPlaceholderText(tr("Кількість порцій"));
     count_dish_edits[current_dish_item]->setText("1");
+    count_dish_edits[current_dish_item]->setValidator(new QIntValidator);
 
     remove_dish_btns.push_back(new QPushButton("x"));
     remove_dish_btns[current_dish_item]->setFixedSize(25, 25);
