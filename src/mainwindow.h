@@ -6,6 +6,7 @@
 #include <QEvent>
 
 #include <QSqlError>
+#include <QSqlQuery>
 
 #include "orders.h"
 #include "dishes.h"

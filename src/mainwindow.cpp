@@ -270,7 +270,33 @@ void MainWindow::change_lang()
 
 void MainWindow::remove_client_row()
 {
-    clients->remove_client(current_client);
+    QMessageBox::StandardButton reply = QMessageBox::warning(this, tr("Увага!"), tr("При видаленні клієнта видаляться його замовлення, ви впевнені?"),
+                                                             QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        QSqlQuery query(db);
+        QString client_id;
+
+        query.exec("SELECT * FROM Clients");
+        while (query.next())
+        {
+            if (query.value("client_phone").toString() == client_list_view->currentIndex().data(0).toString())
+            client_id = query.value("client_id").toString();
+        }
+
+        query.exec("SELECT * FROM Orders WHERE client_id = " + client_id);
+        while (query.next())
+        {
+            QSqlQuery query2(db);
+            query2.exec("DELETE FROM OrderItems WHERE order_id = " + query.value("order_id").toString());
+        }
+
+        query.exec("DELETE FROM Orders WHERE client_id = " + client_id);
+
+        clients->remove_client(current_client);
+
+        orders->get_model()->select();
+    }
 }
 
 void MainWindow::remove_dish_row()
