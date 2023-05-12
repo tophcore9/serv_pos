@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtWidgets>
 #include <QEvent>
+
 #include <QSqlError>
 
 #include "orders.h"
@@ -78,6 +79,10 @@ public slots:
     void change_client_row(const QModelIndex index);
     void change_dish_row(const QModelIndex index);
     void change_order_row(const QModelIndex index);
+
+    void change_orders_sort(int sort_index);
+    void change_dishes_sort(int sort_index);
+    void change_clients_sort(int sort_index);
 
     void change_lang();
 };

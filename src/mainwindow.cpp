@@ -22,6 +22,28 @@ void MainWindow::change_main_window_lang()
     open_menu_btn->setText(tr("Меню"));
     open_statistics_btn->setText(tr("Статистика"));
     l_lang_change->setText(tr("Мова:"));
+
+    orders_sort->clear();
+    orders_sort->addItem(tr("Сортувати за додаванням"));
+    orders_sort->addItem(tr("Сортувати за назвою"));
+    orders_sort->addItem(tr("Сортувати за клієнтами"));
+    orders_sort->addItem(tr("Сортувати за вартістю"));
+    orders_sort->addItem(tr("Сортувати за часом приготування"));
+    orders_sort->addItem(tr("Сортувати за датою"));
+
+    dishes_sort->clear();
+    dishes_sort->addItem(tr("Сортувати за додаванням"));
+    dishes_sort->addItem(tr("Сортувати за назвою"));
+    dishes_sort->addItem(tr("Сортувати за вартістю"));
+    dishes_sort->addItem(tr("Сортувати за вагою"));
+    dishes_sort->addItem(tr("Сортувати за категорією"));
+    dishes_sort->addItem(tr("Сортувати за часом приготування"));
+
+    clients_sort->clear();
+    clients_sort->addItem(tr("Сортувати за додаванням"));
+    clients_sort->addItem(tr("Сортувати за ім'ям"));
+    clients_sort->addItem(tr("Сортувати за стравою"));
+    clients_sort->addItem(tr("Сортувати за датою"));
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -74,15 +96,17 @@ MainWindow::MainWindow(QWidget *parent)
     l_order->setAlignment(Qt::AlignHCenter);
     orders_sort->addItem(tr("Сортувати за додаванням"));
     orders_sort->addItem(tr("Сортувати за назвою"));
+    orders_sort->addItem(tr("Сортувати за клієнтами"));
     orders_sort->addItem(tr("Сортувати за вартістю"));
     orders_sort->addItem(tr("Сортувати за часом приготування"));
+    orders_sort->addItem(tr("Сортувати за датою"));
 
     l_dishes->setAlignment(Qt::AlignHCenter);
     dishes_sort->addItem(tr("Сортувати за додаванням"));
     dishes_sort->addItem(tr("Сортувати за назвою"));
     dishes_sort->addItem(tr("Сортувати за вартістю"));
-    dishes_sort->addItem(tr("Сортувати за категорією"));
     dishes_sort->addItem(tr("Сортувати за вагою"));
+    dishes_sort->addItem(tr("Сортувати за категорією"));
     dishes_sort->addItem(tr("Сортувати за часом приготування"));
     dishes_list_view->setMinimumWidth(550);
     l_dishes->setMinimumWidth(550);
@@ -205,6 +229,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(open_categories_btn, &QPushButton::clicked, categories, &Categories::open_categories);
     connect(open_menu_btn, &QPushButton::clicked, menu, &Menu::open_menu);
 
+    connect(orders_sort, SIGNAL(currentIndexChanged(int)), this, SLOT(change_orders_sort(int)));
+    connect(dishes_sort, SIGNAL(currentIndexChanged(int)), this, SLOT(change_dishes_sort(int)));
+    connect(clients_sort, SIGNAL(currentIndexChanged(int)), this, SLOT(change_clients_sort(int)));
+
     connect(lang_change, &QComboBox::currentTextChanged, this, &MainWindow::change_lang);
 }
 
@@ -218,6 +246,76 @@ void MainWindow::change_order_row(const QModelIndex index)
 {
     current_order = index.row();
     send_order_index(index);
+}
+
+void MainWindow::change_orders_sort(int sort_index)
+{
+    QSqlQuery query(db);
+    switch (sort_index) {
+    case 0:
+        orders->get_model()->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        orders->get_model()->setSort(1, Qt::AscendingOrder);
+        break;
+    case 2:
+        orders->get_model()->setSort(2, Qt::AscendingOrder);
+        break;
+    case 3:
+        orders->get_model()->setSort(3, Qt::AscendingOrder);
+        break;
+    case 4:
+        orders->get_model()->setSort(4, Qt::AscendingOrder);
+        break;
+    case 5:
+        orders->get_model()->setSort(5, Qt::AscendingOrder);
+        break;
+    }
+    orders->get_model()->select();
+}
+
+void MainWindow::change_dishes_sort(int sort_index)
+{
+    switch (sort_index) {
+    case 0:
+        dishes->get_model()->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        dishes->get_model()->setSort(1, Qt::AscendingOrder);
+        break;
+    case 2:
+        dishes->get_model()->setSort(2, Qt::AscendingOrder);
+        break;
+    case 3:
+        dishes->get_model()->setSort(3, Qt::AscendingOrder);
+        break;
+    case 4:
+        dishes->get_model()->setSort(4, Qt::AscendingOrder);
+        break;
+    case 5:
+        dishes->get_model()->setSort(5, Qt::AscendingOrder);
+        break;
+    }
+    dishes->get_model()->select();
+}
+
+void MainWindow::change_clients_sort(int sort_index)
+{
+    switch (sort_index) {
+    case 0:
+        clients->get_model()->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        clients->get_model()->setSort(1, Qt::AscendingOrder);
+        break;
+    case 2:
+        clients->get_model()->setSort(3, Qt::AscendingOrder);
+        break;
+    case 3:
+        clients->get_model()->setSort(4, Qt::AscendingOrder);
+        break;
+    }
+    clients->get_model()->select();
 }
 
 void MainWindow::change_lang()

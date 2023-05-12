@@ -393,7 +393,7 @@ Driver message: </translation>
     <name>MainWindow</name>
     <message>
         <location filename="../src/mainwindow.cpp" line="8"/>
-        <location filename="../src/mainwindow.cpp" line="50"/>
+        <location filename="../src/mainwindow.cpp" line="69"/>
         <source>Замовлення</source>
         <translation>Order</translation>
     </message>
@@ -401,9 +401,9 @@ Driver message: </translation>
         <location filename="../src/mainwindow.cpp" line="9"/>
         <location filename="../src/mainwindow.cpp" line="13"/>
         <location filename="../src/mainwindow.cpp" line="17"/>
-        <location filename="../src/mainwindow.cpp" line="52"/>
-        <location filename="../src/mainwindow.cpp" line="57"/>
-        <location filename="../src/mainwindow.cpp" line="62"/>
+        <location filename="../src/mainwindow.cpp" line="72"/>
+        <location filename="../src/mainwindow.cpp" line="78"/>
+        <location filename="../src/mainwindow.cpp" line="84"/>
         <source>Додати</source>
         <translation>Add</translation>
     </message>
@@ -411,15 +411,15 @@ Driver message: </translation>
         <location filename="../src/mainwindow.cpp" line="10"/>
         <location filename="../src/mainwindow.cpp" line="14"/>
         <location filename="../src/mainwindow.cpp" line="18"/>
-        <location filename="../src/mainwindow.cpp" line="53"/>
-        <location filename="../src/mainwindow.cpp" line="58"/>
-        <location filename="../src/mainwindow.cpp" line="63"/>
+        <location filename="../src/mainwindow.cpp" line="73"/>
+        <location filename="../src/mainwindow.cpp" line="79"/>
+        <location filename="../src/mainwindow.cpp" line="85"/>
         <source>Видалити</source>
         <translation>Remove</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="12"/>
-        <location filename="../src/mainwindow.cpp" line="55"/>
+        <location filename="../src/mainwindow.cpp" line="75"/>
         <source>Страви</source>
         <translation>Dishes</translation>
     </message>
@@ -429,7 +429,7 @@ Driver message: </translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="16"/>
-        <location filename="../src/mainwindow.cpp" line="60"/>
+        <location filename="../src/mainwindow.cpp" line="81"/>
         <source>Клієнти</source>
         <translation>Clients</translation>
     </message>
@@ -455,65 +455,133 @@ Driver message: </translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="20"/>
-        <location filename="../src/mainwindow.cpp" line="65"/>
+        <location filename="../src/mainwindow.cpp" line="87"/>
         <source>Інше</source>
         <translation>Other</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="21"/>
-        <location filename="../src/mainwindow.cpp" line="66"/>
+        <location filename="../src/mainwindow.cpp" line="88"/>
         <source>Категорії</source>
         <translation>Categories</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="22"/>
-        <location filename="../src/mainwindow.cpp" line="67"/>
+        <location filename="../src/mainwindow.cpp" line="89"/>
         <source>Меню</source>
         <translation>Menu</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="23"/>
-        <location filename="../src/mainwindow.cpp" line="68"/>
+        <location filename="../src/mainwindow.cpp" line="90"/>
         <source>Статистика</source>
         <translation>Statistics</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="24"/>
-        <location filename="../src/mainwindow.cpp" line="69"/>
+        <location filename="../src/mainwindow.cpp" line="91"/>
         <source>Мова:</source>
         <translation>Language:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="85"/>
-        <location filename="../src/mainwindow.cpp" line="209"/>
+        <location filename="../src/mainwindow.cpp" line="27"/>
+        <location filename="../src/mainwindow.cpp" line="35"/>
+        <location filename="../src/mainwindow.cpp" line="43"/>
+        <location filename="../src/mainwindow.cpp" line="97"/>
+        <location filename="../src/mainwindow.cpp" line="105"/>
+        <location filename="../src/mainwindow.cpp" line="115"/>
+        <source>Сортувати за додаванням</source>
+        <translation>Sort by addition</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="28"/>
+        <location filename="../src/mainwindow.cpp" line="36"/>
+        <location filename="../src/mainwindow.cpp" line="98"/>
+        <location filename="../src/mainwindow.cpp" line="106"/>
+        <source>Сортувати за назвою</source>
+        <translation>Sort by title</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="29"/>
+        <location filename="../src/mainwindow.cpp" line="99"/>
+        <source>Сортувати за клієнтами</source>
+        <translation>Sort by clients</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="30"/>
+        <location filename="../src/mainwindow.cpp" line="37"/>
+        <location filename="../src/mainwindow.cpp" line="100"/>
+        <location filename="../src/mainwindow.cpp" line="107"/>
+        <source>Сортувати за вартістю</source>
+        <translation>Sort by price</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="31"/>
+        <location filename="../src/mainwindow.cpp" line="40"/>
+        <location filename="../src/mainwindow.cpp" line="101"/>
+        <location filename="../src/mainwindow.cpp" line="110"/>
+        <source>Сортувати за часом приготування</source>
+        <translation>Sort by cooking time</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="32"/>
+        <location filename="../src/mainwindow.cpp" line="46"/>
+        <location filename="../src/mainwindow.cpp" line="102"/>
+        <location filename="../src/mainwindow.cpp" line="118"/>
+        <source>Сортувати за датою</source>
+        <translation>Sort by date</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="38"/>
+        <location filename="../src/mainwindow.cpp" line="108"/>
+        <source>Сортувати за вагою</source>
+        <translation>Sort by weight</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="39"/>
+        <location filename="../src/mainwindow.cpp" line="109"/>
+        <source>Сортувати за категорією</source>
+        <translation>Sort by category</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="44"/>
+        <location filename="../src/mainwindow.cpp" line="116"/>
+        <source>Сортувати за ім&apos;ям</source>
+        <translation>Sort by name</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="45"/>
+        <location filename="../src/mainwindow.cpp" line="117"/>
+        <source>Сортувати за стравою</source>
+        <translation>Sort by favourite dish</translation>
+    </message>
+    <message>
         <source>Українська</source>
-        <translation>Ukrainian</translation>
+        <translation type="vanished">Ukrainian</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="86"/>
-        <location filename="../src/mainwindow.cpp" line="217"/>
         <source>Англійська</source>
-        <translation>English</translation>
+        <translation type="vanished">English</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="161"/>
+        <location filename="../src/mainwindow.cpp" line="201"/>
         <source>Помилка!</source>
         <translation>Error!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="161"/>
+        <location filename="../src/mainwindow.cpp" line="201"/>
         <source>Не вдалось підключитись до бази даних!
 </source>
         <translation>Unable to connect to the database!
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="162"/>
+        <location filename="../src/mainwindow.cpp" line="202"/>
         <source>Повідомлення БД: </source>
         <translation>Database message: </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="163"/>
+        <location filename="../src/mainwindow.cpp" line="203"/>
         <source>
 Повідомлення драйвера: </source>
         <translation>
