@@ -270,7 +270,7 @@ void MainWindow::change_lang()
 
 void MainWindow::remove_client_row()
 {
-    QMessageBox::StandardButton reply = QMessageBox::warning(this, tr("Увага!"), tr("При видаленні клієнта видаляться його замовлення, ви впевнені?"),
+    QMessageBox::StandardButton reply = QMessageBox::warning(this, tr("Увага!"), tr("При видаленні клієнта видаляться всі його замовлення, ви впевнені?"),
                                                              QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes)
     {
