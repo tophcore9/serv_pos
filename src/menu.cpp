@@ -87,6 +87,26 @@ void Menu::edit_menu(QString default_name, QString name, std::vector<QString> di
 
 }
 
+void Menu::change_sort(int sort_index)
+{
+    switch (sort_index) {
+    case 0:
+        model->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        model->setSort(1, Qt::AscendingOrder);
+        break;
+    }
+    model->select();
+}
+
+void Menu::reset_menu_form()
+{
+    model->setSort(0, Qt::AscendingOrder);
+    model->select();
+    menu_form->close();
+}
+
 void Menu::open_add_menu_form()
 {
     add_menu_form = new AddMenuForm(model, dishes_model, this);

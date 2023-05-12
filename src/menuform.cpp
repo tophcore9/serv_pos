@@ -8,19 +8,23 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
 
 
     /// ВІДЖЕТИ
+    menu_sort = new QComboBox;
     list_view = new QListView;
     add_menu_btn = new QPushButton(tr("Додати"));
     delete_menu_btn = new QPushButton(tr("Видалити"));
     exit_btn = new QPushButton(tr("Вийти"));
 
     // Налаштування віджетів
+    menu_sort->addItem(tr("Сортувати за додаванням"));
+    menu_sort->addItem(tr("Сортувати за назвою"));
+
     list_view->setModel(menu_model);
     list_view->setModelColumn(1);
 
 
     /// МАКЕТИ ТА КОМПОНОВКА
     main_layout = new QVBoxLayout;
-    view_layout = new QHBoxLayout;
+    view_layout = new QVBoxLayout;
     buttons_layout = new QHBoxLayout;
     setLayout(main_layout);
 
@@ -29,6 +33,7 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
     main_layout->addLayout(buttons_layout);
 
     // Компоновка віджетів
+    view_layout->addWidget(menu_sort);
     view_layout->addWidget(list_view);
 
     buttons_layout->addWidget(add_menu_btn);
@@ -37,7 +42,9 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
 
 
     /// СИГНАЛИ ТА СЛОТИ
-    connect(exit_btn, SIGNAL(clicked()), this, SLOT(close()));
+    connect(exit_btn, SIGNAL(clicked()), this, SLOT(close_form()));
+    connect(this, SIGNAL(reset_form()), parent, SLOT(reset_menu_form()));
+
     connect(add_menu_btn, SIGNAL(clicked()), parent, SLOT(open_add_menu_form()));
 
     connect(list_view, SIGNAL(doubleClicked(QModelIndex)), parent, SLOT(open_show_menu_form()));
@@ -48,6 +55,8 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
     // Видалення меню
     connect(delete_menu_btn, SIGNAL(clicked()), this, SLOT(remove_menu_row()));
     connect(this, SIGNAL(remove_menu_row(int)), parent, SLOT(remove_menu(int)));
+
+    connect(menu_sort, SIGNAL(currentIndexChanged(int)), parent, SLOT(change_sort(int)));
 }
 
 void MenuForm::change_menu_row(const QModelIndex index)
@@ -59,4 +68,9 @@ void MenuForm::change_menu_row(const QModelIndex index)
 void MenuForm::remove_menu_row()
 {
     emit remove_menu_row(current_menu);
+}
+
+void MenuForm::close_form()
+{
+    emit reset_form();
 }

@@ -13,9 +13,10 @@ private:
     int current_menu;
 
     QVBoxLayout *main_layout;
-    QHBoxLayout *view_layout;
+    QVBoxLayout *view_layout;
     QHBoxLayout *buttons_layout;
 
+    QComboBox *menu_sort;
     QListView *list_view;
     QPushButton *add_menu_btn;
     QPushButton *delete_menu_btn;
@@ -27,10 +28,12 @@ public:
 signals:
     void send_index(const QModelIndex);
     void remove_menu_row(int);
+    void reset_form();
 
 public slots:
     void change_menu_row(const QModelIndex index);
     void remove_menu_row();
+    void close_form();
 };
 
 #endif // MENUFORM_H

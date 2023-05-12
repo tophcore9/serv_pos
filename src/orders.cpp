@@ -118,6 +118,31 @@ void Orders::edit_order(QString default_name, QString name, QString client, doub
 
 }
 
+void Orders::change_sort(int sort_index)
+{
+    switch (sort_index) {
+    case 0:
+        model->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        model->setSort(1, Qt::AscendingOrder);
+        break;
+    case 2:
+        model->setSort(2, Qt::AscendingOrder);
+        break;
+    case 3:
+        model->setSort(3, Qt::AscendingOrder);
+        break;
+    case 4:
+        model->setSort(4, Qt::AscendingOrder);
+        break;
+    case 5:
+        model->setSort(5, Qt::AscendingOrder);
+        break;
+    }
+    model->select();
+}
+
 void Orders::open_add_order_form()
 {
     add_order_form = new AddOrderForm(clients_model, dishes_model, this);

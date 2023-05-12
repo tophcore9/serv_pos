@@ -110,6 +110,31 @@ void Dishes::edit_dish(QString default_name, QString name, int weight, double pr
     }
 }
 
+void Dishes::change_sort(int sort_index)
+{
+    switch (sort_index) {
+    case 0:
+        model->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        model->setSort(1, Qt::AscendingOrder);
+        break;
+    case 2:
+        model->setSort(2, Qt::AscendingOrder);
+        break;
+    case 3:
+        model->setSort(3, Qt::AscendingOrder);
+        break;
+    case 4:
+        model->setSort(4, Qt::AscendingOrder);
+        break;
+    case 5:
+        model->setSort(5, Qt::AscendingOrder);
+        break;
+    }
+    model->select();
+}
+
 void Dishes::open_add_dish_form()
 {
     add_dish_form = new AddDishForm(categories_model, this);

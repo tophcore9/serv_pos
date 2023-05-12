@@ -41,6 +41,8 @@ public slots:
     void remove_menu(int);
     void add_menu(QString name, std::vector<QString> dishes);
     void edit_menu(QString default_name, QString name, std::vector<QString> dishes);
+    void change_sort(int sort_index);
+    void reset_menu_form();
 };
 
 #endif // MENU_H

@@ -39,6 +39,26 @@ void Categories::change_index(const QModelIndex index)
     this->index = index;
 }
 
+void Categories::change_sort(int sort_index)
+{
+    switch (sort_index) {
+    case 0:
+        model->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        model->setSort(1, Qt::AscendingOrder);
+        break;
+    }
+    model->select();
+}
+
+void Categories::reset_categories_form()
+{
+    model->setSort(0, Qt::AscendingOrder);
+    model->select();
+    categories_form->close();
+}
+
 void Categories::open_add_category_form()
 {
     add_category_form = new AddCategoryForm(model, this);

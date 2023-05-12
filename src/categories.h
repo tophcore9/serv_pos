@@ -42,6 +42,8 @@ public slots:
     void open_categories();
     void remove_category(int);
     void change_index(const QModelIndex index);
+    void change_sort(int sort_index);
+    void reset_categories_form();
 };
 
 #endif // CATEGORIES_H

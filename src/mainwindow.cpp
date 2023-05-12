@@ -229,9 +229,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(open_categories_btn, &QPushButton::clicked, categories, &Categories::open_categories);
     connect(open_menu_btn, &QPushButton::clicked, menu, &Menu::open_menu);
 
-    connect(orders_sort, SIGNAL(currentIndexChanged(int)), this, SLOT(change_orders_sort(int)));
-    connect(dishes_sort, SIGNAL(currentIndexChanged(int)), this, SLOT(change_dishes_sort(int)));
-    connect(clients_sort, SIGNAL(currentIndexChanged(int)), this, SLOT(change_clients_sort(int)));
+    connect(orders_sort, SIGNAL(currentIndexChanged(int)), orders, SLOT(change_sort(int)));
+    connect(dishes_sort, SIGNAL(currentIndexChanged(int)), dishes, SLOT(change_sort(int)));
+    connect(clients_sort, SIGNAL(currentIndexChanged(int)), clients, SLOT(change_sort(int)));
 
     connect(lang_change, &QComboBox::currentTextChanged, this, &MainWindow::change_lang);
 }
@@ -246,76 +246,6 @@ void MainWindow::change_order_row(const QModelIndex index)
 {
     current_order = index.row();
     send_order_index(index);
-}
-
-void MainWindow::change_orders_sort(int sort_index)
-{
-    QSqlQuery query(db);
-    switch (sort_index) {
-    case 0:
-        orders->get_model()->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        orders->get_model()->setSort(1, Qt::AscendingOrder);
-        break;
-    case 2:
-        orders->get_model()->setSort(2, Qt::AscendingOrder);
-        break;
-    case 3:
-        orders->get_model()->setSort(3, Qt::AscendingOrder);
-        break;
-    case 4:
-        orders->get_model()->setSort(4, Qt::AscendingOrder);
-        break;
-    case 5:
-        orders->get_model()->setSort(5, Qt::AscendingOrder);
-        break;
-    }
-    orders->get_model()->select();
-}
-
-void MainWindow::change_dishes_sort(int sort_index)
-{
-    switch (sort_index) {
-    case 0:
-        dishes->get_model()->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        dishes->get_model()->setSort(1, Qt::AscendingOrder);
-        break;
-    case 2:
-        dishes->get_model()->setSort(2, Qt::AscendingOrder);
-        break;
-    case 3:
-        dishes->get_model()->setSort(3, Qt::AscendingOrder);
-        break;
-    case 4:
-        dishes->get_model()->setSort(4, Qt::AscendingOrder);
-        break;
-    case 5:
-        dishes->get_model()->setSort(5, Qt::AscendingOrder);
-        break;
-    }
-    dishes->get_model()->select();
-}
-
-void MainWindow::change_clients_sort(int sort_index)
-{
-    switch (sort_index) {
-    case 0:
-        clients->get_model()->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        clients->get_model()->setSort(1, Qt::AscendingOrder);
-        break;
-    case 2:
-        clients->get_model()->setSort(3, Qt::AscendingOrder);
-        break;
-    case 3:
-        clients->get_model()->setSort(4, Qt::AscendingOrder);
-        break;
-    }
-    clients->get_model()->select();
 }
 
 void MainWindow::change_lang()

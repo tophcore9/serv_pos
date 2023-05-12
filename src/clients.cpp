@@ -103,6 +103,25 @@ void Clients::edit_client(QString default_phone, QString name, QString phone, QS
     }
 }
 
+void Clients::change_sort(int sort_index)
+{
+    switch (sort_index) {
+    case 0:
+        model->setSort(0, Qt::AscendingOrder);
+        break;
+    case 1:
+        model->setSort(1, Qt::AscendingOrder);
+        break;
+    case 2:
+        model->setSort(3, Qt::AscendingOrder);
+        break;
+    case 3:
+        model->setSort(4, Qt::AscendingOrder);
+        break;
+    }
+    model->select();
+}
+
 void Clients::remove_client(int index)
 {
     if (model->rowCount() > index)

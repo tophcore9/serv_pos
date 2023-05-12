@@ -8,19 +8,23 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
 
 
     /// ВІДЖЕТИ
+    categories_sort = new QComboBox;
     list_view = new QListView;
     add_category_btn = new QPushButton(tr("Додати"));
     delete_category_btn = new QPushButton(tr("Видалити"));
     exit_btn = new QPushButton(tr("Вийти"));
 
     // Налаштування віджетів
+    categories_sort->addItem(tr("Сортувати за додаванням"));
+    categories_sort->addItem(tr("Сортувати за назвою"));
+
     list_view->setModel(categories_model);
     list_view->setModelColumn(1);
 
 
     /// МАКЕТИ ТА КОМПОНОВКА
     main_layout = new QVBoxLayout;
-    view_layout = new QHBoxLayout;
+    view_layout = new QVBoxLayout;
     buttons_layout = new QHBoxLayout;
     setLayout(main_layout);
 
@@ -29,6 +33,7 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
     main_layout->addLayout(buttons_layout);
 
     // Компоновка віджетів
+    view_layout->addWidget(categories_sort);
     view_layout->addWidget(list_view);
 
     buttons_layout->addWidget(add_category_btn);
@@ -37,7 +42,8 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
 
 
     /// СИГНАЛИ ТА СЛОТИ
-    connect(exit_btn, SIGNAL(clicked()), this, SLOT(close()));
+    connect(exit_btn, SIGNAL(clicked()), this, SLOT(close_form()));
+    connect(this, SIGNAL(reset_form()), parent, SLOT(reset_categories_form()));
 
     connect(list_view, SIGNAL(doubleClicked(QModelIndex)), parent, SLOT(open_show_category_form()));
 
@@ -48,6 +54,8 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
     connect(this, SIGNAL(remove_category_row(int)), parent, SLOT(remove_category(int)));
 
     connect(add_category_btn, SIGNAL(clicked()), parent, SLOT(open_add_category_form()));
+
+    connect(categories_sort, SIGNAL(currentIndexChanged(int)), parent, SLOT(change_sort(int)));
 }
 
 void CategoriesForm::change_category_row(const QModelIndex index)
@@ -59,4 +67,9 @@ void CategoriesForm::change_category_row(const QModelIndex index)
 void CategoriesForm::remove_category_row()
 {
     emit remove_category_row(current_category);
+}
+
+void CategoriesForm::close_form()
+{
+    emit reset_form();
 }
