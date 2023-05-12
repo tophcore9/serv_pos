@@ -89,6 +89,26 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
         }
     }
 
+    std::vector<int> counts;
+    for (int i = 0; i < dishes.size(); ++i)
+        counts.push_back(1);
+
+    for (int i = 1; i < dishes.size(); ++i)
+    {
+        if (dishes[i] == dishes[i-1])
+        {
+            dishes.erase(dishes.begin() + i);
+            counts.erase(counts.begin() + i);
+            --i;
+            ++counts[i];
+        }
+    }
+
+//    for (int i = 0; i < count_dish_edits.size(); ++i)
+//        qDebug() << count_dish_edits[i]->text();
+//        count_dish_edits[i]->setText(QString::number(counts[i]));
+//        qDebug() << dishes[i] << " " << QString::number(counts[i]);
+
     current_dish_item = 0;
     dish_grid_index = 6;
 
@@ -135,6 +155,9 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
         add_dish();
         add_dish_selects[i]->setCurrentText(dishes[i]);
     }
+
+    for (int i = 0; i < count_dish_edits.size(); ++i)
+        count_dish_edits[i]->setText(QString::number(counts[i]));
 
 
     /// СИГНАЛИ І СЛОТИ
