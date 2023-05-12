@@ -104,11 +104,19 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlTableModel *dishes_model,
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
+
+    connect(name_edit, SIGNAL(textChanged(QString)), this, SLOT(changed_name(QString)));
 }
 
 void ShowMenuForm::edit_menu()
 {
-    emit edit_menu("", "", {""});
+    std::vector<QString> sorted_dishes;
+
+    for (int i = 0; i < add_dish_selects.size() - 1; ++i)
+        if (add_dish_selects[i] != NULL)
+            sorted_dishes.push_back(add_dish_selects[i]->currentText());
+
+    emit edit_menu(past_menu_name, new_menu_name, sorted_dishes);
 }
 
 void ShowMenuForm::add_dish()
@@ -139,4 +147,9 @@ void ShowMenuForm::remove_dish(int index)
 
     delete remove_dish_btns[index];
     remove_dish_btns[index] = NULL;
+}
+
+void ShowMenuForm::changed_name(QString new_name)
+{
+    new_menu_name = new_name;
 }

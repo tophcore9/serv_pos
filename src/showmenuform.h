@@ -50,6 +50,7 @@ public slots:
     void edit_menu();
     void add_dish();
     void remove_dish(int index);
+    void changed_name(QString new_name);
 };
 
 #endif // SHOWMENUFORM_H
