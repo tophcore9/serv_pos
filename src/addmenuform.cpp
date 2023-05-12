@@ -83,8 +83,6 @@ void AddMenuForm::add_dish()
 
 void AddMenuForm::add_menu()
 {
-    std::vector<QString> dishes;
-
     for (int i = 0; i < add_dish_selects.size() - 1; ++i)
         if (add_dish_selects[i] != NULL)
             dishes.push_back(add_dish_selects[i]->currentText());

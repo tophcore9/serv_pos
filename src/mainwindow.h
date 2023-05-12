@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include <QEvent>
 #include <QSqlError>
 
 #include "orders.h"
@@ -15,7 +16,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
-    QTranslator language;
+    QTranslator *language;
 
     QSqlDatabase db;
     Clients *clients;
@@ -53,6 +54,10 @@ private:
     QPushButton *open_categories_btn;
     QPushButton *open_menu_btn;
     QPushButton *open_statistics_btn;
+    QLabel *l_lang_change;
+    QComboBox *lang_change;
+
+    void change_main_window_lang();
 
 public:
     MainWindow(QWidget *parent = 0);
@@ -70,6 +75,8 @@ public slots:
     void change_client_row(const QModelIndex index);
     void change_dish_row(const QModelIndex index);
     void change_order_row(const QModelIndex index);
+
+    void change_lang();
 };
 
 #endif // MAINWINDOW_H

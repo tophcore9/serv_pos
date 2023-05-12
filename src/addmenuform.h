@@ -12,6 +12,7 @@ class AddMenuForm : public QDialog
 
 private:
     QSqlTableModel *dishes_model;
+    std::vector<QString> dishes;
     int dish_grid_index;
     int current_dish_item;
 

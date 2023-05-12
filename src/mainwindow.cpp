@@ -1,8 +1,28 @@
 #include "mainwindow.h"
-#include <QSqlError>
 #include "clients.h"
 #include "orders.h"
 #include "dishes.h"
+
+void MainWindow::change_main_window_lang()
+{
+    l_order->setText(tr("Замовлення"));
+    add_order_btn->setText(tr("Додати"));
+    delete_order_btn->setText(tr("Видалити"));
+
+    l_dishes->setText(tr("Страви"));
+    add_dish_btn->setText(tr("Додати"));
+    delete_dish_btn->setText(tr("Видалити"));
+
+    l_clients->setText(tr("Клієнти"));
+    add_client_btn->setText(tr("Додати"));
+    delete_client_btn->setText(tr("Видалити"));
+
+    l_other->setText(tr("Інше"));
+    open_categories_btn->setText(tr("Категорії"));
+    open_menu_btn->setText(tr("Меню"));
+    open_statistics_btn->setText(tr("Статистика"));
+    l_lang_change->setText(tr("Мова:"));
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,8 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFixedSize(1200, 700);
     this->setWindowIcon(QIcon("../img/icons/main_icon.png"));
 
-    language.load("../translations/lang_en.qm");
-    qApp->installTranslator(&language);
+    language = new QTranslator(this);
+    language->load("../translations/lang_ua.qm");
+    QApplication::installTranslator(language);
 
     // Зміна кольору вікна
     QPalette pal = this->palette();
@@ -42,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent)
     open_categories_btn = new QPushButton(tr("Категорії"));
     open_menu_btn = new QPushButton(tr("Меню"));
     open_statistics_btn = new QPushButton(tr("Статистика"));
+    l_lang_change = new QLabel(tr("Мова:"));
+    lang_change = new QComboBox;
 
 
     // Налаштування віджетів
@@ -55,6 +78,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     l_other->setAlignment(Qt::AlignCenter);
     l_other->setMinimumWidth(150);
+
+    lang_change->addItem(tr("ua_UA"));
+    lang_change->addItem(tr("en_EN"));
 
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -98,6 +124,8 @@ MainWindow::MainWindow(QWidget *parent)
     other_functions_layout->addWidget(open_categories_btn);
     other_functions_layout->addWidget(open_menu_btn);
     other_functions_layout->addWidget(open_statistics_btn);
+    other_functions_layout->addWidget(l_lang_change, 1, Qt::AlignBottom);
+    other_functions_layout->addWidget(lang_change, 0, Qt::AlignBottom);
 
 
     /// ПІДКЛЮЧЕННЯ К БД
@@ -134,9 +162,6 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
 
-
-
-
     /// СИГНАЛИ ТА СЛОТИ
     connect(client_list_view, &QListView::doubleClicked, clients, &Clients::open_show_client_form);
     connect(order_list_view, &QListView::doubleClicked, orders, &Orders::open_show_order_form);
@@ -160,6 +185,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(open_categories_btn, &QPushButton::clicked, categories, &Categories::open_categories);
     connect(open_menu_btn, &QPushButton::clicked, menu, &Menu::open_menu);
+
+    connect(lang_change, &QComboBox::currentTextChanged, this, &MainWindow::change_lang);
 }
 
 void MainWindow::change_dish_row(const QModelIndex index)
@@ -172,6 +199,26 @@ void MainWindow::change_order_row(const QModelIndex index)
 {
     current_order = index.row();
     send_order_index(index);
+}
+
+void MainWindow::change_lang()
+{
+    if (lang_change->currentText() == tr("ua_UA"))
+    {
+        QApplication::removeTranslator(language);
+        language = new QTranslator(this);
+        language->load("../translations/lang_ua.qm");
+        QApplication::installTranslator(language);
+        change_main_window_lang();
+    }
+    else if (lang_change->currentText() == tr("en_EN"))
+    {
+        QApplication::removeTranslator(language);
+        language = new QTranslator(this);
+        language->load("../translations/lang_en.qm");
+        QApplication::installTranslator(language);
+        change_main_window_lang();
+    }
 }
 
 void MainWindow::remove_client_row()

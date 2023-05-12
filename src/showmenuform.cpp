@@ -1,19 +1,19 @@
 #include "showmenuform.h"
 
-ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *parent) : QDialog(parent)
+ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedWidth(300);
     this->setWindowTitle(tr("Перегляд меню"));
-    QString menu_name = menu_index.data(0).toString();
+    past_menu_name = menu_index.data(0).toString();
+    new_menu_name = past_menu_name;
 
-    QString menu_id;
-    QSqlQuery query(db);
+    QSqlQuery query(dishes_model->database());
     if (query.exec("SELECT * FROM Menu"))
     {
         while (query.next())
         {
-            if (query.value("menu_name").toString() == menu_name)
+            if (query.value("menu_name").toString() == past_menu_name)
             {
                 menu_id = query.value("menu_id").toString();
                 break;
@@ -58,7 +58,7 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlDatabase db, QWidget *par
 
     // Налаштування віджетів
     l_name->setAlignment(Qt::AlignRight);
-    name_edit->setText(menu_name);
+    name_edit->setText(past_menu_name);
     add_dish_btn->setMaximumSize(25, 25);
 
 
