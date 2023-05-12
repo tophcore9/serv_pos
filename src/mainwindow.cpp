@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setWindowTitle("ServPOS");
-    this->setFixedSize(1200, 700);
+    this->resize(1200, 700);
     this->setWindowIcon(QIcon("../img/icons/main_icon.png"));
 
     language = new QTranslator(this);

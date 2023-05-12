@@ -1,47 +1,17 @@
 #include "showorderform.h"
 
-ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_model, QWidget *parent) : QDialog(parent)
+ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setFixedWidth(400);
     this->setWindowTitle(tr("Перегляд замовлення"));
-
-    QString order_id, order_name, client_name, client_phone, order_price, order_estimated_time, order_date;
-
-    QSqlQuery query(clients_model->database());
-    if (query.exec("SELECT * FROM Orders JOIN Clients ON Orders.client_id = Clients.client_id"))
-    {
-        while (query.next())
-        {
-            if (order_index.data(0).toString() == query.value("order_name"))
-            {
-                order_id = query.value("order_id").toString();
-                order_name = query.value("order_name").toString();
-                client_name = query.value("client_name").toString();
-                client_phone = query.value("client_phone").toString();
-                order_price = query.value("order_price").toString();
-                order_estimated_time = query.value("order_estimated_time").toString();
-                order_date = query.value("order_date").toString();
-            }
-        }
-    }
-
-    if (query.exec("SELECT * FROM OrderItems JOIN Dishes ON OrderItems.dish_id = Dishes.dish_id"))
-    {
-        while (query.next())
-        {
-            if (query.value("order_id") == order_id)
-            {
-                dishes.push_back(query.value("dish_name").toString());
-            }
-        }
-    }
+    this->dishes_model = dishes_model;
 
 
     /// ВІДЖЕТИ
     // Додавання віджетів
     l_name = new QLabel(tr("Ідентифікатор:"));
-    name_edit = new QLineEdit(order_name);
+    name_edit = new QLineEdit;
 
     l_client = new QLabel(tr("Клієнт:"));
     client_select = new QComboBox;
@@ -55,7 +25,7 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
     estimated_time_l = new QLabel(tr("хв."));
 
     l_date = new QLabel(tr("Дата:"));
-    date_edit = new QLineEdit(order_date);
+    date_edit = new QLineEdit;
 
     l_dishes = new QLabel(tr("Страви:"));
     add_dish_btn = new QPushButton("+");
@@ -89,7 +59,38 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
 
     client_select->setModel(clients_model);
     client_select->setModelColumn(2);
-    client_select->setCurrentText(client_phone);
+
+    QSqlQuery query(clients_model->database());
+    if (query.exec("SELECT * FROM Orders JOIN Clients ON Orders.client_id = Clients.client_id"))
+    {
+        while (query.next())
+        {
+            if (order_index.data(0).toString() == query.value("order_name"))
+            {
+                order_id = query.value("order_id").toString();
+                name_edit->setText(query.value("order_name").toString());
+                client_select->setCurrentText(query.value("client_name").toString());
+                past_client_phone = query.value("client_phone").toString();
+                price_edit->setText(query.value("order_price").toString());
+                estimated_time_edit->setText(query.value("order_estimated_time").toString());
+                date_edit->setText(query.value("order_date").toString());
+            }
+        }
+    }
+
+    if (query.exec("SELECT * FROM OrderItems JOIN Dishes ON OrderItems.dish_id = Dishes.dish_id"))
+    {
+        while (query.next())
+        {
+            if (query.value("order_id") == order_id)
+            {
+                dishes.push_back(query.value("dish_name").toString());
+            }
+        }
+    }
+
+    current_dish_item = 0;
+    dish_grid_index = 6;
 
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -129,6 +130,12 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
     buttons_layout->addWidget(accept_btn);
     buttons_layout->addWidget(cancel_btn);
 
+    for (int i = 0; i < dishes.size(); ++i)
+    {
+        add_dish();
+        add_dish_selects[i]->setCurrentText(dishes[i]);
+    }
+
 
     /// СИГНАЛИ І СЛОТИ
     connect(accept_btn, SIGNAL(clicked()), this, SLOT(edit_order()));
@@ -136,9 +143,96 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
             parent, SLOT(edit_order(QString,QString,QString,double,int,QString,std::vector<QString>)));
 
     connect(cancel_btn, SIGNAL(clicked()), this, SLOT(close()));
+
+    connect(add_dish_btn, SIGNAL(clicked()), this, SLOT(add_dish()));
 }
 
 void ShowOrderForm::edit_order()
 {
     emit edit_order("", "", "", 0.0, 0, "", {""});
+}
+
+void ShowOrderForm::add_dish()
+{
+    add_dish_selects.push_back(new QComboBox);
+    add_dish_selects[current_dish_item]->setModel(dishes_model);
+    add_dish_selects[current_dish_item]->setModelColumn(1);
+
+    count_dish_edits.push_back(new QLineEdit);
+    count_dish_edits[current_dish_item]->setPlaceholderText(tr("Кількість порцій"));
+    count_dish_edits[current_dish_item]->setText("1");
+    count_dish_edits[current_dish_item]->setValidator(new QIntValidator);
+
+    remove_dish_btns.push_back(new QPushButton("x"));
+    remove_dish_btns[current_dish_item]->setFixedSize(25, 25);
+
+    info_layout->addWidget(add_dish_selects[current_dish_item], dish_grid_index + 1, 0);
+    info_layout->addWidget(count_dish_edits[current_dish_item], dish_grid_index + 1, 1);
+    info_layout->addWidget(remove_dish_btns[current_dish_item], dish_grid_index + 1, 2);
+
+    connect(remove_dish_btns[current_dish_item], &QPushButton::clicked, this, std::bind(&ShowOrderForm::remove_dish, this, current_dish_item));
+    connect(add_dish_selects[current_dish_item], &QComboBox::currentTextChanged, this, &ShowOrderForm::refresh_values);
+    connect(count_dish_edits[current_dish_item], &QLineEdit::textChanged, this, &ShowOrderForm::refresh_values);
+
+    refresh_values(0);
+
+    ++dish_grid_index;
+    ++current_dish_item;
+}
+
+void ShowOrderForm::refresh_values(QString)
+{
+    QSqlQuery query(dishes_model->database());
+    double current_dish_price = 0;
+    int current_dish_estimated_time = 0;
+
+    for (int i = 0; i < add_dish_selects.size(); ++i)
+    {
+        if (add_dish_selects[i] != NULL)
+        {
+            // Підрахування вартості заказу
+            query.exec("SELECT * FROM Dishes");
+            while (query.next())
+            {
+                if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                {
+                    current_dish_price += (count_dish_edits[i]->text().toInt() * query.value("dish_price").toDouble());
+                    break;
+                }
+            }
+
+            // Знаходження найбільшого часу приготування
+            query.exec("SELECT * FROM Dishes");
+            while (query.next())
+            {
+                if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                {
+                    if (count_dish_edits[i]->text().toInt() > 0 && current_dish_estimated_time < query.value("dish_estimated_time").toInt())
+                        current_dish_estimated_time = query.value("dish_estimated_time").toInt();
+                }
+            }
+        }
+    }
+
+    // Встановлення вартості та часу приготування заказу
+    price_edit->setText(QString::number(current_dish_price));
+    estimated_time_edit->setText(QString::number(current_dish_estimated_time));
+}
+
+void ShowOrderForm::remove_dish(int index)
+{
+    // Видалення віджету
+    info_layout->removeWidget(add_dish_selects[index]);
+    delete add_dish_selects[index];
+    add_dish_selects[index] = NULL;
+
+    info_layout->removeWidget(count_dish_edits[index]);
+    delete count_dish_edits[index];
+    count_dish_edits[index] = NULL;
+
+    info_layout->removeWidget(remove_dish_btns[index]);
+    delete remove_dish_btns[index];
+    remove_dish_btns[index] = NULL;
+
+    refresh_values(0);
 }

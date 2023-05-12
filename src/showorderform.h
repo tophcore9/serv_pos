@@ -7,13 +7,26 @@
 #include <QSqlTableModel>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <functional>
 
 class ShowOrderForm : public QDialog
 {
     Q_OBJECT
 
 private:
+    QSqlTableModel *dishes_model;
+
+    int dish_grid_index;
+    int current_dish_item;
     std::vector<QString> dishes;
+    QString past_client_phone;
+    QString order_id;
+    QString new_order_name;
+    QString new_client_name;
+    QString new_client_phone;
+    QString new_order_price;
+    QString new_order_estimated_time;
+    QString new_order_date;
 
     /// GUI
     QVBoxLayout *main_layout;
@@ -47,13 +60,16 @@ private:
     QPushButton *cancel_btn;
 
 public:
-    explicit ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_model, QWidget *parent = 0);
+    explicit ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
 
 signals:
     void edit_order(QString default_name, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes);
 
 public slots:
     void edit_order();
+    void add_dish();
+    void refresh_values(QString);
+    void remove_dish(int index);
 };
 
 #endif // SHOWORDERFORM_H
