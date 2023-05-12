@@ -35,18 +35,21 @@ private:
     QVBoxLayout *other_functions_layout;
     QWidget *central_widget;
 
-    QLabel *l_order;
     QListView *order_list_view;
+    QLabel *l_order;
+    QComboBox *orders_sort;
     QPushButton *add_order_btn;
     QPushButton *delete_order_btn;
 
     QListView *dishes_list_view;
     QLabel *l_dishes;
+    QComboBox *dishes_sort;
     QPushButton *add_dish_btn;
     QPushButton *delete_dish_btn;
 
-    QListView *client_list_view;
     QLabel *l_clients;
+    QComboBox *clients_sort;
+    QListView *client_list_view;
     QPushButton *add_client_btn;
     QPushButton *delete_client_btn;
 

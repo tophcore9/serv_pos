@@ -45,16 +45,19 @@ MainWindow::MainWindow(QWidget *parent)
     /// ВІДЖЕТИ
     // Додавання віджетів
     l_order = new QLabel(tr("Замовлення"));
+    orders_sort = new QComboBox;
     order_list_view = new QListView;
     add_order_btn = new QPushButton(tr("Додати"));
     delete_order_btn = new QPushButton(tr("Видалити"));
 
     l_dishes = new QLabel(tr("Страви"));
+    dishes_sort = new QComboBox;
     dishes_list_view = new QListView;
     add_dish_btn = new QPushButton(tr("Додати"));
     delete_dish_btn = new QPushButton(tr("Видалити"));
 
     l_clients = new QLabel(tr("Клієнти"));
+    clients_sort = new QComboBox;
     client_list_view = new QListView;
     add_client_btn = new QPushButton(tr("Додати"));
     delete_client_btn = new QPushButton(tr("Видалити"));
@@ -69,18 +72,31 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Налаштування віджетів
     l_order->setAlignment(Qt::AlignHCenter);
+    orders_sort->addItem(tr("Сортувати за додаванням"));
+    orders_sort->addItem(tr("Сортувати за назвою"));
+    orders_sort->addItem(tr("Сортувати за вартістю"));
+    orders_sort->addItem(tr("Сортувати за часом приготування"));
 
     l_dishes->setAlignment(Qt::AlignHCenter);
+    dishes_sort->addItem(tr("Сортувати за додаванням"));
+    dishes_sort->addItem(tr("Сортувати за назвою"));
+    dishes_sort->addItem(tr("Сортувати за вартістю"));
+    dishes_sort->addItem(tr("Сортувати за категорією"));
+    dishes_sort->addItem(tr("Сортувати за вагою"));
+    dishes_sort->addItem(tr("Сортувати за часом приготування"));
     dishes_list_view->setMinimumWidth(550);
     l_dishes->setMinimumWidth(550);
 
     l_clients->setAlignment(Qt::AlignHCenter);
+    clients_sort->addItem(tr("Сортувати за додаванням"));
+    clients_sort->addItem(tr("Сортувати за ім'ям"));
+    clients_sort->addItem(tr("Сортувати за стравою"));
+    clients_sort->addItem(tr("Сортувати за датою"));
 
     l_other->setAlignment(Qt::AlignCenter);
     l_other->setMinimumWidth(150);
-
-    lang_change->addItem(tr("ua_UA"));
-    lang_change->addItem(tr("en_EN"));
+    lang_change->addItem("ua_UA");
+    lang_change->addItem("en_EN");
 
 
     /// МАКЕТИ І КОМПОНОВКА
@@ -106,16 +122,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Компоновка віджетів
     orders_layout->addWidget(l_order);
+    orders_layout->addWidget(orders_sort);
     orders_layout->addWidget(order_list_view);
     orders_layout->addWidget(add_order_btn);
     orders_layout->addWidget(delete_order_btn);
 
     dishes_layout->addWidget(l_dishes);
+    dishes_layout->addWidget(dishes_sort);
     dishes_layout->addWidget(dishes_list_view);
     dishes_layout->addWidget(add_dish_btn);
     dishes_layout->addWidget(delete_dish_btn);
 
     clients_layout->addWidget(l_clients);
+    clients_layout->addWidget(clients_sort);
     clients_layout->addWidget(client_list_view);
     clients_layout->addWidget(add_client_btn);
     clients_layout->addWidget(delete_client_btn);
@@ -203,7 +222,7 @@ void MainWindow::change_order_row(const QModelIndex index)
 
 void MainWindow::change_lang()
 {
-    if (lang_change->currentText() == tr("ua_UA"))
+    if (lang_change->currentText() == "ua_UA")
     {
         QApplication::removeTranslator(language);
         language = new QTranslator(this);
@@ -211,7 +230,7 @@ void MainWindow::change_lang()
         QApplication::installTranslator(language);
         change_main_window_lang();
     }
-    else if (lang_change->currentText() == tr("en_EN"))
+    else if (lang_change->currentText() == "en_EN")
     {
         QApplication::removeTranslator(language);
         language = new QTranslator(this);
