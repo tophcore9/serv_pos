@@ -62,7 +62,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     price_edit->setEnabled(false);
 
     client_select->setModel(clients_model);
-    client_select->setModelColumn(1);
+    client_select->setModelColumn(2);
 
 
     /// МАКЕТИ ТА КОМПОНОВКА
@@ -146,7 +146,6 @@ void AddOrderForm::add_order()
     emit add_order(name_edit->text(), client_select->currentText(), price_edit->text().toDouble(), estimated_time_edit->text().toInt(), date_edit->text(), dishes);
 }
 
-// МОЖНА ПОКРАЩИТИ ЗОВНІШНІЙ ВИГЛЯД, ПОПЕРШЕ ЦЕ СТВОРЕННЯ SCROLL ОБЛАСТІ, А ПО ДРУГЕ УКАЗАННЯ СТРАВ ПЕРЕД COMBO_BOX ТАКИХ ЯК "СТРАВА 1", "СТРАВА 2" І Т.Д.
 void AddOrderForm::add_dish()
 {
     add_dish_selects.push_back(new QComboBox);
@@ -202,7 +201,7 @@ void AddOrderForm::refresh_values(QString)
     {
         while (query.next())
         {
-            if (query.value("client_name") == client_select->currentText())
+            if (query.value("client_phone") == client_select->currentText())
             {
                 client_dish = query.value("dish_name").toString();
             }

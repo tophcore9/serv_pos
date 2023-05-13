@@ -210,6 +210,19 @@ void ShowOrderForm::add_dish()
 void ShowOrderForm::refresh_values(QString)
 {
     QSqlQuery query(dishes_model->database());
+    QString client_dish;
+
+    if (query.exec("SELECT * FROM Clients JOIN Dishes ON Clients.client_favourite_dish = Dishes.dish_id"))
+    {
+        while (query.next())
+        {
+            if (query.value("client_phone") == client_select->currentText())
+            {
+                client_dish = query.value("dish_name").toString();
+            }
+        }
+    }
+
     double current_dish_price = 0;
     int current_dish_estimated_time = 0;
 
@@ -223,7 +236,12 @@ void ShowOrderForm::refresh_values(QString)
             {
                 if (query.value("dish_name") == add_dish_selects[i]->currentText())
                 {
-                    current_dish_price += (count_dish_edits[i]->text().toInt() * query.value("dish_price").toDouble());
+                    // У випадку співпадання улюбленої страви клієнта діє знижка 12%
+                    double est_price = (count_dish_edits[i]->text().toInt() * query.value("dish_price").toDouble());
+                    if (query.value("dish_name") == client_dish)
+                        current_dish_price += est_price - est_price * 0.12;
+                    else
+                        current_dish_price += est_price;
                     break;
                 }
             }

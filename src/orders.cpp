@@ -56,7 +56,7 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
 
     while (query.next())
     {
-        if (query.value("client_name") == client)
+        if (query.value("client_phone") == client)
         {
             client_id = query.value("client_id").toString();
             break;
