@@ -228,6 +228,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(open_categories_btn, &QPushButton::clicked, categories, &Categories::open_categories);
     connect(open_menu_btn, &QPushButton::clicked, menu, &Menu::open_menu);
+    connect(open_statistics_btn, &QPushButton::clicked, this, &MainWindow::open_statistics);
 
     connect(orders_sort, SIGNAL(currentIndexChanged(int)), orders, SLOT(change_sort(int)));
     connect(dishes_sort, SIGNAL(currentIndexChanged(int)), dishes, SLOT(change_sort(int)));
@@ -246,6 +247,13 @@ void MainWindow::change_order_row(const QModelIndex index)
 {
     current_order = index.row();
     send_order_index(index);
+}
+
+void MainWindow::open_statistics()
+{
+    statistics_form = new StatisticsForm(db, this);
+    statistics_form->setModal(true);
+    statistics_form->show();
 }
 
 void MainWindow::change_lang()

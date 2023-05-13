@@ -13,6 +13,7 @@
 #include "clients.h"
 #include "categories.h"
 #include "menu.h"
+#include "statisticsform.h"
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +26,7 @@ private:
     Dishes *dishes;
     Orders *orders;
     Categories *categories;
+    StatisticsForm *statistics_form;
     Menu *menu;
 
     int current_client, current_dish, current_order;
@@ -81,6 +83,7 @@ public slots:
     void change_dish_row(const QModelIndex index);
     void change_order_row(const QModelIndex index);
 
+    void open_statistics();
 
     void change_lang();
 };

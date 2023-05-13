@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     showclientform.cpp \
     showmenuform.cpp \
     showdishform.cpp \
-    showcategoryform.cpp
+    showcategoryform.cpp \
+    statisticsform.cpp
 
 HEADERS  += mainwindow.h \
     clients.h \
@@ -53,7 +54,8 @@ HEADERS  += mainwindow.h \
     showclientform.h \
     showmenuform.h \
     showdishform.h \
-    showcategoryform.h
+    showcategoryform.h \
+    statisticsform.h
 
 TRANSLATIONS += ../translations/lang_ua.ts \
     ../translations/lang_en.ts

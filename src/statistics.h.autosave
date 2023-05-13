@@ -1,0 +1,22 @@
+#ifndef STATISTICS_H
+#define STATISTICS_H
+
+#include <QWidget>
+
+class Statistics : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit Statistics(QWidget *parent = 0);
+    
+    // Створених замовлень, клієнтів, страв, меню та категорій за весь час та на поточний момент
+    // Середня вартість, вага, час приготування страв
+    // Середня вартість замовлень
+    // Найчастіша страва
+
+signals:
+
+public slots:
+};
+
+#endif // STATISTICS_H
