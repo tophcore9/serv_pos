@@ -2,5 +2,6 @@
 
 StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(parent)
 {
-    qDebug() << db.databaseName();
+    this->setWindowTitle(tr("Статистичні дані"));
+    this->setFixedSize(300, 500);
 }

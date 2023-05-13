@@ -67,8 +67,6 @@ void Clients::add_client(QString name, QString phone, QString date, QString favo
 
 void Clients::edit_client(QString default_phone, QString name, QString phone, QString date, QString favourite)
 {
-    qDebug() << default_phone << endl << name << endl << phone << endl << date << endl << favourite;
-
     QSqlQuery query(model->database());
     QString favourite_dish;
 
