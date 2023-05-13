@@ -167,7 +167,7 @@ MainWindow::MainWindow(QWidget *parent)
     other_functions_layout->addWidget(open_categories_btn);
     other_functions_layout->addWidget(open_menu_btn);
     other_functions_layout->addWidget(open_statistics_btn);
-    other_functions_layout->addWidget(l_lang_change, 1, Qt::AlignBottom);
+    other_functions_layout->addWidget(l_lang_change, 1, Qt::AlignBottom | Qt::AlignCenter);
     other_functions_layout->addWidget(lang_change, 0, Qt::AlignBottom);
 
 
