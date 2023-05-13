@@ -5,7 +5,7 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_mode
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setWindowTitle(tr("Додати меню"));
-    this->setFixedWidth(300);
+    this->setFixedSize(300, 110);
     this->dishes_model = dishes_model;
     dish_grid_index = 2;
     current_dish_item = 0;
@@ -67,6 +67,8 @@ AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_mode
 
 void AddMenuForm::add_dish()
 {
+    this->setFixedHeight(height() + 30);
+
     add_dish_selects.push_back(new QComboBox);
     add_dish_selects[current_dish_item]->setModel(dishes_model);
     add_dish_selects[current_dish_item]->setModelColumn(1);
@@ -95,6 +97,8 @@ void AddMenuForm::add_menu()
 
 void AddMenuForm::remove_dish(int index)
 {
+    this->setFixedHeight(height() - 30);
+
     info_layout->removeWidget(add_dish_selects[index]);
     info_layout->removeWidget(remove_dish_btns[index]);
 

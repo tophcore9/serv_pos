@@ -3,7 +3,7 @@
 ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setFixedWidth(300);
+    this->setFixedSize(300, 110);
     this->setWindowTitle(tr("Перегляд меню"));
     this->dishes_model = dishes_model;
     past_menu_name = menu_index.data(0).toString();
@@ -124,6 +124,8 @@ void ShowMenuForm::edit_menu()
 
 void ShowMenuForm::add_dish()
 {
+    this->setFixedHeight(height() + 30);
+
     add_dish_selects.push_back(new QComboBox);
     add_dish_selects[current_dish_item]->setModel(dishes_model);
     add_dish_selects[current_dish_item]->setModelColumn(1);
@@ -143,6 +145,8 @@ void ShowMenuForm::add_dish()
 
 void ShowMenuForm::remove_dish(int index)
 {
+    this->setFixedHeight(height() - 30);
+
     info_layout->removeWidget(add_dish_selects[index]);
     info_layout->removeWidget(remove_dish_btns[index]);
 

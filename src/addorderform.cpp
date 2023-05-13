@@ -6,7 +6,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     this->dishes_model = dishes_model;
     this->clients_model = clients_model;
     this->setWindowTitle(tr("Додати замовлення"));
-    this->setFixedWidth(400);
+    this->setFixedSize(400, 225);
     srand(time(NULL));
     dish_grid_index = 6;
     current_dish_item = 0;
@@ -44,7 +44,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     l_client->setAlignment(Qt::AlignRight);
     l_price->setAlignment(Qt::AlignRight);
     l_estimated_time->setAlignment(Qt::AlignRight);
-    l_estimated_time->setMinimumWidth(175);
+    l_estimated_time->setMinimumWidth(185);
     l_date->setAlignment(Qt::AlignRight);
 
     l_dishes->setAlignment(Qt::AlignRight);
@@ -149,10 +149,12 @@ void AddOrderForm::add_order()
 
 void AddOrderForm::add_dish()
 {
+    this->setFixedHeight(height() + 30);
+
     add_dish_selects.push_back(new QComboBox);
     add_dish_selects[current_dish_item]->setModel(dishes_model);
     add_dish_selects[current_dish_item]->setModelColumn(1);
-    add_dish_selects[current_dish_item]->setMaximumWidth(175);
+    add_dish_selects[current_dish_item]->setMaximumWidth(185);
 
     count_dish_edits.push_back(new QLineEdit);
     count_dish_edits[current_dish_item]->setPlaceholderText(tr("Кількість порцій"));
@@ -179,6 +181,8 @@ void AddOrderForm::add_dish()
 
 void AddOrderForm::remove_dish(int index)
 {
+    this->setFixedHeight(height() - 30);
+
     // Видалення віджету
     info_layout->removeWidget(add_dish_selects[index]);
     delete add_dish_selects[index];

@@ -4,7 +4,7 @@ StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(pare
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
     this->setWindowTitle(tr("Статистичні дані"));
-    this->setFixedSize(350, 500);
+    this->setFixedSize(350, 350);
 
 
     /// ВІДЖЕТИ
