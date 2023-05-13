@@ -115,6 +115,7 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
 
     setLayout(main_layout);
     buttons_layout->setAlignment(Qt::AlignBottom);
+    main_layout->setStretch(1, 1);
 
     // Компоновка макетів
     main_layout->addLayout(info_layout);
@@ -184,11 +185,13 @@ void ShowOrderForm::add_dish()
     add_dish_selects.push_back(new QComboBox);
     add_dish_selects[current_dish_item]->setModel(dishes_model);
     add_dish_selects[current_dish_item]->setModelColumn(1);
+    add_dish_selects[current_dish_item]->setMaximumWidth(180);
 
     count_dish_edits.push_back(new QLineEdit);
     count_dish_edits[current_dish_item]->setPlaceholderText(tr("Кількість порцій"));
     count_dish_edits[current_dish_item]->setText("1");
     count_dish_edits[current_dish_item]->setValidator(new QIntValidator);
+    count_dish_edits[current_dish_item]->setMaximumWidth(175);
 
     remove_dish_btns.push_back(new QPushButton("x"));
     remove_dish_btns[current_dish_item]->setFixedSize(25, 25);

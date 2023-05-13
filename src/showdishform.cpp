@@ -3,7 +3,7 @@
 ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_model, QWidget *parent) : QDialog(parent)
 {
     /// БАЗОВІ НАЛАШТУВАННЯ
-    this->setFixedSize(600, 500);
+    this->setFixedSize(510, 500);
     this->setWindowTitle(tr("Перегляд страви"));
 
 
@@ -93,7 +93,7 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
                 past_dish_photo = query.value("dish_photo").toString();
                 new_dish_photo = "__new";
                 pixmap->load(past_dish_photo);
-                picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
+                picture->setPixmap(pixmap->scaled(200, 200, Qt::KeepAspectRatio));
             }
         }
     }
@@ -208,7 +208,7 @@ void ShowDishForm::reselect_image()
 
             // Створюємо зображення
             pixmap->load(new_dish_photo);
-            picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
+            picture->setPixmap(pixmap->scaled(200, 200, Qt::KeepAspectRatio));
 
             info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
         }

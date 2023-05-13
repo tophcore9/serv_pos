@@ -24,6 +24,9 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlTableModel *dishes_model,
 
     // Налаштування віджетів
     l_name->setAlignment(Qt::AlignRight);
+    l_dishes->setAlignment(Qt::AlignRight);
+    l_dishes->setMinimumWidth(175);
+
     name_edit->setText(past_menu_name);
     add_dish_btn->setMaximumSize(25, 25);
 
@@ -124,6 +127,7 @@ void ShowMenuForm::add_dish()
     add_dish_selects.push_back(new QComboBox);
     add_dish_selects[current_dish_item]->setModel(dishes_model);
     add_dish_selects[current_dish_item]->setModelColumn(1);
+    add_dish_selects[current_dish_item]->setMaximumWidth(175);
 
     remove_dish_btns.push_back(new QPushButton("x"));
     remove_dish_btns[current_dish_item]->setFixedSize(25, 25);

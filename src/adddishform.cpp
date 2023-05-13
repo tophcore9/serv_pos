@@ -6,7 +6,7 @@ AddDishForm::AddDishForm(QSqlTableModel *categories_model, QWidget *parent) : QD
     //this->parent = parent;
     this->categories_model = categories_model;
     this->setWindowTitle(tr("Додати страву"));
-    this->setFixedSize(600, 500);
+    this->setFixedSize(510, 500);
 
 
     /// ВІДЖЕТИ
@@ -137,7 +137,7 @@ void AddDishForm::select_image()
 
             // Створюємо зображення
             pixmap->load(img_path);
-            picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
+            picture->setPixmap(pixmap->scaled(200, 200, Qt::KeepAspectRatio));
 
             // Заміна кнопки на зображення
             info_layout->replaceWidget(picture_select_btn, picture);
@@ -182,9 +182,9 @@ void AddDishForm::reselect_image()
 
             // Створюємо зображення
             pixmap->load(img_path);
-            picture->setPixmap(pixmap->scaled(300, 300, Qt::KeepAspectRatio));
+            picture->setPixmap(pixmap->scaled(200, 200, Qt::KeepAspectRatio));
 
-            info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
+            info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignLeft);
         }
     }
     else
