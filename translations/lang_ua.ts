@@ -196,7 +196,7 @@
     </message>
     <message>
         <location filename="../src/addorderform.cpp" line="17"/>
-        <location filename="../src/addorderform.cpp" line="235"/>
+        <location filename="../src/addorderform.cpp" line="259"/>
         <source>Замовлення#</source>
         <translation>Замовлення#</translation>
     </message>
@@ -246,7 +246,7 @@
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../src/addorderform.cpp" line="157"/>
+        <location filename="../src/addorderform.cpp" line="160"/>
         <source>Кількість порцій</source>
         <translation>Кількість порцій</translation>
     </message>
@@ -327,15 +327,15 @@
     <name>Clients</name>
     <message>
         <location filename="../src/clients.cpp" line="62"/>
-        <location filename="../src/clients.cpp" line="100"/>
-        <location filename="../src/clients.cpp" line="134"/>
+        <location filename="../src/clients.cpp" line="98"/>
+        <location filename="../src/clients.cpp" line="132"/>
         <source>Помилка!</source>
         <translation>Помилка!</translation>
     </message>
     <message>
         <location filename="../src/clients.cpp" line="62"/>
-        <location filename="../src/clients.cpp" line="100"/>
-        <location filename="../src/clients.cpp" line="134"/>
+        <location filename="../src/clients.cpp" line="98"/>
+        <location filename="../src/clients.cpp" line="132"/>
         <source>Не вдалось виконати запит!
 </source>
         <translation>Не вдалось виконати запит!
@@ -343,20 +343,20 @@
     </message>
     <message>
         <location filename="../src/clients.cpp" line="63"/>
-        <location filename="../src/clients.cpp" line="101"/>
+        <location filename="../src/clients.cpp" line="99"/>
         <source>Повідомлення БД: </source>
         <translation>Повідомлення БД: </translation>
     </message>
     <message>
         <location filename="../src/clients.cpp" line="64"/>
-        <location filename="../src/clients.cpp" line="102"/>
+        <location filename="../src/clients.cpp" line="100"/>
         <source>
 Повідомлення драйвера: </source>
         <translation>
 Повідомлення драйвера: </translation>
     </message>
     <message>
-        <location filename="../src/clients.cpp" line="135"/>
+        <location filename="../src/clients.cpp" line="133"/>
         <source>Будь ласка, оберіть елемент перед тим, як видалити його.</source>
         <translation>Будь ласка, оберіть елемент перед тим, як видалити його.</translation>
     </message>
@@ -566,12 +566,12 @@
         <translation>Сортувати за стравою</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="273"/>
+        <location filename="../src/mainwindow.cpp" line="281"/>
         <source>Увага!</source>
         <translation>Увага!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="273"/>
+        <location filename="../src/mainwindow.cpp" line="281"/>
         <source>При видаленні клієнта видаляться всі його замовлення, ви впевнені?</source>
         <translation>При видаленні клієнта видаляться всі його замовлення, ви впевнені?</translation>
     </message>
@@ -964,28 +964,28 @@
         <translation>Перегляд меню</translation>
     </message>
     <message>
-        <location filename="../src/showmenuform.cpp" line="44"/>
-        <location filename="../src/showmenuform.cpp" line="61"/>
+        <location filename="../src/showmenuform.cpp" line="47"/>
+        <location filename="../src/showmenuform.cpp" line="64"/>
         <source>Помилка!</source>
         <translation>Помилка!</translation>
     </message>
     <message>
-        <location filename="../src/showmenuform.cpp" line="44"/>
-        <location filename="../src/showmenuform.cpp" line="61"/>
+        <location filename="../src/showmenuform.cpp" line="47"/>
+        <location filename="../src/showmenuform.cpp" line="64"/>
         <source>Не вдалось виконати запит!
 </source>
         <translation>Не вдалось виконати запит!
 </translation>
     </message>
     <message>
-        <location filename="../src/showmenuform.cpp" line="45"/>
-        <location filename="../src/showmenuform.cpp" line="62"/>
+        <location filename="../src/showmenuform.cpp" line="48"/>
+        <location filename="../src/showmenuform.cpp" line="65"/>
         <source>Повідомлення БД: </source>
         <translation>Повідомлення БД: </translation>
     </message>
     <message>
-        <location filename="../src/showmenuform.cpp" line="46"/>
-        <location filename="../src/showmenuform.cpp" line="63"/>
+        <location filename="../src/showmenuform.cpp" line="49"/>
+        <location filename="../src/showmenuform.cpp" line="66"/>
         <source>
 Повідомлення драйвера: </source>
         <translation>
@@ -1070,9 +1070,82 @@
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../src/showorderform.cpp" line="189"/>
+        <location filename="../src/showorderform.cpp" line="194"/>
         <source>Кількість порцій</source>
         <translation>Кількість порцій</translation>
+    </message>
+</context>
+<context>
+    <name>StatisticsForm</name>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="6"/>
+        <source>Статистичні дані</source>
+        <translation>Статистичні дані</translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="12"/>
+        <source>Всього створено замовлень: </source>
+        <translation>Всього створено замовлень: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="13"/>
+        <source>Всього створено страв: </source>
+        <translation>Всього створено страв: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="14"/>
+        <source>Всього зареєстровано клієнтів: </source>
+        <translation>Всього зареєстровано клієнтів: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="15"/>
+        <source>Всього створено меню: </source>
+        <translation>Всього створено меню: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="16"/>
+        <source>Всього створено категорій: </source>
+        <translation>Всього створено категорій: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="18"/>
+        <source>Середня вартість страви: </source>
+        <translation>Середня вартість страви: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="19"/>
+        <source>Середня вага страви: </source>
+        <translation>Середня вага страви: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="20"/>
+        <source>Середній час приготування страви: </source>
+        <translation>Середній час приготування страви: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="22"/>
+        <source>Середя вартість замовлення: </source>
+        <translation>Середя вартість замовлення: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="23"/>
+        <source>Середній час приготування замовлення: </source>
+        <translation>Середній час приготування замовлення: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="25"/>
+        <source>Найпопулярніша страва: </source>
+        <translation>Найпопулярніша страва: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="26"/>
+        <source>Найактивніший клієнт: </source>
+        <translation>Найактивніший клієнт: </translation>
+    </message>
+    <message>
+        <location filename="../src/statisticsform.cpp" line="28"/>
+        <source>Вийти</source>
+        <translation>Вийти</translation>
     </message>
 </context>
 </TS>
