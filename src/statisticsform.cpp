@@ -165,8 +165,6 @@ StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(pare
     main_layout->setAlignment(Qt::AlignTop);
     this->setLayout(main_layout);
 
-    // Компоновка макетів
-
     // Компоновка віджетів
     main_layout->addWidget(created_orders);
     main_layout->addWidget(created_dishes);
@@ -184,6 +182,7 @@ StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(pare
     main_layout->addWidget(mvp_client);
 
     main_layout->addWidget(exit_btn, 1, Qt::AlignBottom | Qt::AlignCenter);
+
 
     /// СИГНАЛИ ТА СЛОТИ
     connect(exit_btn, &QPushButton::clicked, this, &StatisticsForm::close);
