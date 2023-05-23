@@ -51,7 +51,7 @@ CategoriesForm::CategoriesForm(QSqlTableModel *categories_model, QWidget *parent
     connect(this, SIGNAL(send_index(QModelIndex)), parent, SLOT(change_index(QModelIndex)));
 
     connect(delete_category_btn, SIGNAL(clicked()), this, SLOT(remove_category_row()));
-    connect(this, SIGNAL(remove_category_row(int)), parent, SLOT(remove_category(int)));
+    connect(this, SIGNAL(remove_category_row(int)), parent, SLOT(remove(int)));
 
     connect(add_category_btn, SIGNAL(clicked()), parent, SLOT(open_add_category_form()));
 

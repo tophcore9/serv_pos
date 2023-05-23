@@ -59,7 +59,7 @@ ShowOrderForm::ShowOrderForm(QModelIndex order_index, QSqlTableModel *clients_mo
     price_edit->setEnabled(false);
 
     client_select->setModel(clients_model);
-    client_select->setModelColumn(2);
+    client_select->setModelColumn(4);
 
     QSqlQuery query(clients_model->database());
     if (query.exec("SELECT * FROM Orders JOIN Clients ON Orders.client_id = Clients.client_id"))

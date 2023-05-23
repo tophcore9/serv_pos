@@ -16,23 +16,6 @@ void Menu::open_show_menu_form()
     show_menu_form->show();
 }
 
-void Menu::remove_menu(int index)
-{
-    QVariant menu_id = model->data(model->index(index, 0));
-    menu_items->remove_menu_items(menu_id.toInt());
-
-    if (model->rowCount() > index)
-    {
-        model->removeRow(index);
-        model->select();
-    }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
-    }
-}
-
 void Menu::add_menu(QString name, std::vector<QString> dishes)
 {
     QSqlQuery query(model->database());

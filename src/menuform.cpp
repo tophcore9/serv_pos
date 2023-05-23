@@ -54,7 +54,7 @@ MenuForm::MenuForm(QSqlTableModel *menu_model, QWidget *parent) : QDialog(parent
 
     // Видалення меню
     connect(delete_menu_btn, SIGNAL(clicked()), this, SLOT(remove_menu_row()));
-    connect(this, SIGNAL(remove_menu_row(int)), parent, SLOT(remove_menu(int)));
+    connect(this, SIGNAL(remove_menu_row(int)), parent, SLOT(remove(int)));
 
     connect(menu_sort, SIGNAL(currentIndexChanged(int)), parent, SLOT(change_sort(int)));
 }

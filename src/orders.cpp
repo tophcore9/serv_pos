@@ -18,23 +18,6 @@ void Orders::open_show_order_form()
     show_order_form->show();
 }
 
-void Orders::remove_order(int index)
-{
-    QVariant order_id = model->data(model->index(index, 0));
-    order_items->remove_order_items(order_id.toInt());
-
-    if (model->rowCount() > index)
-    {
-        model->removeRow(index);
-        model->select();
-    }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
-    }
-}
-
 void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
     QString client_id;

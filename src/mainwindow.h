@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include <QEvent>
+//#include <QEvent>
 
 #include <QSqlError>
 #include <QSqlQuery>

@@ -88,17 +88,3 @@ void Clients::edit_client(QString default_phone, QString name, QString phone, QS
                               tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
 }
-
-void Clients::remove_client(int index)
-{
-    if (model->rowCount() > index)
-    {
-        model->removeRow(index);
-        model->select();
-    }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
-    }
-}

@@ -1,7 +1,7 @@
 #ifndef MODELBASE_H
 #define MODELBASE_H
 
-#include <QWidget>
+#include <QtWidgets>
 #include <QDebug>
 #include <QSqlQuery>
 #include <QSqlTableModel>
@@ -25,6 +25,7 @@ signals:
 public slots:
     void change_index(const QModelIndex index);
     void change_sort(int sort_index);
+    virtual void remove(int index);
 };
 
 #endif // MODELBASE_H

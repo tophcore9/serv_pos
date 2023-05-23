@@ -32,10 +32,17 @@ public slots:
     void open_show_menu_form();
     void open_add_menu_form();
     void open_menu();
-    void remove_menu(int);
     void add_menu(QString name, std::vector<QString> dishes);
     void edit_menu(QString default_name, QString name, std::vector<QString> dishes);
     void reset_menu_form();
+
+    void remove(int index) override
+    {
+        QVariant menu_id = model->data(model->index(index, 0));
+        menu_items->remove_menu_items(menu_id.toInt());
+
+        ModelBase::remove(index);
+    }
 };
 
 #endif // MENU_H

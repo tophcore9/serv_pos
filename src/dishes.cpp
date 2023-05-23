@@ -14,20 +14,6 @@ void Dishes::open_show_dish_form()
     show_dish_form->show();
 }
 
-void Dishes::remove_dish(int index)
-{
-    if (model->rowCount() > index)
-    {
-        model->removeRow(index);
-        model->select();
-    }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
-    }
-}
-
 void Dishes::add_dish(QString name, int weight, double price, QString category, int estimated_time, QString url)
 {
     QSqlQuery query(model->database());

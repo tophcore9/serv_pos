@@ -33,7 +33,6 @@ public slots:
     void add_category(QString name);
     void edit_category(QString default_name, QString name);
     void open_categories();
-    void remove_category(int);
     void reset_categories_form();
 };
 

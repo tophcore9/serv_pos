@@ -13,20 +13,6 @@ void Categories::open_show_category_form()
     show_category_form->show();
 }
 
-void Categories::remove_category(int index)
-{
-    if (model->rowCount() > index)
-    {
-        model->removeRow(index);
-        model->select();
-    }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n"
-                              "Будь ласка, оберіть елемент перед тим, як видалити його."));
-    }
-}
-
 void Categories::reset_categories_form()
 {
     model->setSort(0, Qt::AscendingOrder);

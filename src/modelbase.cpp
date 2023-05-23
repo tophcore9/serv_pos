@@ -41,3 +41,17 @@ void ModelBase::change_sort(int sort_index)
     }
     model->select();
 }
+
+void ModelBase::remove(int index)
+{
+    if (model->rowCount() > index)
+    {
+        model->removeRow(index);
+        model->select();
+    }
+    else
+    {
+        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Будь ласка, оберіть елемент перед тим, як видалити його."));
+    }
+}

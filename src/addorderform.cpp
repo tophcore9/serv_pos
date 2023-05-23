@@ -64,7 +64,7 @@ AddOrderForm::AddOrderForm(QSqlTableModel *clients_model, QSqlTableModel *dishes
     price_edit->setEnabled(false);
 
     client_select->setModel(clients_model);
-    client_select->setModelColumn(2);
+    client_select->setModelColumn(4);
 
 
     /// МАКЕТИ ТА КОМПОНОВКА

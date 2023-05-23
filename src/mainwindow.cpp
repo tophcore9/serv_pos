@@ -301,7 +301,7 @@ void MainWindow::remove_client_row()
 
         query.exec("DELETE FROM Orders WHERE client_id = " + client_id);
 
-        clients->remove_client(current_client);
+        clients->remove(current_client);
 
         orders->get_model()->select();
     }
@@ -309,12 +309,12 @@ void MainWindow::remove_client_row()
 
 void MainWindow::remove_dish_row()
 {
-    dishes->remove_dish(current_dish);
+    dishes->remove(current_dish);
 }
 
 void MainWindow::remove_order_row()
 {
-    orders->remove_order(current_order);
+    orders->remove(current_order);
 }
 
 void MainWindow::change_client_row(const QModelIndex index)
