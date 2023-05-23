@@ -193,7 +193,7 @@ MainWindow::MainWindow(QWidget *parent)
         dishes_list_view->setModelColumn(1);
 
         client_list_view->setModel(clients->get_model());
-        client_list_view->setModelColumn(2);
+        client_list_view->setModelColumn(4);
     }
     else
     {

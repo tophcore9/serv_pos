@@ -1,24 +1,12 @@
 #include "menu.h"
 
-Menu::Menu(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
+Menu::Menu(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : ModelBase(db, parent)
 {
     this->dishes_model = dishes_model;
-    this->parent = parent;
-    model = new QSqlTableModel(parent, db);
     model->setTable("Menu");
     model->select();
 
     menu_items = new MenuItems(db, this);
-}
-
-QSqlTableModel *Menu::get_model()
-{
-    return model;
-}
-
-void Menu::change_index(const QModelIndex index)
-{
-    this->index = index;
 }
 
 void Menu::open_show_menu_form()
@@ -101,19 +89,6 @@ void Menu::edit_menu(QString default_name, QString name, std::vector<QString> di
 
     for (int i = 0; i < dishes.size(); ++i)
         menu_items->add_menu_item(name, dishes[i]);
-}
-
-void Menu::change_sort(int sort_index)
-{
-    switch (sort_index) {
-    case 0:
-        model->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        model->setSort(1, Qt::AscendingOrder);
-        break;
-    }
-    model->select();
 }
 
 void Menu::reset_menu_form()

@@ -11,26 +11,19 @@
 #include "categoriesform.h"
 #include "addcategoryform.h"
 #include "showcategoryform.h"
+#include "modelbase.h"
 
-class Categories : public QWidget
+class Categories : public ModelBase
 {
     Q_OBJECT
 
 private:
-    QSqlTableModel *model;
-
-    QModelIndex index;
-
     CategoriesForm *categories_form;
     AddCategoryForm *add_category_form;
     ShowCategoryForm *show_category_form;
 
-    QWidget *parent;
-
 public:
     explicit Categories(QSqlDatabase &db, QWidget *parent = 0);
-
-    QSqlTableModel* get_model();
 
 signals:
 
@@ -41,8 +34,6 @@ public slots:
     void edit_category(QString default_name, QString name);
     void open_categories();
     void remove_category(int);
-    void change_index(const QModelIndex index);
-    void change_sort(int sort_index);
     void reset_categories_form();
 };
 

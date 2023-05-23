@@ -1,22 +1,10 @@
 #include "dishes.h"
 
-Dishes::Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent) : QWidget(parent)
+Dishes::Dishes(QSqlDatabase &db, QSqlTableModel *categories_model, QWidget *parent) : ModelBase(db, parent)
 {
     this->categories_model = categories_model;
-    this->parent = parent;
-    model = new QSqlTableModel(parent, db);
     model->setTable("Dishes");
     model->select();
-}
-
-QSqlTableModel *Dishes::get_model()
-{
-    return model;
-}
-
-void Dishes::change_index(const QModelIndex index)
-{
-    this->index = index;
 }
 
 void Dishes::open_show_dish_form()
@@ -107,31 +95,6 @@ void Dishes::edit_dish(QString default_name, QString name, int weight, double pr
                               tr("Повідомлення БД: ") + query.lastError().databaseText() +
                               tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
-}
-
-void Dishes::change_sort(int sort_index)
-{
-    switch (sort_index) {
-    case 0:
-        model->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        model->setSort(1, Qt::AscendingOrder);
-        break;
-    case 2:
-        model->setSort(2, Qt::AscendingOrder);
-        break;
-    case 3:
-        model->setSort(3, Qt::AscendingOrder);
-        break;
-    case 4:
-        model->setSort(4, Qt::AscendingOrder);
-        break;
-    case 5:
-        model->setSort(5, Qt::AscendingOrder);
-        break;
-    }
-    model->select();
 }
 
 void Dishes::open_add_dish_form()

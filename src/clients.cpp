@@ -1,22 +1,10 @@
 #include "clients.h"
 
-Clients::Clients(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
+Clients::Clients(QSqlDatabase &db, QSqlTableModel *dishes_model, QWidget *parent) : ModelBase(db, parent)
 {
     this->dishes_model = dishes_model;
-    this->parent = parent;
-    model = new QSqlTableModel(parent, db);
     model->setTable("Clients");
     model->select();
-}
-
-QSqlTableModel *Clients::get_model()
-{
-    return model;
-}
-
-void Clients::change_index(const QModelIndex index)
-{
-    this->index = index;
 }
 
 void Clients::open_show_client_form()
@@ -99,25 +87,6 @@ void Clients::edit_client(QString default_phone, QString name, QString phone, QS
                               tr("Повідомлення БД: ") + query.lastError().databaseText() +
                               tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
     }
-}
-
-void Clients::change_sort(int sort_index)
-{
-    switch (sort_index) {
-    case 0:
-        model->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        model->setSort(1, Qt::AscendingOrder);
-        break;
-    case 2:
-        model->setSort(3, Qt::AscendingOrder);
-        break;
-    case 3:
-        model->setSort(4, Qt::AscendingOrder);
-        break;
-    }
-    model->select();
 }
 
 void Clients::remove_client(int index)

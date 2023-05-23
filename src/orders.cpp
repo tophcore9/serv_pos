@@ -1,25 +1,14 @@
 #include "orders.h"
 
-Orders::Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent) : QWidget(parent)
+Orders::Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent) : ModelBase(db, parent)
 {
-    this->dishes_model = dishes_model;
-    this->parent = parent;
     this->clients_model = clients_model;
-    model = new QSqlTableModel(parent, db);
+    this->dishes_model = dishes_model;
+
     model->setTable("Orders");
     model->select();
 
     order_items = new OrderItems(db, this);
-}
-
-QSqlTableModel *Orders::get_model()
-{
-    return model;
-}
-
-void Orders::change_index(const QModelIndex index)
-{
-    this->index = index;
 }
 
 void Orders::open_show_order_form()
@@ -118,31 +107,6 @@ void Orders::edit_order(QString order_id, QString name, QString client, double t
 
     for (int i = 0; i < dishes.size(); ++i)
         order_items->add_order_item(name, dishes[i]);
-}
-
-void Orders::change_sort(int sort_index)
-{
-    switch (sort_index) {
-    case 0:
-        model->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        model->setSort(1, Qt::AscendingOrder);
-        break;
-    case 2:
-        model->setSort(2, Qt::AscendingOrder);
-        break;
-    case 3:
-        model->setSort(3, Qt::AscendingOrder);
-        break;
-    case 4:
-        model->setSort(4, Qt::AscendingOrder);
-        break;
-    case 5:
-        model->setSort(5, Qt::AscendingOrder);
-        break;
-    }
-    model->select();
 }
 
 void Orders::open_add_order_form()

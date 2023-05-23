@@ -1,16 +1,9 @@
 #include "categories.h"
 
-Categories::Categories(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
+Categories::Categories(QSqlDatabase &db, QWidget *parent) : ModelBase(db, parent)
 {
-    this->parent = parent;
-    model = new QSqlTableModel(parent, db);
     model->setTable("Categories");
     model->select();
-}
-
-QSqlTableModel *Categories::get_model()
-{
-    return model;
 }
 
 void Categories::open_show_category_form()
@@ -32,24 +25,6 @@ void Categories::remove_category(int index)
         QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n"
                               "Будь ласка, оберіть елемент перед тим, як видалити його."));
     }
-}
-
-void Categories::change_index(const QModelIndex index)
-{
-    this->index = index;
-}
-
-void Categories::change_sort(int sort_index)
-{
-    switch (sort_index) {
-    case 0:
-        model->setSort(0, Qt::AscendingOrder);
-        break;
-    case 1:
-        model->setSort(1, Qt::AscendingOrder);
-        break;
-    }
-    model->select();
 }
 
 void Categories::reset_categories_form()
