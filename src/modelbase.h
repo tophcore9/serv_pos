@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QSqlQuery>
 #include <QSqlTableModel>
+#include <QSqlError>
 
 class ModelBase : public QWidget
 {
@@ -19,6 +20,8 @@ public:
     QModelIndex index;
 
     QSqlTableModel* get_model();
+    void secure_query(QString query_str, QWidget *parent = 0);
+    static void secure_query_exception(QSqlQuery query, QWidget *parent = 0);
 
 signals:
 

@@ -9,6 +9,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
+#include "modelbase.h"
+
 class ShowDishForm : public QDialog
 {
     Q_OBJECT

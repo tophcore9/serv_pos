@@ -21,32 +21,24 @@ void Orders::open_show_order_form()
 void Orders::add_order(QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
     QString client_id;
+    QSqlQuery query(model->database());
 
     // Обробка індексації
-    QSqlQuery query(model->database());
-    query.exec("SELECT * FROM Clients");
-
-    while (query.next())
+    if (query.exec("SELECT * FROM Clients"))
     {
-        if (query.value("client_phone") == client)
+        while (query.next())
         {
-            client_id = query.value("client_id").toString();
-            break;
+            if (query.value("client_phone") == client)
+            {
+                client_id = query.value("client_id").toString();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    if (query.exec("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES (\"" + name + "\", " +
-                        client_id + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\");"))
-    {
-        model->select();
-        add_order_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(add_order_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+    secure_query("INSERT INTO Orders (order_name, client_id, order_price, order_estimated_time, order_date) VALUES (\"" + name + "\", " +
+                        client_id + ", " + QString::number(total_price) + ", " + QString::number(total_time) + ", \"" + date + "\")", add_order_form);
 
     for (int i = 0; i < dishes.size(); ++i)
         order_items->add_order_item(name, dishes[i]);
@@ -55,36 +47,28 @@ void Orders::add_order(QString name, QString client, double total_price, int tot
 void Orders::edit_order(QString order_id, QString name, QString client, double total_price, int total_time, QString date, std::vector<QString> dishes)
 {
     QString client_id;
+    QSqlQuery query(model->database());
 
     // Обробка індексації
-    QSqlQuery query(model->database());
-    query.exec("SELECT * FROM Clients");
-
-    while (query.next())
+    if (query.exec("SELECT * FROM Clients"))
     {
-        if (query.value("client_phone") == client)
+        while (query.next())
         {
-            client_id = query.value("client_id").toString();
-            break;
+            if (query.value("client_phone") == client)
+            {
+                client_id = query.value("client_id").toString();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    if (query.exec("UPDATE Orders SET "
+    secure_query("UPDATE Orders SET "
                    "client_id = " + client_id + ", "
                    "order_price = " + QString::number(total_price) + ", "
                    "order_estimated_time = " + QString::number(total_time) + ", "
                    "order_date = \"" + date + "\" "
-                   "WHERE order_id = \"" + order_id + "\""))
-    {
-        model->select();
-        show_order_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(show_order_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
-    }
+                   "WHERE order_id = \"" + order_id + "\"", show_order_form);
 
     order_items->remove_order_items(order_id.toInt());
 

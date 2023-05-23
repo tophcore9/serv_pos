@@ -20,30 +20,22 @@ void Dishes::add_dish(QString name, int weight, double price, QString category, 
     int category_id;
 
     // Обробка індексації
-    query.exec("SELECT * FROM Categories");
-    while (query.next())
+    if (query.exec("SELECT * FROM Categories"))
     {
-        if (query.value("category_name") == category)
+        while (query.next())
         {
-            category_id = query.value("category_id").toInt();
-            break;
+            if (query.value("category_name") == category)
+            {
+                category_id = query.value("category_id").toInt();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    // Виконання запиту і обробка помилок
-    if (query.exec("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES (\"" +
+    secure_query("INSERT INTO Dishes (dish_name, dish_weight, dish_price, dish_category, dish_estimated_time, dish_photo) VALUES (\"" +
                name + "\", " + QString::number(weight) + ", " + QString::number(price) + ", " +
-               QString::number(category_id) + ", " + QString::number(estimated_time) + ", \"" + url + "\");"))
-    {
-        model->select();
-        add_dish_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(add_dish_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+               QString::number(category_id) + ", " + QString::number(estimated_time) + ", \"" + url + "\")", add_dish_form);
 }
 
 void Dishes::edit_dish(QString default_name, QString name, int weight, double price, QString category, int estimated_time, QString url)
@@ -52,35 +44,27 @@ void Dishes::edit_dish(QString default_name, QString name, int weight, double pr
     QString category_id;
 
     // Обробка індексації
-    query.exec("SELECT * FROM Categories");
-    while (query.next())
+    if (query.exec("SELECT * FROM Categories"))
     {
-        if (query.value("category_name") == category)
+        while (query.next())
         {
-            category_id = query.value("category_id").toString();
-            break;
+            if (query.value("category_name") == category)
+            {
+                category_id = query.value("category_id").toString();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    // Виконання запиту і обробка помилок
-    if (query.exec("UPDATE Dishes SET "
+    secure_query("UPDATE Dishes SET "
                    "dish_name = \"" + name + "\", "
                    "dish_weight = " + QString::number(weight) + ", "
                    "dish_price = " + QString::number(price) + ", "
                    "dish_estimated_time = " + QString::number(estimated_time) + ", "
                    "dish_category = " + category_id + ", "
                    "dish_photo = \"" + url + "\" "
-                   "WHERE dish_name = \"" + default_name + "\""))
-    {
-        model->select();
-        show_dish_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(show_dish_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+                   "WHERE dish_name = \"" + default_name + "\"", show_dish_form);
 }
 
 void Dishes::open_add_dish_form()

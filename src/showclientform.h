@@ -8,6 +8,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
+#include "modelbase.h"
+
 class ShowClientForm : public QDialog
 {
     Q_OBJECT

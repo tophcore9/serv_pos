@@ -2,7 +2,6 @@
 
 ModelBase::ModelBase(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 {
-    this->model = model;
     this->parent = parent;
     model = new QSqlTableModel(parent, db);
 }
@@ -10,6 +9,28 @@ ModelBase::ModelBase(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
 QSqlTableModel *ModelBase::get_model()
 {
     return model;
+}
+
+void ModelBase::secure_query(QString query_str, QWidget *parent)
+{
+    QSqlQuery query(model->database());
+
+    if (query.exec(query_str))
+    {
+        model->select();
+        if (parent != 0)
+            parent->close();
+    }
+    else QMessageBox::critical(parent, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
+                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
+}
+
+void ModelBase::secure_query_exception(QSqlQuery query, QWidget *parent)
+{
+    QMessageBox::critical(parent, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
+        tr("Повідомлення БД: ") + query.lastError().databaseText() +
+        tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
 }
 
 void ModelBase::change_index(const QModelIndex index)

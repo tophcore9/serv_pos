@@ -27,30 +27,21 @@ void Clients::add_client(QString name, QString phone, QString date, QString favo
     int favourite_dish;
 
     // Обробка індексації
-    query.exec("SELECT * FROM Dishes;");
-
-    while (query.next())
+    if (query.exec("SELECT * FROM Dishes"))
     {
-        if (query.value("dish_name") == favourite)
+        while (query.next())
         {
-            favourite_dish = query.value("dish_id").toInt();
-            break;
+            if (query.value("dish_name") == favourite)
+            {
+                favourite_dish = query.value("dish_id").toInt();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    // Виконання запиту і обробка помилок
-    if (query.exec("INSERT INTO Clients (client_name, client_phone, client_registration_date, client_favourite_dish) VALUES(\"" +
-               name + "\", \"" + phone + "\", \"" + date + "\", " + QString::number(favourite_dish) + ");"))
-    {
-        model->select();
-        add_client_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(add_client_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+    secure_query("INSERT INTO Clients (client_name, client_phone, client_registration_date, client_favourite_dish) VALUES(\"" +
+               name + "\", \"" + phone + "\", \"" + date + "\", " + QString::number(favourite_dish) + ")", add_client_form);
 }
 
 void Clients::edit_client(QString default_phone, QString name, QString phone, QString date, QString favourite)
@@ -59,32 +50,23 @@ void Clients::edit_client(QString default_phone, QString name, QString phone, QS
     QString favourite_dish;
 
     // Обробка індексації
-    query.exec("SELECT * FROM Dishes;");
-
-    while (query.next())
+    if (query.exec("SELECT * FROM Dishes"))
     {
-        if (query.value("dish_name") == favourite)
+        while (query.next())
         {
-            favourite_dish = query.value("dish_id").toString();
-            break;
+            if (query.value("dish_name") == favourite)
+            {
+                favourite_dish = query.value("dish_id").toString();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    // Виконання запиту і обробка помилок
-    if (query.exec("UPDATE Clients SET "
+    secure_query("UPDATE Clients SET "
                    "client_name = \"" + name + "\", "
                    "client_phone = \"" + phone + "\", "
                    "client_favourite_dish = " + favourite_dish + ", "
                    "client_registration_date = \"" + date + "\" "
-                   "WHERE client_phone = \"" + default_phone + "\""))
-    {
-        model->select();
-        show_client_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(show_client_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+                   "WHERE client_phone = \"" + default_phone + "\"", show_client_form);
 }

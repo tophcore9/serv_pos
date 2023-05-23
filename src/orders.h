@@ -22,12 +22,8 @@ private:
     AddOrderForm *add_order_form;
     ShowOrderForm *show_order_form;
 
-
 public:
     explicit Orders(QSqlDatabase &db, QSqlTableModel *clients_model, QSqlTableModel *dishes_model, QWidget *parent = 0);
-
-
-signals:
 
 public slots:
     void open_show_order_form();
@@ -42,7 +38,6 @@ public slots:
 
         ModelBase::remove(index);
     }
-
 };
 
 #endif // ORDERS_H

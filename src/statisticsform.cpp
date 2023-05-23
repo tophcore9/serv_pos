@@ -34,20 +34,23 @@ StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(pare
     QSqlQuery query(db);
 
     // Обчислення загальної кількості створених записів
-    query.exec("SELECT * FROM sqlite_sequence");
-    while (query.next())
+    if (query.exec("SELECT * FROM sqlite_sequence"))
     {
-        if (query.value("name") == "Orders")
-            created_orders->setText(created_orders->text() + query.value("seq").toString());
-        else if (query.value("name") == "Clients")
-            created_clients->setText(created_clients->text() + query.value("seq").toString());
-        else if (query.value("name") == "Dishes")
-            created_dishes->setText(created_dishes->text() + query.value("seq").toString());
-        else if (query.value("name") == "Menu")
-            created_menu->setText(created_menu->text() + query.value("seq").toString());
-        else if (query.value("name") == "Categories")
-            created_categories->setText(created_categories->text() + query.value("seq").toString());
+        while (query.next())
+        {
+            if (query.value("name") == "Orders")
+                created_orders->setText(created_orders->text() + query.value("seq").toString());
+            else if (query.value("name") == "Clients")
+                created_clients->setText(created_clients->text() + query.value("seq").toString());
+            else if (query.value("name") == "Dishes")
+                created_dishes->setText(created_dishes->text() + query.value("seq").toString());
+            else if (query.value("name") == "Menu")
+                created_menu->setText(created_menu->text() + query.value("seq").toString());
+            else if (query.value("name") == "Categories")
+                created_categories->setText(created_categories->text() + query.value("seq").toString());
+        }
     }
+    else ModelBase::secure_query_exception(query, this);
 
     int count = 0;
     double average_price = 0;
@@ -55,14 +58,17 @@ StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(pare
     double average_time = 0;
 
     // Обчислення середніх значень страв
-    query.exec("SELECT * FROM Dishes");
-    while (query.next())
+    if (query.exec("SELECT * FROM Dishes"))
     {
-        ++count;
-        average_price += query.value("dish_price").toDouble();
-        average_weight += query.value("dish_weight").toDouble();
-        average_time += query.value("dish_estimated_time").toDouble();
+        while (query.next())
+        {
+            ++count;
+            average_price += query.value("dish_price").toDouble();
+            average_weight += query.value("dish_weight").toDouble();
+            average_time += query.value("dish_estimated_time").toDouble();
+        }
     }
+    else ModelBase::secure_query_exception(query, this);
 
     average_price /= count;
     average_weight /= count;
@@ -79,42 +85,53 @@ StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(pare
     int mvp_id = 0;
 
     // Обчислення середніх значень замовлень
-    query.exec("SELECT * FROM Orders");
-    while (query.next())
+    if (query.exec("SELECT * FROM Orders"))
     {
-        ++count;
-        average_price += query.value("order_price").toDouble();
-        average_time += query.value("order_estimated_time").toDouble();
-
-        // Знаходження найпопулярнішого клієнта ресторану
-        int client_id = query.value("client_id").toInt();
-        int count = 0;
-
-        QSqlQuery client_found(db);
-        client_found.exec("SELECT * FROM Orders");
-        while (client_found.next())
+        while (query.next())
         {
-            if (client_found.value("client_id").toInt() == client_id)
-                ++count;
+            ++count;
+            average_price += query.value("order_price").toDouble();
+            average_time += query.value("order_estimated_time").toDouble();
+
+            // Знаходження найпопулярнішого клієнта ресторану
+            int client_id = query.value("client_id").toInt();
+            int count = 0;
+
+            QSqlQuery client_found(db);
+            if (client_found.exec("SELECT * FROM Orders"))
+            {
+                while (client_found.next())
+                {
+                    if (client_found.value("client_id").toInt() == client_id)
+                        ++count;
+                }
+
+                if (count > mvp_count)
+                {
+                    mvp_id = client_id;
+                    mvp_count = count;
+                }
+
+            }
+            else ModelBase::secure_query_exception(client_found, this);
         }
 
-        if (count > mvp_count)
-        {
-            mvp_id = client_id;
-            mvp_count = count;
-        }
     }
+    else ModelBase::secure_query_exception(query, this);
 
     // Перетворення індексу страву на її назву
-    query.exec("SELECT * FROM Clients");
-    while (query.next())
+    if (query.exec("SELECT * FROM Clients"))
     {
-        if (query.value("client_id").toInt() == mvp_id)
+        while (query.next())
         {
-            mvp_client->setText(mvp_client->text() + "\"" + query.value("client_phone").toString() + "\"");
-            break;
+            if (query.value("client_id").toInt() == mvp_id)
+            {
+                mvp_client->setText(mvp_client->text() + "\"" + query.value("client_phone").toString() + "\"");
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
     average_price /= count;
     average_time /= count;
@@ -126,37 +143,46 @@ StatisticsForm::StatisticsForm(QSqlDatabase &db, QWidget *parent) : QDialog(pare
     mvp_id = 0;
 
     // Знаходження найпопулярнішої страви
-    query.exec("SELECT * FROM OrderItems");
-    while (query.next())
+    if (query.exec("SELECT * FROM OrderItems"))
     {
-        int dish_id = query.value("dish_id").toInt();
-        int count = 0;
-
-        QSqlQuery dish_found(db);
-        dish_found.exec("SELECT * FROM OrderItems");
-        while (dish_found.next())
+        while (query.next())
         {
-            if (dish_found.value("dish_id").toInt() == dish_id)
-                ++count;
-        }
+            int dish_id = query.value("dish_id").toInt();
+            int count = 0;
 
-        if (count > mvp_count)
-        {
-            mvp_id = dish_id;
-            mvp_count = count;
+            QSqlQuery dish_found(db);
+            if (dish_found.exec("SELECT * FROM OrderItems"))
+            {
+                while (dish_found.next())
+                {
+                    if (dish_found.value("dish_id").toInt() == dish_id)
+                        ++count;
+                }
+
+                if (count > mvp_count)
+                {
+                    mvp_id = dish_id;
+                    mvp_count = count;
+                }
+            }
+            else ModelBase::secure_query_exception(dish_found, this);
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
     // Перетворення індексу страву на її назву
-    query.exec("SELECT * FROM Dishes");
-    while (query.next())
+    if (query.exec("SELECT * FROM Dishes"))
     {
-        if (query.value("dish_id").toInt() == mvp_id)
+        while (query.next())
         {
-            mvp_dish->setText(mvp_dish->text() + "\"" + query.value("dish_name").toString() + "\"");
-            break;
+            if (query.value("dish_id").toInt() == mvp_id)
+            {
+                mvp_dish->setText(mvp_dish->text() + "\"" + query.value("dish_name").toString() + "\"");
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
 
     /// МАКЕТИ І КОМПОНОВКА

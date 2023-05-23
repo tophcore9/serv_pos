@@ -7,19 +7,14 @@
 #include <QSqlQuery>
 #include <QSqlError>
 
-class OrderItems : public QWidget
+#include "modelbase.h"
+
+class OrderItems : public ModelBase
 {
     Q_OBJECT
 
-private:
-    QSqlTableModel *model;
-
 public:
     explicit OrderItems(QSqlDatabase &db, QWidget *parent = 0);
-
-    QSqlTableModel* get_model();
-
-signals:
 
 public slots:
     void add_order_item(QString order_name, QString dish_name);

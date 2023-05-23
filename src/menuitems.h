@@ -7,19 +7,14 @@
 #include <QDebug>
 #include <QSqlError>
 
-class MenuItems : public QWidget
+#include "modelbase.h"
+
+class MenuItems : public ModelBase
 {
     Q_OBJECT
 
-private:
-    QSqlTableModel *model;
-
 public:
     explicit MenuItems(QSqlDatabase &db, QWidget *parent = 0);
-
-    QSqlTableModel* get_model();
-
-signals:
 
 public slots:
     void add_menu_item(QString menu_name, QString dish_name);

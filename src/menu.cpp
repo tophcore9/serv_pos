@@ -18,19 +18,7 @@ void Menu::open_show_menu_form()
 
 void Menu::add_menu(QString name, std::vector<QString> dishes)
 {
-    QSqlQuery query(model->database());
-
-    if (query.exec("INSERT INTO Menu (menu_name) VALUES (\"" + name + "\");"))
-    {
-        model->select();
-        add_menu_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(add_menu_form, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+    secure_query("INSERT INTO Menu (menu_name) VALUES (\"" + name + "\")", add_menu_form);
 
     for (int i = 0; i < dishes.size(); ++i)
         menu_items->add_menu_item(name, dishes[i]);
@@ -53,20 +41,11 @@ void Menu::edit_menu(QString default_name, QString name, std::vector<QString> di
             }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    if (query.exec("UPDATE Menu SET "
+    secure_query("UPDATE Menu SET "
                    "menu_name = \"" + name + "\" "
-                   "WHERE menu_id = \"" + menu_id + "\""))
-    {
-        model->select();
-        show_menu_form->close();
-    }
-    else
-    {
-        QMessageBox::critical(show_menu_form, "Помилка!", "Не вдалось виконати запит!\n"
-                              "Повідомлення БД: " + query.lastError().databaseText() +
-                              "\nПовідомлення драйвера: " + query.lastError().driverText());
-    }
+                   "WHERE menu_id = \"" + menu_id + "\"", show_menu_form);
 
     menu_items->remove_menu_items(menu_id.toInt());
 

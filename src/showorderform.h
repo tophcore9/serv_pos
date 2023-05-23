@@ -9,6 +9,8 @@
 #include <QSqlError>
 #include <functional>
 
+#include "modelbase.h"
+
 class ShowOrderForm : public QDialog
 {
     Q_OBJECT

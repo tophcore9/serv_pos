@@ -47,7 +47,7 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
     favourite_dish_select->setModelColumn(1);
 
     QSqlQuery query(dishes_model->database());
-    if (query.exec("SELECT * FROM Clients JOIN Dishes ON Clients.client_favourite_dish = Dishes.dish_id"))
+    if (query.exec("SELECTs * FROM Clients JOIN Dishes ON Clients.client_favourite_dish = Dishes.dish_id"))
     {
         while (query.next())
         {
@@ -68,13 +68,7 @@ ShowClientForm::ShowClientForm(QModelIndex client_index, QSqlTableModel *dishes_
             }
         }
     }
-    else
-    {
-        // Обробка помилок
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+    else ModelBase::secure_query_exception(query, this);
 
 
     /// МАКЕТИ І КОМПОНОВКА

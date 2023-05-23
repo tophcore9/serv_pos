@@ -285,21 +285,29 @@ void MainWindow::remove_client_row()
         QSqlQuery query(db);
         QString client_id;
 
-        query.exec("SELECT * FROM Clients");
-        while (query.next())
+        if (query.exec("SELECT * FROM Clients"))
         {
-            if (query.value("client_phone").toString() == client_list_view->currentIndex().data(0).toString())
-            client_id = query.value("client_id").toString();
+            while (query.next())
+            {
+                if (query.value("client_phone").toString() == client_list_view->currentIndex().data(0).toString())
+                client_id = query.value("client_id").toString();
+            }
         }
+        else ModelBase::secure_query_exception(query, this);
 
-        query.exec("SELECT * FROM Orders WHERE client_id = " + client_id);
-        while (query.next())
+        if (query.exec("SELECT * FROM Orders WHERE client_id = " + client_id))
         {
-            QSqlQuery query2(db);
-            query2.exec("DELETE FROM OrderItems WHERE order_id = " + query.value("order_id").toString());
+            while (query.next())
+            {
+                QSqlQuery query2(db);
+                if(!(query2.exec("DELETE FROM OrderItems WHERE order_id = " + query.value("order_id").toString())))
+                    ModelBase::secure_query_exception(query2, this);
+            }
         }
+        else ModelBase::secure_query_exception(query, this);
 
-        query.exec("DELETE FROM Orders WHERE client_id = " + client_id);
+        if (!(query.exec("DELETE FROM Orders WHERE client_id = " + client_id)))
+            ModelBase::secure_query_exception(query, this);
 
         clients->remove(current_client);
 

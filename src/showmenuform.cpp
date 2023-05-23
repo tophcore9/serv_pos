@@ -42,12 +42,7 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlTableModel *dishes_model,
             }
         }
     }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+    else ModelBase::secure_query_exception(query, this);
 
     if (query.exec("SELECT * FROM MenuItems JOIN Dishes ON MenuItems.dish_id = Dishes.dish_id"))
     {
@@ -59,12 +54,7 @@ ShowMenuForm::ShowMenuForm(QModelIndex menu_index, QSqlTableModel *dishes_model,
             }
         }
     }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+    else ModelBase::secure_query_exception(query, this);
 
     current_dish_item = 0;
     dish_grid_index = 2 + current_dish_item;

@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-//#include <QEvent>
 
 #include <QSqlError>
 #include <QSqlQuery>
@@ -14,6 +13,7 @@
 #include "categories.h"
 #include "menu.h"
 #include "statisticsform.h"
+#include "modelbase.h"
 
 class MainWindow : public QMainWindow
 {

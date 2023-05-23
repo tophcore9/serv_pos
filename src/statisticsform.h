@@ -9,6 +9,8 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
+#include "modelbase.h"
+
 class StatisticsForm : public QDialog
 {
     Q_OBJECT
@@ -36,12 +38,6 @@ private:
 
 public:
     explicit StatisticsForm(QSqlDatabase &db, QWidget *parent = 0);
-    // Створених замовлень, клієнтів, страв, меню та категорій за весь час та на поточний момент
-    // Середня вартість, вага, час приготування страв
-    // Середня вартість замовлень
-    // Найчастіша страва, найактивніший клієнт
-
-signals:
 
 public slots:
 };

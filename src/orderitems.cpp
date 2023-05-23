@@ -1,15 +1,9 @@
 #include "orderitems.h"
 
-OrderItems::OrderItems(QSqlDatabase &db, QWidget *parent) : QWidget(parent)
+OrderItems::OrderItems(QSqlDatabase &db, QWidget *parent) : ModelBase(db, parent)
 {
-    model = new QSqlTableModel(parent, db);
     model->setTable("OrderItems");
     model->select();
-}
-
-QSqlTableModel *OrderItems::get_model()
-{
-    return model;
 }
 
 void OrderItems::add_order_item(QString order_name, QString dish_name)
@@ -17,42 +11,36 @@ void OrderItems::add_order_item(QString order_name, QString dish_name)
     QSqlQuery query(model->database());
     int order_id, dish_id;
 
-    query.exec("SELECT * FROM Orders");
-    while (query.next())
+    if (query.exec("SELECT * FROM Orders"))
     {
-        if (query.value("order_name") == order_name)
+        while (query.next())
         {
-            order_id = query.value("order_id").toInt();
-            break;
+            if (query.value("order_name") == order_name)
+            {
+                order_id = query.value("order_id").toInt();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    query.exec("SELECT * FROM Dishes");
-    while (query.next())
+    if (query.exec("SELECT * FROM Dishes"))
     {
-        if (query.value("dish_name") == dish_name)
+        while (query.next())
         {
-            dish_id = query.value("dish_id").toInt();
-            break;
+            if (query.value("dish_name") == dish_name)
+            {
+                dish_id = query.value("dish_id").toInt();
+                break;
+            }
         }
     }
+    else ModelBase::secure_query_exception(query, this);
 
-    if (query.exec("INSERT INTO OrderItems (order_id, dish_id) VALUES (" + QString::number(order_id) + ", " + QString::number(dish_id) + ");"))
-        model->select();
-    else
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
+    secure_query("INSERT INTO OrderItems (order_id, dish_id) VALUES (" + QString::number(order_id) + ", " + QString::number(dish_id) + ")");
 }
 
 void OrderItems::remove_order_items(int order_id)
 {
-    QSqlQuery query(model->database());
-
-    if (query.exec("DELETE FROM OrderItems WHERE order_id = " + QString::number(order_id)))
-        model->select();
-    else
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
+    secure_query("DELETE FROM OrderItems WHERE order_id = " + QString::number(order_id));
 }

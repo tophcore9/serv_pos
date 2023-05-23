@@ -224,31 +224,37 @@ void AddOrderForm::refresh_values(QString)
         if (add_dish_selects[i] != NULL)
         {
             // Підрахування вартості заказу
-            query.exec("SELECT * FROM Dishes");
-            while (query.next())
+            if (query.exec("SELECT * FROM Dishes"))
             {
-                if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                while (query.next())
                 {
-                    // У випадку співпадання улюбленої страви клієнта діє знижка 12%
-                    double est_price = (count_dish_edits[i]->text().toInt() * query.value("dish_price").toDouble());
-                    if (query.value("dish_name") == client_dish)
-                        current_dish_price += est_price - est_price * 0.12;
-                    else
-                        current_dish_price += est_price;
-                    break;
+                    if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                    {
+                        // У випадку співпадання улюбленої страви клієнта діє знижка 12%
+                        double est_price = (count_dish_edits[i]->text().toInt() * query.value("dish_price").toDouble());
+                        if (query.value("dish_name") == client_dish)
+                            current_dish_price += est_price - est_price * 0.12;
+                        else
+                            current_dish_price += est_price;
+                        break;
+                    }
                 }
             }
+            else ModelBase::secure_query_exception(query, this);
 
             // Знаходження найбільшого часу приготування
-            query.exec("SELECT * FROM Dishes");
-            while (query.next())
+            if (query.exec("SELECT * FROM Dishes"))
             {
-                if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                while (query.next())
                 {
-                    if (count_dish_edits[i]->text().toInt() > 0 && current_dish_estimated_time < query.value("dish_estimated_time").toInt())
-                        current_dish_estimated_time = query.value("dish_estimated_time").toInt();
+                    if (query.value("dish_name") == add_dish_selects[i]->currentText())
+                    {
+                        if (count_dish_edits[i]->text().toInt() > 0 && current_dish_estimated_time < query.value("dish_estimated_time").toInt())
+                            current_dish_estimated_time = query.value("dish_estimated_time").toInt();
+                    }
                 }
             }
+            else ModelBase::secure_query_exception(query, this);
         }
     }
 

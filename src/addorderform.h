@@ -7,6 +7,8 @@
 #include "clients.h"
 #include <functional>
 
+#include "modelbase.h"
+
 class AddOrderForm : public QDialog
 {
     Q_OBJECT

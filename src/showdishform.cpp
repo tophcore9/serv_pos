@@ -97,13 +97,7 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
             }
         }
     }
-    else
-    {
-        // Обробка помилок
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось виконати запит!\n") +
-                              tr("Повідомлення БД: ") + query.lastError().databaseText() +
-                              tr("\nПовідомлення драйвера: ") + query.lastError().driverText());
-    }
+    else ModelBase::secure_query_exception(query, this);
 
 
     /// МАКЕТИ ТА КОМПОНОВКА
@@ -165,9 +159,7 @@ ShowDishForm::ShowDishForm(QModelIndex dish_index, QSqlTableModel *categories_mo
 void ShowDishForm::edit_dish()
 {
     if (new_dish_photo == "__new")
-    {
         new_dish_photo = past_dish_photo;
-    }
     else
     {
         // Видалення попереднього зображення
@@ -213,10 +205,7 @@ void ShowDishForm::reselect_image()
             info_layout->addWidget(rechoose_picture_btn, 0, 3, Qt::AlignTop);
         }
     }
-    else
-    {
-        QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось відкрити/копіювати файл!\n") + source.errorString());
-    }
+    else QMessageBox::critical(this, tr("Помилка!"), tr("Не вдалось відкрити/копіювати файл!\n") + source.errorString());
 }
 
 void ShowDishForm::cancel_edit_dish()
