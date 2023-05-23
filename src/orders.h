@@ -1,15 +1,11 @@
 #ifndef ORDERS_H
 #define ORDERS_H
 
-#include <QWidget>
-#include <QDebug>
-#include <QSqlTableModel>
-#include <QSqlQuery>
+#include "modelbase.h" // BASE-CLASS
 
 #include "addorderform.h"
 #include "orderitems.h"
 #include "showorderform.h"
-#include "modelbase.h"
 
 class Orders : public ModelBase
 {

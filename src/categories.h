@@ -1,17 +1,11 @@
 #ifndef CATEGORIES_H
 #define CATEGORIES_H
 
-#include <QtWidgets>
-#include <QDebug>
-
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QSqlError>
+#include "modelbase.h" // BASE-CLASS
 
 #include "categoriesform.h"
 #include "addcategoryform.h"
 #include "showcategoryform.h"
-#include "modelbase.h"
 
 class Categories : public ModelBase
 {

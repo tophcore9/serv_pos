@@ -15,7 +15,6 @@
 #define ADDCATEGORYFORM_H
 
 #include <QtWidgets>
-#include <QDialog>
 #include <QSqlTableModel>
 #include <QDebug>
 

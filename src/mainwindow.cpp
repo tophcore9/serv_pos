@@ -1,7 +1,4 @@
 #include "mainwindow.h"
-#include "clients.h"
-#include "orders.h"
-#include "dishes.h"
 
 void MainWindow::change_main_window_lang()
 {

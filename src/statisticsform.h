@@ -1,14 +1,6 @@
 #ifndef STATISTICSFORM_H
 #define STATISTICSFORM_H
 
-#include <QDialog>
-#include <QtWidgets>
-#include <QDebug>
-
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-
 #include "modelbase.h"
 
 class StatisticsForm : public QDialog

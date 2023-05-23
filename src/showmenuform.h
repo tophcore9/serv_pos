@@ -1,12 +1,6 @@
 #ifndef SHOWMENUFORM_H
 #define SHOWMENUFORM_H
 
-#include <QDialog>
-#include <QtWidgets>
-
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QSqlError>
 #include <functional>
 
 #include "modelbase.h"

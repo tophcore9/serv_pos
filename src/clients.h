@@ -1,14 +1,10 @@
 #ifndef CLIENTS_H
 #define CLIENTS_H
 
-#include <QWidget>
-#include <QDebug>
-#include <QSqlQuery>
-#include <QSqlTableModel>
+#include "modelbase.h" // BASE-CLASS
 
 #include "addclientform.h"
 #include "showclientform.h"
-#include "modelbase.h"
 
 class Clients : public ModelBase
 {

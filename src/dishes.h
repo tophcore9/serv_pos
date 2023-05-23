@@ -1,15 +1,10 @@
 #ifndef DISHES_H
 #define DISHES_H
 
-#include <QWidget>
-#include <QDebug>
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QSqlError>
+#include "modelbase.h" // BASE-CLASS
 
 #include "adddishform.h"
 #include "showdishform.h"
-#include "modelbase.h"
 
 class Dishes : public ModelBase
 {

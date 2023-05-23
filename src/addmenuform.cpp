@@ -1,5 +1,4 @@
 #include "addmenuform.h"
-#include <functional>
 
 AddMenuForm::AddMenuForm(QSqlTableModel *menu_model, QSqlTableModel *dishes_model, QWidget *parent) : QDialog(parent)
 {

@@ -1,12 +1,6 @@
 #ifndef SHOWORDERFORM_H
 #define SHOWORDERFORM_H
 
-#include <QDialog>
-#include <QtWidgets>
-
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QSqlError>
 #include <functional>
 
 #include "modelbase.h"

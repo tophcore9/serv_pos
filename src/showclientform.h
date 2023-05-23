@@ -1,13 +1,6 @@
 #ifndef SHOWCLIENTFORM_H
 #define SHOWCLIENTFORM_H
 
-#include <QDialog>
-#include <QtWidgets>
-
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QSqlError>
-
 #include "modelbase.h"
 
 class ShowClientForm : public QDialog

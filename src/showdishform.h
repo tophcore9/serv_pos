@@ -1,14 +1,6 @@
 #ifndef SHOWDISHFORM_H
 #define SHOWDISHFORM_H
 
-#include <QDialog>
-#include <QtWidgets>
-#include <QDebug>
-
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QSqlError>
-
 #include "modelbase.h"
 
 class ShowDishForm : public QDialog

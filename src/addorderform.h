@@ -1,13 +1,11 @@
 #ifndef ADDORDERFORM_H
 #define ADDORDERFORM_H
 
-#include <QtWidgets>
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include "clients.h"
 #include <functional>
+#include <ctime>
 
 #include "modelbase.h"
+#include "clients.h"
 
 class AddOrderForm : public QDialog
 {

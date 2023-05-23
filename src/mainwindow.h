@@ -1,19 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QtWidgets>
+#include <QMainWindow> // BASE-CLASS
 
-#include <QSqlError>
-#include <QSqlQuery>
-
+#include "modelbase.h"
 #include "orders.h"
 #include "dishes.h"
 #include "clients.h"
 #include "categories.h"
 #include "menu.h"
 #include "statisticsform.h"
-#include "modelbase.h"
 
 class MainWindow : public QMainWindow
 {

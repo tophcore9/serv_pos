@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include <QSqlTableModel>
+
 #include "categories.h"
 
 class AddDishForm : public QDialog

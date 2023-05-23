@@ -2,9 +2,9 @@
 #define ADDMENUFORM_H
 
 #include <QtWidgets>
-#include <QDialog>
 #include <QSqlTableModel>
 #include <QDebug>
+#include <functional>
 
 class AddMenuForm : public QDialog
 {

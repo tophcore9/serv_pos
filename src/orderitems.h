@@ -1,13 +1,7 @@
 #ifndef ORDERITEMS_H
 #define ORDERITEMS_H
 
-#include <QtWidgets>
-#include <QSqlTableModel>
-#include <QDebug>
-#include <QSqlQuery>
-#include <QSqlError>
-
-#include "modelbase.h"
+#include "modelbase.h" // BASE-CLASS
 
 class OrderItems : public ModelBase
 {

@@ -1,13 +1,7 @@
 #ifndef MENUITEMS_H
 #define MENUITEMS_H
 
-#include <QtWidgets>
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QDebug>
-#include <QSqlError>
-
-#include "modelbase.h"
+#include "modelbase.h" // BASE-CLASS
 
 class MenuItems : public ModelBase
 {

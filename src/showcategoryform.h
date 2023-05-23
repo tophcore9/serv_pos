@@ -1,9 +1,7 @@
 #ifndef SHOWCATEGORYFORM_H
 #define SHOWCATEGORYFORM_H
 
-#include <QDialog>
 #include <QtWidgets>
-
 #include <QSqlTableModel>
 
 class ShowCategoryForm : public QDialog
