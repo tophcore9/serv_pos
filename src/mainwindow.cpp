@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Зміна кольору вікна
     QPalette pal = this->palette();
-    pal.setColor(QPalette::Background, Qt::gray);
+    pal.setBrush(QPalette::Window, Qt::gray);
     this->setPalette(pal);
 
 

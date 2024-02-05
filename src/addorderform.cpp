@@ -124,7 +124,7 @@ QString AddOrderForm::generate_uniq_hash()
             estimated_time_edit->text() +
             QString::number(current_dish_item) +
             client_select->currentText() +
-            rand();
+            QString::number(rand());
 
     // Хешування строки та обрізання її до 3-5 символів
     QString hash = QString::number(std::hash<std::string>()(u_cipher.toStdString()));
